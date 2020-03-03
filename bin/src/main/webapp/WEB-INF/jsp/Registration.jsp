@@ -6,34 +6,14 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<script>
-function FormValidation(){
-	//First Name Validation 
-	alert("hi");
-	    var fn=document.getElementById('firstname').value;
-	    if(fn == ""){
-	      
-	        document.getElementById('firstname').style.borderColor = "red";
-	        return false;
-	    }
-
-
-
-
-
-
-
-
-
-</script>
 </head>
 <body>
 
 
-	<form:form action="go" method="POST" modelAttribute="volunteer">
+	<form:form action="" method="POST" modelAttribute="volunteer">
 
-First Name:<form:input path="firstName" id="firstname" />
-		<form:errors path="firstName" onload="FormValidation()"></form:errors>
+First Name:<form:input path="firstName" />
+		<form:errors path="firstName"></form:errors>
 		<br><br>
 		
 		

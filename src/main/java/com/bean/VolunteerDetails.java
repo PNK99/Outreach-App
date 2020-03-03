@@ -2,8 +2,7 @@ package com.bean;
 
 
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.stereotype.Component;
+import javax.validation.constraints.NotNull;
 
 
 
@@ -20,8 +19,8 @@ private String lastName;
 
 
 
-//@NotEmpty(message="please update the mandatory highlighted fields")
-private int age;
+@NotNull(message="please update the mandatory highlighted fields")
+private Integer age;
 
 
 
@@ -29,12 +28,12 @@ private int age;
 private String gender;
 
 
-//@NotEmpty(message="please update the mandatory highlighted fields")
-private int contactNumber;
+@NotNull(message="please update the mandatory highlighted fields")
+private Integer contactNumber;
 
 
-//@NotEmpty(message="please update the mandatory highlighted fields")
-private int volunteerId;
+@NotNull(message="please update the mandatory highlighted fields")
+private Integer volunteerId;
 
 
 
@@ -46,45 +45,86 @@ private String password;
 public String getFirstName() {
 	return firstName;
 }
+
+
+
 public void setFirstName(String firstName) {
 	this.firstName = firstName;
 }
+
+
+
 public String getLastName() {
 	return lastName;
 }
+
+
+
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
-public int getAge() {
+
+
+
+public Integer getAge() {
 	return age;
 }
-public void setAge(int age) {
+
+
+
+public void setAge(Integer age) {
 	this.age = age;
 }
+
+
+
 public String getGender() {
 	return gender;
 }
+
+
+
 public void setGender(String gender) {
 	this.gender = gender;
 }
-public int getContactNumber() {
+
+
+
+public Integer getContactNumber() {
 	return contactNumber;
 }
-public void setContactNumber(int contactNumber) {
+
+
+
+public void setContactNumber(Integer contactNumber) {
 	this.contactNumber = contactNumber;
 }
-public int getVolunteerId() {
+
+
+
+public Integer getVolunteerId() {
 	return volunteerId;
 }
-public void setVolunteerId(int volunteerId) {
+
+
+
+public void setVolunteerId(Integer volunteerId) {
 	this.volunteerId = volunteerId;
 }
+
+
+
 public String getPassword() {
 	return password;
 }
+
+
+
 public void setPassword(String password) {
 	this.password = password;
 }
+
+
 
 
 
