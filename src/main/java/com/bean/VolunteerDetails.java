@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 public class VolunteerDetails {
 	
 	
+	
+private String userRole;
+	
 @NotEmpty(message="please update the mandatory highlighted fields" )
 private String firstName;
 
@@ -39,6 +42,18 @@ private Integer volunteerId;
 
 @NotEmpty(message="please update the mandatory highlighted fields")
 private String password;
+
+
+
+public String getUserRole() {
+	return userRole;
+}
+
+
+
+public void setUserRole(String userRole) {
+	this.userRole = userRole;
+}
 
 
 

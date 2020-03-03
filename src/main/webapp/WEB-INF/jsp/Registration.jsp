@@ -1,39 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<script>
-function FormValidation(){
-	//First Name Validation 
-	alert("hi");
-	    var fn=document.getElementById('firstname').value;
-	    if(fn == ""){
-	      
-	        document.getElementById('firstname').style.borderColor = "red";
-	        return false;
-	    }
 
-
-
-
-
-
-
-
-
-</script>
 </head>
 <body>
 
 
 	<form:form action="go" method="POST" modelAttribute="volunteer">
+	
+	
+UserRole:<form:select path="userRole">
+    <form:option value="${type }"></form:option>
+
+
+</form:select>
+		<form:errors path="userRole" ></form:errors>
+		<br><br>
+	
+	
+
 
 First Name:<form:input path="firstName" id="firstname" />
-		<form:errors path="firstName" onload="FormValidation()"></form:errors>
+		<form:errors path="firstName" ></form:errors>
 		<br><br>
 		
 		

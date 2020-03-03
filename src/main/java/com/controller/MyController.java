@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -31,4 +34,15 @@ public class MyController {
 		
 		return "Registration";
 	}
+	
+	@ModelAttribute("type")  
+	public List<String> user(){
+		List<String> l=new ArrayList<String>();
+		l.add("");
+		l.add("");
+		return l;
+	}
+	
+	
+	
 }
