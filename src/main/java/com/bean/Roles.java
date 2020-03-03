@@ -2,12 +2,14 @@ package com.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
-public class Roles implements Serializable {
+@Entity
+public class Roles  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,15 +18,7 @@ public class Roles implements Serializable {
 	@NotEmpty
 	private String roleName;
 
-	public Roles() {
-
-	}
-
-	public Roles(Integer roleId, String roleName) {
-		super();
-		this.roleId = roleId;
-		this.roleName = roleName;
-	}
+	
 
 	public Integer getRoleId() {
 		return roleId;

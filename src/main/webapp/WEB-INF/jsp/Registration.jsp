@@ -16,7 +16,7 @@
 	
 	
 UserRole:<form:select path="userRole">
-    <form:option value="${type }"></form:option>
+    <form:options items="${type }"></form:options>
 
 
 </form:select>
