@@ -15,7 +15,7 @@
 		<c:out value="${event.activity}" /> 
 		<c:out value="${event.place}"/>
 		<c:out value="${event.date.toString().substring(0,10)}"/>
-		<a href="/join?id=${event.id}">Join</a>
+		<a href="join/${event.id}">Join</a>
 	</c:forEach>
 </body>
 </html>
