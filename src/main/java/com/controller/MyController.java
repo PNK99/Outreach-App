@@ -23,23 +23,11 @@ public class MyController {
 	@Autowired
 	private RolesService service;
 	
-<<<<<<< HEAD
-	@PostMapping("/go")
-	public String reg1(@Valid@ModelAttribute("volunteer")VolunteerDetails d,BindingResult br,ModelMap m) {
-		if(br.hasErrors()) {
-			return "registration";
-		}
-		return "result";
-	}
-	
-=======
 	
 	@GetMapping("/home")
 	public String home() {
 		return "home";
 	}
->>>>>>> 6cd891250461fff83e2fda87764cc0163b1c92d9
-	
 	
 	@GetMapping("/valid")
 	public String reg(@ModelAttribute("volunteer")VolunteerDetails d) {
@@ -53,7 +41,6 @@ public class MyController {
 		
 		return m;
 	}
-	
 	
 	
 }
