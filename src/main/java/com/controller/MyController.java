@@ -26,7 +26,7 @@ public class MyController {
 	@PostMapping("/go")
 	public String reg1(@Valid@ModelAttribute("volunteer")VolunteerDetails d,BindingResult br,ModelMap m) {
 		if(br.hasErrors()) {
-			return "Registration";
+			return "registration";
 		}
 		return "result";
 	}
@@ -36,7 +36,7 @@ public class MyController {
 	@GetMapping("/valid")
 	public String reg(@ModelAttribute("volunteer")VolunteerDetails d) {
 		
-		return "Registration";
+		return "registration";
 	}
 	
 	@ModelAttribute("type")  

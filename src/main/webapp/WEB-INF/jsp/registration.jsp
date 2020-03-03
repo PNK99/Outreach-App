@@ -52,7 +52,7 @@ Volunteer Id:<form:input path="volunteerId" />
 		<form:errors path="volunteerId"></form:errors>
 		<br>
 		<br>
-Password:<form:input path="password" />
+Password:<form:input type="password" path="password" />
 		<form:errors path="password"></form:errors>
 		<br>
 		<br>

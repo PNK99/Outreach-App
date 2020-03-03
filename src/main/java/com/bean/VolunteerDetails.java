@@ -32,7 +32,7 @@ private String gender;
 
 
 @NotNull(message="please update the mandatory highlighted fields")
-private Integer contactNumber;
+private String contactNumber;
 
 
 @NotNull(message="please update the mandatory highlighted fields")
@@ -105,13 +105,13 @@ public void setGender(String gender) {
 
 
 
-public Integer getContactNumber() {
+public String getContactNumber() {
 	return contactNumber;
 }
 
 
 
-public void setContactNumber(Integer contactNumber) {
+public void setContactNumber(String contactNumber) {
 	this.contactNumber = contactNumber;
 }
 
