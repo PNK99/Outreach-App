@@ -21,8 +21,8 @@ public class EventService {
 	private EventDao eventDao;
 	
 	
-	public void joinVolunteer(int id) {
-		Optional<User> userOp=userDao.findById(1);
+	public void subscribeEvent(int id) {
+		Optional<User> userOp=userDao.findById(2);
 		Optional<Event> eventOp=eventDao.findById(id);
 		
 		User user=userOp.get();
@@ -31,13 +31,33 @@ public class EventService {
 		user.getEvents().add(event);
 		userDao.save(user);
 		
+		event.getVolunteers().add(user);
+		eventDao.save(event);
+		
 	}
 	
 	public Set<Event> getYourEvents(){
-		Optional<User> user = userDao.findById(1);
+		Optional<User> user = userDao.findById(2);
 		Set<Event> listOfEvents= user.get().getEvents();
 		
 		return listOfEvents;
 		
 	}
+	
+	
+	public void unsubscribeEvent(int id) {
+		Optional<User> userOp=userDao.findById(2);
+		Optional<Event> eventOp=eventDao.findById(id);
+		
+		User user=userOp.get();
+		Event event =eventOp.get();
+		
+		user.getEvents().remove(event);
+		userDao.save(user);
+		
+		event.getVolunteers().remove(user);
+		eventDao.save(event);
+		
+	}
+	
 }
