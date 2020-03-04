@@ -36,7 +36,8 @@ div#header img{
  		
 	<h1>Outreach</h1>
 	
-	<a href="login">Login</a>
-	<a href="signUp">Sign Up</a>	
+	<a href="Admin">Admin</a>
+	<a href="Volunteer">Volunteer</a>
+	
 </body>
 </html>
