@@ -32,7 +32,7 @@ public class Event {
 
 	private String description;
 
-	private String DosAndDonts;
+	private String dosAndDonts;
 
 	@ManyToMany
 	@JoinTable(name = "event_volunteers", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
@@ -90,11 +90,11 @@ public class Event {
 	}
 
 	public String getDosAndDonts() {
-		return DosAndDonts;
+		return dosAndDonts;
 	}
 
 	public void setDosAndDonts(String dosAndDonts) {
-		DosAndDonts = dosAndDonts;
+		this.dosAndDonts = dosAndDonts;
 	}
 
 	public String getDescription() {
@@ -132,7 +132,7 @@ public class Event {
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", place=" + place + ", activity=" + activity + ", date=" + date + ", contactNumber="
-				+ contactNumber + ", DosAndDonts=" + DosAndDonts + ", donationAmount=" + donationAmount
+				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
 				+ ", voluteerPresent=" + voluteerPresent + "]";
 	}
 
