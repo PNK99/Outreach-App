@@ -28,8 +28,6 @@ public class EventService {
 		User user=userOp.get();
 		Event event =eventOp.get();
 		
-		user.getEvents().add(event);
-		userDao.save(user);
 		
 		event.getVolunteers().add(user);
 		eventDao.save(event);
@@ -52,8 +50,7 @@ public class EventService {
 		User user=userOp.get();
 		Event event =eventOp.get();
 		
-		user.getEvents().remove(event);
-		userDao.save(user);
+		
 		
 		event.getVolunteers().remove(user);
 		eventDao.save(event);

@@ -25,70 +25,72 @@ public class EventController {
 
 	@Autowired
 	private EventDao eventDao;
-	
+
 	@Autowired
 	private UserDao userDao;
-	
-	
+
 	@Autowired
 	private EventService eventService;
 
-	
 	@GetMapping("/createEvent")
 	public String createEvent(@ModelAttribute("event") Event event) {
 		return "createevent";
 	}
-	
+
 	@PostMapping("/createdEvent")
 	public String createdEvent(@ModelAttribute("event") Event event) {
+
 		eventDao.save(event);
-		
-		System.out.println(event);
-		return "redirect:home"; 
+
+		return "redirect:home";
 	}
-	
+
 	@GetMapping("/viewEvents")
 	public String viewEvents(Model map) {
-		List<Event> events =  eventDao.findAll();
-		User user=userDao.findById(2).get();
-		map.addAttribute("user",user);
-		
-		map.addAttribute("events",events);
-		
+
+		List<Event> events = eventDao.findAll();
+		User user = userDao.findById(2).get();
+		map.addAttribute("user", user);
+
+		map.addAttribute("events", events);
+
 		return "viewevents";
 	}
-	
+
 	@ModelAttribute("activityList")
 	public List<String> activityList() {
+
 		List<String> list = new ArrayList<>();
 		list.add("Weaving");
 		list.add("Dancing");
-		
+
 		return list;
 	}
+
 	@GetMapping("/subscribe/{id}")
 	public String joinEvent(@PathVariable("id") String id) {
-		
+
 		eventService.subscribeEvent(Integer.parseInt(id));
+
 		return "redirect:/viewEvents";
 	}
-	
+
 	@GetMapping("/unsubscribe/{id}")
-	public String cancelEvent(@PathVariable("id") String id,HttpServletRequest request) {
-		
-		
+	public String cancelEvent(@PathVariable("id") String id, HttpServletRequest request) {
+
 		eventService.unsubscribeEvent(Integer.parseInt(id));
-		
-		
-		String referer=request.getHeader("Referer");
-		
-		return "redirect:"+referer;
+
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
 	}
-	
+
 	@GetMapping("/yourEvents")
 	public String yourEvents(Model map) {
-		Set<Event> events=eventService.getYourEvents();
-		map.addAttribute("events",events);
+
+		Set<Event> events = eventService.getYourEvents();
+		map.addAttribute("events", events);
+
 		return "yourevents";
 	}
 }
