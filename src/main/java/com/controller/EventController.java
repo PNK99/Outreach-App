@@ -119,8 +119,8 @@ public class EventController {
 	}
 	
 	@GetMapping("/inviteVolunteerList")
-	public String inviteVolunteerList(Integer eventId, Model map) {
-		List<User> users = eventService.getAllVolunteers();
+	public String inviteVolunteerList(Integer eventId, Integer userId, Model map) {
+		List<User> users = eventService.getAllVolunteers(userId);
 
 		map.addAttribute("userList",users);
 		map.addAttribute("eventId",eventId);
