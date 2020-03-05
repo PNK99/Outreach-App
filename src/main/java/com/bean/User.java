@@ -41,8 +41,19 @@ public class User implements Serializable {
 	private Roles userRole;
 	
 	
+	public Set<Event> getInvitedEvents() {
+		return invitedEvents;
+	}
+
+	public void setInvitedEvents(Set<Event> invitedEvents) {
+		this.invitedEvents = invitedEvents;
+	}
+
 	@ManyToMany(mappedBy = "volunteers")
 	private Set<Event> events = new HashSet<>();
+	
+	@ManyToMany(mappedBy = "invitedPeople")
+	private Set<Event> invitedEvents = new HashSet<>();
 
 	public Set<Event> getEvents() {
 		return events;
@@ -123,5 +134,9 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
+	
+	
 
 }

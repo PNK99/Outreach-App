@@ -46,6 +46,19 @@ public class Event {
 	@JoinTable(name = "event_volunteers", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 	private Set<User> volunteers = new HashSet<>();// Volunteer class
+	
+	@ManyToMany
+	@JoinTable(name = "event_invite", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	private Set<User> invitedPeople = new HashSet<>();
+
+	public Set<User> getInvitedPeople() {
+		return invitedPeople;
+	}
+
+	public void setInvitedPeople(Set<User> invitedPeople) {
+		this.invitedPeople = invitedPeople;
+	}
 
 	private Double donationAmount;
 
