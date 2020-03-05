@@ -45,7 +45,7 @@ public class EventService {
 	
 	
 	public void unsubscribeEvent(int eventId,int userId) {
-		Optional<User> userOp=userDao.findById(2);
+		Optional<User> userOp=userDao.findById(userId);
 		Optional<Event> eventOp=eventDao.findById(eventId);
 		
 		User user=userOp.get();
