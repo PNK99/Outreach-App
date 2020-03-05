@@ -8,12 +8,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration Page</title>
-<<<<<<< HEAD
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-=======
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -31,13 +30,15 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 <style>
+
+
 .container-width {
 	max-width: 75%;
 	padding: 5%;
 }
 </style>
 
->>>>>>> cce0fea5329c03b262c5f6f4ea5421bc57fea0e7
+
 </head>
 <body>
 
@@ -150,57 +151,7 @@
 			<input class="btn btn-success" style="background-color: #00B242;"
 				type="submit" value="Register" />
 
-<<<<<<< HEAD
-	<form:form action="valid" method="POST" modelAttribute="user">
-	
-
-	UserRole:<form:select path="userRole">
-			<form:options items="${type }"></form:options>
-		</form:select>
-		<form:errors path="userRole"></form:errors>
-		<form:errors class="alert alert-danger" role="alert" />
-		<br><br>
-	
-	
-
-First Name:<form:input path="firstName" id="firstname" />
-		<form:errors path="firstName" class="alert alert-danger" role="alert" />
-		<br>
-		<br>
-		
-		
-Last Name:<form:input path="lastName" />
-		<form:errors path="lastName"></form:errors>
-		<br>
-		<br>
-Age:<form:input path="age" />
-		<form:errors path="age"></form:errors>
-		<br>
-		<br>
-Gender:<form:radiobutton path="gender" value="Male" />Male
-       <form:radiobutton path="gender" value="Female" />Female<form:errors
-			path="gender"></form:errors>
-		<br>
-		<br>
-Contact Number:<form:input path="contactNumber" />
-		<form:errors path="contactNumber"></form:errors>
-		<br>
-		<br>
-
-User Id:<form:input path="userId" />
-		<form:errors path="userId"></form:errors>
-		<br>
-		<br>
-Password:<form:input type="password" path="password" />
-		<form:errors path="password"></form:errors>
-		<br>
-		<br>
-
-		<input type="submit" value="Register" />
-	</form:form>
-=======
 		</form:form>
 	</div>
->>>>>>> cce0fea5329c03b262c5f6f4ea5421bc57fea0e7
 </body>
 </html>

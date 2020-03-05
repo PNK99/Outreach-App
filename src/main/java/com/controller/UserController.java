@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.User;
@@ -83,7 +84,15 @@ public class UserController {
 
 		return "registration";
 	}
-
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "index";
+	
+	}
+	
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
 		Map<Integer, String> m = rolesService.getRolesList();
