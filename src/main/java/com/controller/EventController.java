@@ -62,7 +62,8 @@ public class EventController {
 
 		map.addAttribute("userI",userD);
 	
-		List<Event> events=eventService.getFeatureEvents();
+		
+		List<Event> events=eventService.getFutureEvents();
 
 		map.addAttribute("events", events);
 

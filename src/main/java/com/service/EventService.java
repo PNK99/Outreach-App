@@ -23,17 +23,17 @@ public class EventService {
 	@Autowired
 	private EventDao eventDao;
 	
-	public List<Event> getFeatureEvents(){
+	public List<Event> getFutureEvents(){
 		
 		List<Event> events = eventDao.findAll();
-		List<Event> futureEvents=new ArrayList();
+		List<Event> futureEvents=new ArrayList<>();
+		
+		futureEvents.add(events.get(0));
 		Date date=new Date();
+		
 		for(Event event:events) {
-			
 			long diff=event.getDate().getTime()-date.getTime();
-			
 			long diffDays =diff/(24*60*60*1000);
-			
 			if(diffDays>0 && diffDays<15) {
 				futureEvents.add(event);
 			}
