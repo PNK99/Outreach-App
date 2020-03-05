@@ -28,7 +28,6 @@ public class EventService {
 		List<Event> events = eventDao.findAll();
 		List<Event> futureEvents=new ArrayList<>();
 		
-		futureEvents.add(events.get(0));
 		Date date=new Date();
 		
 		for(Event event:events) {
@@ -82,6 +81,7 @@ public class EventService {
 	
 	public void inviteVolunteer(int eventId, Integer ids[]) {
 		Event event = eventDao.findById(eventId).get();
+String a;
 
 		for(Integer id: ids) {
 			User user =  userDao.findById(id).get();

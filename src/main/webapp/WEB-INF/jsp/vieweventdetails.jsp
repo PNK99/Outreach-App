@@ -54,20 +54,21 @@
 
         No of volunteers registered
         <c:out value="${event.volunteers.size()}" /><br />
+        <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 
+            <c:if test="${!event.volunteers.contains(userI)}">
+                <a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
+            </c:if>
 
-        <c:if test="${!event.volunteers.contains(userI)}">
-            <a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
-        </c:if>
+            <c:if test="${event.volunteers.contains(userI)}">
+                <div class="d-flex justify-content-between">
 
-        <c:if test="${event.volunteers.contains(userI)}">
-            <div class="d-flex justify-content-between">
-
-                <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-                    Subscribe</a>
-                <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
-                    Invite others</a>
-            </div>
+                    <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+                        Subscribe</a>
+                    <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
+                        Invite others</a>
+                </div>
+            </c:if>
         </c:if>
     </div>
 

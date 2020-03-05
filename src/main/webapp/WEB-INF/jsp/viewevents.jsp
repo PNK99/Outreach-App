@@ -37,21 +37,43 @@
 	</nav>
 
 	<div class="container container-width">
+		<div>
+
+			Activity <form:select placeholder="Select an activity" path="activity" id="activity">
+				<form:option value="">Select Activity</form:option>
+				<form:options items="${activityList}"></form:options>
+
+			</form:select>
+
+			<c:set var="act" value="<%=request.getParameter("activity") %>"></c:set>
+			<a href="viewEvent?activity=${act}"></a>
+
+
+		</div>
 		<div class="d-flex justify-content-between">
 			<span>
 				<h2 style="margin-bottom: 20px;">Event List</h2>
 			</span>
-			<span>
-				<a class="btn btn-primary btn-sm" href="/yourEvents?userId=${user.id}">Yourevents</a>
-			</span>
-
+			<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<span>
+					<a class="btn btn-primary btn-sm" href="/yourEvents?userId=${user.id}">Your events</a>
+				</span>
+			</c:if>
+			<c:if test='${userRole.equalsIgnoreCase("Admin")}'>
+				<span>
+					<a class="btn btn-primary btn-sm" href="/createEvent">Create Event</a>
+				</span>
+			</c:if>
 		</div>
 
 		<c:forEach var="event" items="${events}">
-			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
-				<div class="card" style="margin:1%">
-					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
+
+			<div class="card" style="margin:1%">
+				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
+					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 						<c:out value="${event.activity}" />
+					</a>
+					<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 						<c:if test="${!event.volunteers.contains(userI)}">
 							<a class="btn btn-success"
 								href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
@@ -61,25 +83,25 @@
 							<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
 								Subscribe</a>
 						</c:if>
-
-					</div>
-					<div class="card-body">
-						<div style="display: flex; justify-content: space-between;">
-							<span><span style="font-weight: bold;">
-									Venue:
-								</span>
-								<c:out value="${event.place}" />
+					</c:if>
+				</div>
+				<div class="card-body">
+					<div style="display: flex; justify-content: space-between;">
+						<span><span style="font-weight: bold;">
+								Venue:
 							</span>
-							<span>
-								<span style="font-weight: bold;">Date: </span>
-								<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" />
-							</span>
-							<span><span style="font-weight: bold;">No of Volunteers: </span>
-								<c:out value="${event.volunteers.size()}" /></span>
-						</div>
+							<c:out value="${event.place}" />
+						</span>
+						<span>
+							<span style="font-weight: bold;">Date: </span>
+							<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" />
+						</span>
+						<span><span style="font-weight: bold;">No of Volunteers: </span>
+							<c:out value="${event.volunteers.size()}" /></span>
 					</div>
 				</div>
-			</a>
+			</div>
+
 		</c:forEach>
 	</div>
 
