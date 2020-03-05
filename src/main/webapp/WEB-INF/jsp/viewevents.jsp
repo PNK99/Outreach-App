@@ -1,4 +1,3 @@
-<%@page import="com.bean.User"%>
 <%@page import="com.dao.UserDao"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Date"%>
@@ -53,13 +52,11 @@
 			<div class="card" style="margin:1%">
 				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 					<c:out value="${event.activity}" />
-					<c:out value="${event.volunteers.stream().anyMatch(n->n.id.equals(sessionScope.user.id))}"/>
-					<c:out value="${event.volunteers.contains(sessionScope.user)}"/>
-					<c:if test="${!event.volunteers.contains(sessionScope.user)}">
+					<c:if test="${!event.volunteers.contains(userI)}">
 						<a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
 					</c:if>
 
-					<c:if test="${event.volunteers.contains(sessionScope.user)}">
+					<c:if test="${event.volunteers.contains(userI)}">
 						<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un Subscribe</a>
 					</c:if>
 

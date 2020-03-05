@@ -48,8 +48,13 @@ public class EventController {
 	}
 
 	@GetMapping("/viewEvents")
-	public String viewEvents(Model map) {
+	public String viewEvents(Model map,HttpSession session) {
 
+		User user = (User)session.getAttribute("user");
+		User userD = userDao.findById(user.getId()).get();
+		map.addAttribute("userI",userD);
+		System.out.println("user=="+user);
+		
 		List<Event> events = eventDao.findAll();
 
 		map.addAttribute("events", events);
