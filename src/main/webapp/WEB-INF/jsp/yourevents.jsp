@@ -50,7 +50,7 @@
 			<div class="card" style="margin:1%">
 				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 					<c:out value="${event.activity}" />
-					<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}">Un Subscribe</a>
+					<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un Subscribe</a>
 				</div>
 				<div class="card-body">
 					<div style="display: flex; justify-content: space-between;">
