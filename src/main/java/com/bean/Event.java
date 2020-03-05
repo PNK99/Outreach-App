@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,16 +24,22 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank(message="Enter the venue place")
 	private String place;
 
 	private String activity;// Activity class
-
+	
+	@FutureOrPresent(message="Enter Future Date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
+	@NotBlank(message="Enter the host's contact number")
 	private String contactNumber;
 
+	@NotBlank(message="Enter  description about the event")
 	private String description;
 
+	@NotBlank(message="Enter Do's and Don't for the event")
 	private String dosAndDonts;
 
 	@ManyToMany
@@ -84,14 +92,16 @@ public class Event {
 		return date;
 	}
 
-	public void setDate(String date) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			this.date = format.parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void setDate(Date date) {
+		
+		/*
+		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); try { this.date
+		 * = format.parse(date); } catch (ParseException e) { // TODO Auto-generated
+		 * e.printStackTrace(); }
+		 */
+		 
+		
+		this.date=date;
 	}
 
 	public String getContactNumber() {
