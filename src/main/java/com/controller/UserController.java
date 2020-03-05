@@ -30,31 +30,29 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String login(@ModelAttribute("user") User u) {
-		
+
 		return "login";
 	}
 
 	@PostMapping("/upCheck")
 	public ModelAndView check(@ModelAttribute("user") User u, BindingResult br, HttpSession session) {
-		
-		//String page = "login";
-		ModelAndView modelView = new ModelAndView("login","flag",1);
-		
+
+		// String page = "login";
+		ModelAndView modelView = new ModelAndView("login", "flag", 1);
+
 		if (br.hasErrors()) {
 			modelView = new ModelAndView("login");
 		}
 		User user = userService.loginUser(u.getUserId(), u.getPassword());
 		if (user != null) {
-			
+
 			session.setAttribute("user", user);
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
 			modelView = new ModelAndView("home");
 
 		}
-		
-		
-		
+
 		return modelView;
 	}
 
@@ -84,15 +82,15 @@ public class UserController {
 
 		return "registration";
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		
+
 		session.invalidate();
 		return "index";
-	
+
 	}
-	
+
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
 		Map<Integer, String> m = rolesService.getRolesList();

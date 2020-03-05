@@ -7,8 +7,6 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 public class MyController {
 
-
-
 	@GetMapping("/")
 	public String index() {
 		return "index";
@@ -18,7 +16,5 @@ public class MyController {
 	public String home() {
 		return "home";
 	}
-
-
 
 }
