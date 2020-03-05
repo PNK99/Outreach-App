@@ -17,4 +17,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
 	@Query("select u from User u where u.userId=:userId")
 	public List<User> userIdExists(Integer userId);
 	
+	@Query("select u from User u where u.userRole=2")
+	public List<User> findAllVolunteers();
+	
 }

@@ -105,4 +105,29 @@ public class EventController {
 
 		return "yourevents";
 	}
+	
+	@GetMapping("/viewEventDetails")
+	public String viewEventDetails(Integer eventId,Model map) {
+		Event event = eventDao.findById(eventId).get();
+		map.addAttribute("event", event);
+		return "vieweventdetails";
+	}
+	
+	@GetMapping("/inviteVolunteerList")
+	public String inviteVolunteerList(Integer eventId, Model map) {
+		List<User> users = eventService.getAllVolunteers();
+
+		map.addAttribute("userList",users);
+		map.addAttribute("eventId",eventId);
+		return "invitevolunteerlist";
+	}
+	
+	@PostMapping("/inviteVolunteers")
+	public String inviteVolunteers(Integer eventId,Integer[] invite) {
+		System.out.println(eventId);
+		System.out.println(invite);
+		eventService.inviteVolunteer(eventId, invite);
+		
+		return "redirect:viewEvents";
+	}
 }
