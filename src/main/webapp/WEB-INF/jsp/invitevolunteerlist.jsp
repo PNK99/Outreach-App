@@ -37,23 +37,22 @@
     </nav>
 
     <div class="container container-width">
-        <div class="d-flex justify-content-between">
-            <span>
-                <h2 style="margin-bottom: 20px;">Your Event List</h2>
-            </span>
-            <span>
-                <a class="btn btn-primary btn-sm" href="/viewEvents">Show All Events</a>
-            </span>
-
-        </div>
         <h2>Invite Volunteers</h2>
         <form:form action="inviteVolunteers" method="post">
-            <c:forEach var="u" items="${userList}">
+            <input type="hidden" name="eventId" value="${eventId}" />
+            <ul class="list-group" style="margin-bottom: 15px;">
+                <c:forEach var="u" items="${userList}">
+                    <li class="list-group-item">
+                        <div>
+                            <input type="checkbox" name="invite" value="${u.id}">
+                            <c:out value="${u.firstName}" />
+                            <c:out value="${u.lastName}" /> - 
+                            <c:out value="${u.userId}" />
+                        </div>
+                    </li>
 
-                <c:out value="${u.firstName}" />
-                <input type="hidden" name="eventId" value="${eventId}" />
-                <input type="checkbox" name="invite" value="${u.id}"><br />
-            </c:forEach>
+                </c:forEach>
+            </ul>
             <input type="submit" class="btn btn-primary" value="Invited selected">
         </form:form>
     </div>

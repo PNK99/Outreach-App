@@ -12,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.User;
 import com.service.RolesService;
@@ -33,23 +35,27 @@ public class UserController {
 	}
 
 	@PostMapping("/upCheck")
-	public String check(@ModelAttribute("user") User u, BindingResult br, HttpSession session) {
+	public ModelAndView check(@ModelAttribute("user") User u, BindingResult br, HttpSession session) {
+		
+		//String page = "login";
+		ModelAndView modelView = new ModelAndView("login","flag",1);
+		
 		if (br.hasErrors()) {
-			return "login";
+			modelView = new ModelAndView("login");
 		}
 		User user = userService.loginUser(u.getUserId(), u.getPassword());
 		if (user != null) {
-			System.out.println("hiii");
-			System.out.println(user.getFirstName()+"sfgffffffffff");
 			
 			session.setAttribute("user", user);
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
-			return "home";
+			modelView = new ModelAndView("home");
 
 		}
-		System.out.println("Byee");
-		return "login";
+		
+		
+		
+		return modelView;
 	}
 
 	@PostMapping("/valid")
@@ -78,7 +84,15 @@ public class UserController {
 
 		return "registration";
 	}
-
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "index";
+	
+	}
+	
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
 		Map<Integer, String> m = rolesService.getRolesList();

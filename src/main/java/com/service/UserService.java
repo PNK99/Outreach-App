@@ -30,14 +30,10 @@ public class UserService {
 	public User loginUser(Integer userId, String password) {
 
 		byte[] encodedBytes = Base64.getEncoder().encode(password.getBytes());
-		List<User> l = userDao.validateUser(userId, new String(encodedBytes));
+		User user = userDao.validateUser(userId, new String(encodedBytes));
 		
-		System.out.println(l.get(0).getUserRole().getRoleName());
+		return user;
 		
-		System.out.println(l.isEmpty());
-		if (l.isEmpty())
-			return null;
-		return l.get(0);
 	}
 	
 	public boolean userIdExists(Integer userId) {

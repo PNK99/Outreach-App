@@ -5,8 +5,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>HOME</title>
+
 </head>
+<%
+	response.setHeader("Cache-Control", "no-cache");
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+%>
 <body>
 <h1>${userRole}, ${sessionScope.user.firstName}</h1>
+<a href="logout">Logout</a>
+
 </body>
 </html>

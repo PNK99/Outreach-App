@@ -38,7 +38,7 @@
 	<div class="container container-width">
 		<div class="d-flex justify-content-between">
 			<span>
-				<h2 style="margin-bottom: 20px;">Your Event List</h2>
+				<h2 style="margin-bottom: 20px;">${title}</h2>
 			</span>
 			<span>
 				<a class="btn btn-primary btn-sm" href="/viewEvents">Show All Events</a>
@@ -46,28 +46,30 @@
 
 		</div>
 		<c:forEach var="event" items="${events}">
-
-			<div class="card" style="margin:1%">
-				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
-					<c:out value="${event.activity}" />
-					<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un Subscribe</a>
-				</div>
-				<div class="card-body">
-					<div style="display: flex; justify-content: space-between;">
-						<span><span style="font-weight: bold;">
-								Venue:
+			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
+				<div class="card" style="margin:1%">
+					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
+						<c:out value="${event.activity}" />
+						<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+							Subscribe</a>
+					</div>
+					<div class="card-body">
+						<div style="display: flex; justify-content: space-between;">
+							<span><span style="font-weight: bold;">
+									Venue:
+								</span>
+								<c:out value="${event.place}" />
 							</span>
-							<c:out value="${event.place}" />
-						</span>
-						<span>
-							<span style="font-weight: bold;">Date: </span>
-							<fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" />
-						</span>
-						<span><span style="font-weight: bold;">No of Volunteers: </span>
-							<c:out value="${event.volunteers.size()}" /></span>
+							<span>
+								<span style="font-weight: bold;">Date: </span>
+								<fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" />
+							</span>
+							<span><span style="font-weight: bold;">No of Volunteers: </span>
+								<c:out value="${event.volunteers.size()}" /></span>
+						</div>
 					</div>
 				</div>
-			</div>
+			</a>
 		</c:forEach>
 	</div>
 
