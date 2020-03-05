@@ -48,7 +48,7 @@
 		</div>
 
 		<c:forEach var="event" items="${events}">
-			<a href="viewEventDetails?eventId=${event.id}">
+			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 				<div class="card" style="margin:1%">
 					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 						<c:out value="${event.activity}" />

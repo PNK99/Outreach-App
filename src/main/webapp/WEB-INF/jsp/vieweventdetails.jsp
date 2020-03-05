@@ -40,24 +40,35 @@
         <h2>
             <c:out value="${event.activity}" />
         </h2>
-        <c:out value="${event.description}" />
-        <fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" />
-        <c:out value="${event.place}" />
-        <c:out value="${event.dosAndDonts}" />
-        <c:out value="${event.contactNumber}" />
-        <c:out value="${event.volunteers.size()}" />
+        Description
+        <c:out value="${event.description}" /><br />
+        Date
+        <fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" /><br />
+        Place
+        <c:out value="${event.place}" /><br />
+        Do's and Don't
+        <c:out value="${event.dosAndDonts}" /><br />
+
+        Point of contact
+        <c:out value="${event.contactNumber}" /><br />
+
+        No of volunteers registered
+        <c:out value="${event.volunteers.size()}" /><br />
+
 
         <c:if test="${!event.volunteers.contains(userI)}">
             <a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
         </c:if>
 
         <c:if test="${event.volunteers.contains(userI)}">
-            <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-                Subscribe</a>
+            <div class="d-flex justify-content-between">
 
+                <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+                    Subscribe</a>
+                <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}">
+                    Invite others</a>
+            </div>
         </c:if>
-        <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}">
-            Invite others</a>
     </div>
 
 

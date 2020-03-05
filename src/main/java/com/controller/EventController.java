@@ -60,8 +60,7 @@ public class EventController {
 		User user = (User)session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 		map.addAttribute("userI",userD);
-		System.out.println("user=="+user);
-		
+				
 		List<Event> events = eventDao.findAll();
 
 		map.addAttribute("events", events);
@@ -80,11 +79,13 @@ public class EventController {
 	}
 
 	@GetMapping("/subscribe")
-	public String joinEvent(Integer userId,Integer eventId) {
+	public String joinEvent(Integer userId,Integer eventId, HttpServletRequest request) {
 
 		eventService.subscribeEvent(eventId,userId);
+		
+		String referer = request.getHeader("Referer");
 
-		return "redirect:/viewEvents";
+		return "redirect:" + referer;
 	}
 
 	@GetMapping("/unsubscribe")
@@ -102,12 +103,16 @@ public class EventController {
 
 		Set<Event> events = eventService.getYourEvents(userId);
 		map.addAttribute("events", events);
-
+		map.addAttribute("title", "Your Event List");
 		return "yourevents";
 	}
 	
 	@GetMapping("/viewEventDetails")
-	public String viewEventDetails(Integer eventId,Model map) {
+	public String viewEventDetails(Integer eventId,Integer userId, Model map) {
+		
+		User userD = userDao.findById(userId).get();
+		
+		map.addAttribute("userI",userD);
 		Event event = eventDao.findById(eventId).get();
 		map.addAttribute("event", event);
 		return "vieweventdetails";
@@ -124,10 +129,25 @@ public class EventController {
 	
 	@PostMapping("/inviteVolunteers")
 	public String inviteVolunteers(Integer eventId,Integer[] invite) {
-		System.out.println(eventId);
-		System.out.println(invite);
-		eventService.inviteVolunteer(eventId, invite);
+		try {
+			eventService.inviteVolunteer(eventId, invite);
+		}catch(Exception e) {
+			
+		}
 		
 		return "redirect:viewEvents";
+	}
+	
+	@GetMapping("/invitedEvents")
+	public String invitedEvents(HttpSession session,Model map) {
+		User user = (User)session.getAttribute("user");
+		User userD = userDao.findById(user.getId()).get();
+		
+		map.addAttribute("user",userD);
+		map.addAttribute("title", "Your Invites");
+		Set<Event> events = eventService.getInvitedEvents(user.getId());
+		map.addAttribute("events", events);
+
+		return "yourevents";
 	}
 }
