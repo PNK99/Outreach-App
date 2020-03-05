@@ -75,8 +75,8 @@ public class EventService {
 
 	}
 
-	public List<User> getAllVolunteers() {
-		List<User> users = userDao.findAllVolunteers();
+	public List<User> getAllVolunteers(Integer userId) {
+		List<User> users = userDao.findAllVolunteers(userId);
 		return users;
 	}
 	

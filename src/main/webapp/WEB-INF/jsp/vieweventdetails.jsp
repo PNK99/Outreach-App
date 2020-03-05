@@ -65,7 +65,7 @@
 
                 <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
                     Subscribe</a>
-                <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}">
+                <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
                     Invite others</a>
             </div>
         </c:if>
