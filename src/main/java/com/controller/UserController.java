@@ -84,7 +84,15 @@ public class UserController {
 
 		return "registration";
 	}
-
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "index";
+	
+	}
+	
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
 		Map<Integer, String> m = rolesService.getRolesList();
