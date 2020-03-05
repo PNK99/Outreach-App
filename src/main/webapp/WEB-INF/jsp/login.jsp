@@ -2,35 +2,78 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login Page</title>
+<title>Outreach | Login</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<style>
+.container-width {
+	max-width: 50%;
+	padding: 5%;
+}
+</style>
+
+
 </head>
 <body>
-	<h1>Outreach</h1>
-	<form:form action="upCheck" method="POST" modelAttribute="user">
 
-		<%-- 	UserRole:<form:select path="userRole">
-    <form:options items="${type}"></form:options>
-    </form:select>
-    <form:errors path="userRole" ></form:errors>
-		<br><br>
-     --%>
-    User Id:&nbsp&nbsp&nbsp&nbsp<form:input path="userId" type="text" />
-		<form:errors path="userId"></form:errors>
-		<br>
-		<br>
+	<nav class="navbar navbar-expand-lg navbar-dark"
+		style="background-color: #0033A0;">
+		<a class="navbar-brand" href="#">OutReach</a>
+	</nav>
+
+	<div class="container container-width">
+	
+		<h2 style="margin-bottom: 20px;">Log In</h2>
+
+		<form:form action="upCheck" method="POST" modelAttribute="user">
+
+			<div class="form-group">
+				<label for="firstName">User Id</label>
+				<form:input class="form-control" path="userId" id="userId"
+					name="userId" required="required" />
+				<form:errors path="userId" />
+			</div>
+
+			<div class="form-group">
+				<label for="firstName">Password</label>
+				<form:input class="form-control" path="password" id="password"
+					name="password" type="password" required="required" />
+				<form:errors path="password" />
+			</div>
+
+			<input class="btn btn-success" style="background-color: #00B242;"
+				type="submit" value="Login" />
     
-    Password:&nbsp&nbsp&nbsp&nbsp<form:input path="password"
-			type="password" />
-		<form:errors path="password"></form:errors>
-		<br>
-		<br>
-		<input type="submit" value="Login" />&nbsp&nbsp&nbsp&nbsp
-    <a href="signUp">Sign Up</a>
+    		New User? <a href="signUp">Sign Up</a> to OutReach portal
+    
+    	<c:if test="${flag==1 }">
+			<br><br>
+			<div class="alert alert-danger" role="alert">
+  				Invalid Username or Password
+			</div>
+		</c:if>
 
-	</form:form>
+		</form:form>
+
+	</div>
 </body>
 </html>

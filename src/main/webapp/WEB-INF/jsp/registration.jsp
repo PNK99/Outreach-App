@@ -52,7 +52,7 @@
 					id="userRole">
 					<form:options items="${type }"></form:options>
 				</form:select>
-				<form:errors path="userRole" />
+				<form:errors path="userRole" class="alert alert-danger" role="alert" />
 			</div>
 
 			<div class="form-row">
@@ -60,16 +60,18 @@
 				<div class="form-group col-md-6">
 					<label for="firstName">First Name</label>
 					<form:input class="form-control" path="firstName" id="firstname"
-						name="firstname" />
-					<form:errors path="firstName" />
+						name="firstname" required="required" />
+					<form:errors path="firstName" class="alert alert-danger"
+						role="alert" />
 				</div>
 
 				<div class="form-group col-md-6">
 					<label for="lastName">Last Name</label>
 					<form:input class="form-control" path="lastName" id="lastName"
-						name="lastName" />
+						name="lastName" required="required" />
 
-					<form:errors path="lastName" />
+					<form:errors path="lastName" class="alert alert-danger"
+						role="alert" />
 
 				</div>
 
@@ -79,9 +81,10 @@
 
 				<div class="form-group col-md-6">
 					<label for="age">Age</label>
-					<form:input class="form-control" path="age" id="age" name="age" />
+					<form:input class="form-control" path="age" id="age" name="age"
+						required="required" />
 
-					<form:errors path="age" />
+					<form:errors path="age" class="alert alert-danger" role="alert" />
 
 				</div>
 
@@ -89,7 +92,7 @@
 					<label for="gender">Gender</label> <br>
 					<div class="form-check form-check-inline">
 						<form:radiobutton class="form-check-input" path="gender"
-							name="gender" id="gender1" value="Male" />
+							name="gender" id="gender1" value="Male" required="required" />
 						<label class="form-check-label" for="gender1">Male</label>
 					</div>
 
@@ -99,7 +102,7 @@
 						<label class="form-check-label" for="gender2">Female</label>
 					</div>
 
-					<form:errors path="gender" />
+					<form:errors path="gender" class="alert alert-danger" role="alert" />
 
 				</div>
 
@@ -109,10 +112,11 @@
 				<label for="contactNumber">Contact Number</label>
 
 				<form:input class="form-control" path="contactNumber"
-					id="contactNumber" name="contactNumber" />
+					id="contactNumber" name="contactNumber" required="required" />
 
 
-				<form:errors path="contactNumber" />
+				<form:errors path="contactNumber" class="alert alert-danger"
+					role="alert" />
 
 			</div>
 
@@ -120,18 +124,18 @@
 				<label for="userId">User Id</label>
 
 				<form:input class="form-control" path="userId" id="userId"
-					name="userId" />
+					name="userId" required="required" />
 
-				<form:errors path="userId" />
+				<form:errors path="userId" class="alert alert-danger" role="alert" />
 			</div>
 
 			<div class="form-group">
 				<label for="password">Password</label>
 
 				<form:input class="form-control" type="password" path="password"
-					id="password" name="password" />
+					id="password" name="password" required="required" />
 
-				<form:errors path="password" />
+				<form:errors path="password" class="alert alert-danger" role="alert" />
 
 			</div>
 
