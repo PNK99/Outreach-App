@@ -7,6 +7,8 @@
 <title>HOME</title>
 </head>
 <body>
-<h1>${userRole}, ${sessionScope.user.firstName}</h1>
+<%-- <h1>${userRole}, ${sessionScope.user.firstName}</h1> --%>
+
+
 </body>
 </html>

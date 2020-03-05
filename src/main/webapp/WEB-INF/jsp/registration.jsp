@@ -2,33 +2,34 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Registration Page</title>
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 </head>
 <body>
 
 
 	<form:form action="valid" method="POST" modelAttribute="user">
 	
-	
-UserRole:<form:select path="userRole">
+
+	UserRole:<form:select path="userRole">
 			<form:options items="${type }"></form:options>
-
-
 		</form:select>
 		<form:errors path="userRole"></form:errors>
-		<br>
-		<br>
+		<form:errors class="alert alert-danger" role="alert" />
+		<br><br>
 	
 	
-
 
 First Name:<form:input path="firstName" id="firstname" />
-		<form:errors path="firstName"></form:errors>
+		<form:errors path="firstName" class="alert alert-danger" role="alert" />
 		<br>
 		<br>
 		
