@@ -59,10 +59,10 @@ public class EventController {
 
 		User user = (User)session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
+
 		map.addAttribute("userI",userD);
-		System.out.println("user=="+user);
-		
-		List<Event> events = eventDao.findAll();
+	
+		List<Event> events=eventService.getFeatureEvents();
 
 		map.addAttribute("events", events);
 
