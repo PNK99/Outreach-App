@@ -42,7 +42,7 @@
 				<h2 style="margin-bottom: 20px;">Event List</h2>
 			</span>
 			<span>
-				<a class="btn btn-primary btn-sm" href="/yourEvents">Yourevents</a>
+				<a class="btn btn-primary btn-sm" href="/yourEvents?userId=${user.id}">Yourevents</a>
 			</span>
 
 		</div>
@@ -52,12 +52,12 @@
 			<div class="card" style="margin:1%">
 				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 					<c:out value="${event.activity}" />
-					<c:if test="${!event.volunteers.contains(user)}">
-						<a class="btn btn-success" href="subscribe/${event.id}">Subscribe</a>
+					<c:if test="${!event.volunteers.contains(userI)}">
+						<a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
 					</c:if>
 
-					<c:if test="${event.volunteers.contains(user)}">
-						<a class="btn btn-danger" href="unsubscribe/${event.id}">Un Subscribe</a>
+					<c:if test="${event.volunteers.contains(userI)}">
+						<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un Subscribe</a>
 					</c:if>
 
 				</div>

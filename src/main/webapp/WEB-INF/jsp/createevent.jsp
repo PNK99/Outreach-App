@@ -46,6 +46,7 @@
             </div>
             <div class="form-group">
                 <label for="place">Places</label>
+
                 <form:input path="place" placeholder="Enter the venue place" class="form-control" id="place" /><br>
 
                 <form:errors class="alert alert-danger" role="alert" path="place">
@@ -56,6 +57,7 @@
                 <label for="date">Date</label>
                 <form:input path="date" type="date" class="form-control" id="date" /><br>
                 <form:errors class="alert alert-danger" role="alert" path="date"></form:errors>
+
             </div>
             <div class="form-group">
                 <label for="contactNumber">Contact number</label>
@@ -81,6 +83,7 @@
                     id="dosAndDonts" /><br>
 
                 <form:errors class="alert alert-danger" role="alert" path="dosAndDonts"></form:errors>
+
 
 
             </div>

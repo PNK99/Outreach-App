@@ -1,39 +1,79 @@
 package com.bean;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class VolunteerDetails {
+@Entity
+public class User implements Serializable {
 
-	private String userRole;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@NotNull(message = "please update the mandatory highlighted fields")
+	private Integer userId;
 	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String firstName;
-
 	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String lastName;
-
 	@NotNull(message = "please update the mandatory highlighted fields")
 	private Integer age;
-
 	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String gender;
-
-	@NotNull(message = "please update the mandatory highlighted fields")
+	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String contactNumber;
-
-	@NotNull(message = "please update the mandatory highlighted fields")
-	private Integer volunteerId;
-
 	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String password;
 
-	public String getUserRole() {
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	@NotNull(message = "please update the mandatory highlighted fields")
+	private Roles userRole;
+	
+	
+	@ManyToMany(mappedBy = "volunteers")
+	private Set<Event> events = new HashSet<>();
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+
+	public Roles getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(String userRole) {
+	public void setUserRole(Roles userRole) {
 		this.userRole = userRole;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -74,14 +114,6 @@ public class VolunteerDetails {
 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
-	}
-
-	public Integer getVolunteerId() {
-		return volunteerId;
-	}
-
-	public void setVolunteerId(Integer volunteerId) {
-		this.volunteerId = volunteerId;
 	}
 
 	public String getPassword() {

@@ -21,21 +21,22 @@ public class EventService {
 	private EventDao eventDao;
 	
 	
-	public void subscribeEvent(int id) {
-		Optional<User> userOp=userDao.findById(2);
-		Optional<Event> eventOp=eventDao.findById(id);
+	public void subscribeEvent(int eventId, int userId) {
+		Optional<User> userOp=userDao.findById(userId);
+		Optional<Event> eventOp=eventDao.findById(eventId);
 		
 		User user=userOp.get();
 		Event event =eventOp.get();
 		
 		
 		event.getVolunteers().add(user);
+		
 		eventDao.save(event);
 		
 	}
 	
-	public Set<Event> getYourEvents(){
-		Optional<User> user = userDao.findById(2);
+	public Set<Event> getYourEvents(int userId){
+		Optional<User> user = userDao.findById(userId);
 		Set<Event> listOfEvents= user.get().getEvents();
 		
 		return listOfEvents;
@@ -43,9 +44,9 @@ public class EventService {
 	}
 	
 	
-	public void unsubscribeEvent(int id) {
-		Optional<User> userOp=userDao.findById(2);
-		Optional<Event> eventOp=eventDao.findById(id);
+	public void unsubscribeEvent(int eventId,int userId) {
+		Optional<User> userOp=userDao.findById(userId);
+		Optional<Event> eventOp=eventDao.findById(eventId);
 		
 		User user=userOp.get();
 		Event event =eventOp.get();
