@@ -12,7 +12,7 @@ import com.bean.User;
 public interface UserDao extends JpaRepository<User, Integer> {
 	
 	@Query("select u from User u where u.userId=:userId and u.password=:password")
-	public List<User> validateUser(Integer userId, String password);
+	public User validateUser(Integer userId, String password);
 	
 	@Query("select u from User u where u.userId=:userId")
 	public List<User> userIdExists(Integer userId);
