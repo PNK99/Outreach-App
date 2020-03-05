@@ -28,7 +28,7 @@ public class UserController {
 
 	@GetMapping("/login")
 	public String login(@ModelAttribute("user") User u) {
-
+		
 		return "login";
 	}
 
@@ -40,7 +40,9 @@ public class UserController {
 		User user = userService.loginUser(u.getUserId(), u.getPassword());
 		if (user != null) {
 			System.out.println("hiii");
-			System.out.println(u.getUserRole());
+			System.out.println(user.getFirstName()+"sfgffffffffff");
+			
+			session.setAttribute("user", user);
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
 			return "home";

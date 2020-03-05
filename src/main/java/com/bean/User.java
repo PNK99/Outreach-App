@@ -1,12 +1,15 @@
 package com.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -36,6 +39,18 @@ public class User implements Serializable {
 	@JoinColumn(name = "role_id")
 	@NotNull(message = "please update the mandatory highlighted fields")
 	private Roles userRole;
+	
+	
+	@ManyToMany(mappedBy = "volunteers")
+	private Set<Event> events = new HashSet<>();
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
 
 	public Roles getUserRole() {
 		return userRole;

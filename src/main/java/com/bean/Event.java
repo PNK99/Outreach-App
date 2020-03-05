@@ -3,14 +3,18 @@ package com.bean;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Event {
@@ -25,12 +29,15 @@ public class Event {
 	private Date date;
 
 	private String contactNumber;
-	
+
 	private String description;
 
-	private String DosAndDonts;
+	private String dosAndDonts;
 
-	private String volunteerId;// Volunteer class
+	@ManyToMany
+	@JoinTable(name = "event_volunteers", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	private Set<User> volunteers = new HashSet<>();// Volunteer class
 
 	private Double donationAmount;
 
@@ -65,9 +72,9 @@ public class Event {
 	}
 
 	public void setDate(String date) {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			this.date=format.parse(date);
+			this.date = format.parse(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,11 +90,11 @@ public class Event {
 	}
 
 	public String getDosAndDonts() {
-		return DosAndDonts;
+		return dosAndDonts;
 	}
 
 	public void setDosAndDonts(String dosAndDonts) {
-		DosAndDonts = dosAndDonts;
+		this.dosAndDonts = dosAndDonts;
 	}
 
 	public String getDescription() {
@@ -98,12 +105,12 @@ public class Event {
 		this.description = description;
 	}
 
-	public String getVolunteerId() {
-		return volunteerId;
+	public Set<User> getVolunteers() {
+		return volunteers;
 	}
 
-	public void setVolunteerId(String volunteerId) {
-		this.volunteerId = volunteerId;
+	public void setVolunteers(Set<User> volunteers) {
+		this.volunteers = volunteers;
 	}
 
 	public Double getDonationAmount() {
@@ -125,10 +132,8 @@ public class Event {
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", place=" + place + ", activity=" + activity + ", date=" + date + ", contactNumber="
-				+ contactNumber + ", DosAndDonts=" + DosAndDonts + ", volunteerId=" + volunteerId + ", donationAmount="
-				+ donationAmount + ", voluteerPresent=" + voluteerPresent + "]";
+				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
+				+ ", voluteerPresent=" + voluteerPresent + "]";
 	}
-	
-	
 
 }

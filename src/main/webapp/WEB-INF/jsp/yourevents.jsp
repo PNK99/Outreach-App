@@ -1,4 +1,3 @@
-<%@page import="com.bean.User"%>
 <%@page import="com.dao.UserDao"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Date"%>
@@ -34,35 +33,24 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0033A0;">
 		<a class="navbar-brand" href="#">OutReach</a>
-
 	</nav>
 
 	<div class="container container-width">
 		<div class="d-flex justify-content-between">
 			<span>
-				<h2 style="margin-bottom: 20px;">Event List</h2>
+				<h2 style="margin-bottom: 20px;">Your Event List</h2>
 			</span>
 			<span>
-				<a class="btn btn-primary btn-sm" href="/yourEvents?userId=${user.id}">Yourevents</a>
+				<a class="btn btn-primary btn-sm" href="/viewEvents">Show All Events</a>
 			</span>
 
 		</div>
-
 		<c:forEach var="event" items="${events}">
 
 			<div class="card" style="margin:1%">
 				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 					<c:out value="${event.activity}" />
-					<c:out value="${event.volunteers.stream().anyMatch(n->n.id.equals(sessionScope.user.id))}"/>
-					<c:out value="${event.volunteers.contains(sessionScope.user)}"/>
-					<c:if test="${!event.volunteers.contains(sessionScope.user)}">
-						<a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
-					</c:if>
-
-					<c:if test="${event.volunteers.contains(sessionScope.user)}">
-						<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un Subscribe</a>
-					</c:if>
-
+					<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}">Un Subscribe</a>
 				</div>
 				<div class="card-body">
 					<div style="display: flex; justify-content: space-between;">
