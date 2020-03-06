@@ -32,9 +32,31 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0033A0;">
-        <a class="navbar-brand" href="#">OutReach</a>
-    </nav>
+   <header> <nav
+		class="navbar navbar-expand-md navbar-dark fixed-top"
+		style="background-color: #0033A0;"> <a class="navbar-brand"
+		href="index" style="color: #00B242">Outreach</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarCollapse" aria-controls="navbarCollapse"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">${userRole}
+					</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
+			</li>
+
+		</ul>
+		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
+			<!-- style="margin-right:200px" -->
+			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+			<button class="btn btn-outline-light" type="submit">Logout</button>
+		</form>
+	</div>
+	</nav> </header>
 
     <div class="container container-width">
         <h2>Invite Volunteers</h2>
@@ -57,7 +79,15 @@
         </form:form>
     </div>
 
-
+		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+			style="background-color: #0033A0;">
+			<footer>
+				<a href="#"
+					style="float: right; margin-left: 750px; color: #00B242;">Back
+					to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
+				&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
+			</footer>
+		</nav>
 </body>
 
 </html>

@@ -7,13 +7,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.User;
 import com.service.RolesService;
@@ -35,13 +34,13 @@ public class UserController {
 	}
 
 	@PostMapping("/upCheck")
-	public ModelAndView check(@ModelAttribute("user") User u, BindingResult br, HttpSession session) {
+	public String check(@ModelAttribute("user") User u, BindingResult br, Model map, HttpSession session) {
 
 		// String page = "login";
-		ModelAndView modelView = new ModelAndView("login", "flag", 1);
+		map.addAttribute("flag",1);
 
 		if (br.hasErrors()) {
-			modelView = new ModelAndView("login");
+			return "login";
 		}
 		User user = userService.loginUser(u.getUserId(), u.getPassword());
 		if (user != null) {
@@ -49,11 +48,12 @@ public class UserController {
 			session.setAttribute("user", user);
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
-			modelView = new ModelAndView("home");
+
+			/* modelView = new ModelAndView("home"); */
 
 		}
 
-		return modelView;
+		return "redirect:home";
 	}
 
 	@PostMapping("/valid")
@@ -90,6 +90,8 @@ public class UserController {
 		return "index";
 
 	}
+	
+
 
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
@@ -97,5 +99,6 @@ public class UserController {
 
 		return m;
 	}
+	
 
 }
