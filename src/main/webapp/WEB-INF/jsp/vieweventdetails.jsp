@@ -43,7 +43,7 @@
         Description
         <c:out value="${event.description}" /><br />
         Date
-        <fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" /><br />
+        <fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /><br />
         Place
         <c:out value="${event.place}" /><br />
         Do's and Don't

@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +22,25 @@ public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
+	
+	public List<Event> getFutureEvents(){
+		
+		List<Event> events = eventDao.findAll();
+		List<Event> futureEvents=new ArrayList<>();
+		
+		futureEvents.add(events.get(0));
+		Date date=new Date();
+		
+		for(Event event:events) {
+			long diff=event.getDate().getTime()-date.getTime();
+			long diffDays =diff/(24*60*60*1000);
+			if(diffDays>0 && diffDays<15) {
+				futureEvents.add(event);
+			}
+		}
+		
+		return futureEvents;
+	}
 
 	public UserDao getUserDao() {
 		return userDao;

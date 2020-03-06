@@ -62,7 +62,7 @@
 							</span>
 							<span>
 								<span style="font-weight: bold;">Date: </span>
-								<fmt:formatDate value="${event.date}" pattern="dd EEE yyyy" />
+								<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" />
 							</span>
 							<span><span style="font-weight: bold;">No of Volunteers: </span>
 								<c:out value="${event.volunteers.size()}" /></span>
