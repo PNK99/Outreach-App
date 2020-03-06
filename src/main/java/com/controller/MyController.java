@@ -1,11 +1,20 @@
 package com.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.support.SessionStatus;
+
+import com.bean.Event;
+import com.service.EventService;
 
 @Controller
 public class MyController {
+	
+	@Autowired
+	private EventService eventService;
 
 	@GetMapping("/")
 	public String index() {
@@ -13,7 +22,10 @@ public class MyController {
 	}
 
 	@GetMapping("/home")
-	public String home() {
+	public String home(Model map) {
+		List<Event> events=eventService.getFutureEvents("","");
+		
+		map.addAttribute("events", events.subList(0, 5));
 		return "home";
 	}
 

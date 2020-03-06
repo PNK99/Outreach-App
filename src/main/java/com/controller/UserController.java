@@ -27,6 +27,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+
+
+
+
 
 	@GetMapping("/login")
 	public String login(@ModelAttribute("user") User u) {
@@ -53,7 +58,9 @@ public class UserController {
 			/* modelView = new ModelAndView("home"); */
 
 		}
+		
 
+		
 		return "redirect:home";
 	}
 

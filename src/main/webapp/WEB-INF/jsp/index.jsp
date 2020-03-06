@@ -127,7 +127,7 @@ body {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="index">Home</a>
+					<li class="nav-item"><a class="nav-link" href="/">Home</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="signUp">Sign
 							Up</a></li>

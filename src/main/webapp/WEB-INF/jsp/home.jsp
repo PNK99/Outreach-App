@@ -2,6 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -76,21 +79,17 @@ body {
 		margin-top: 7rem;
 	}
 }
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited,
-.btn-primary:focus {
-    background-color: #00B242 !important;
-    border-color: #00B242 !important;
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
+	.btn-primary:focus {
+	background-color: #00B242 !important;
+	border-color: #00B242 !important;
 }
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:active,
-.btn-secondary:visited,
-.btn-secondary:focus {
-    background-color: #0033A0 !important;
-    border-color: #0033A0 !important;
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active,
+	.btn-secondary:visited, .btn-secondary:focus {
+	background-color: #0033A0 !important;
+	border-color: #0033A0 !important;
 }
 </style>
 
@@ -122,7 +121,6 @@ body {
 	crossorigin="anonymous"></script>
 </head>
 <%
-	
 	response.setHeader("Cache-Control", "no-cache");
 	response.setHeader("Cache-Control", "no-store");
 	response.setHeader("Pragma", "no-cache");
@@ -143,7 +141,7 @@ body {
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${userRole}
-					</a></li>
+			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
 			</li>
 
@@ -155,55 +153,110 @@ body {
 		</form>
 	</div>
 	</nav> </header>
+
+<div class="container horizontal-scrollable d-flex flex-row">
+<c:forEach var="event" items="${events}">
+	
+			<div class="card" style="margin:1%">
+				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
+					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
+						<c:out value="${event.activity}" />
+					</a>
+									</div>
+				<div class="card-body">
+					<div class="d-flex flex-column">
+						<div><span style="font-weight: bold;">
+								Venue:<c:out value="${event.place}" />
+							</span>
+						</div>
+						<div>
+							<span style="font-weight: bold;">Date: 
+							<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /></span>
+						</div>
+						<div><span style="font-weight: bold;">No of Volunteers: </span>
+							<c:out value="${event.volunteers.size()}" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</c:forEach>
+
+</div>
+
 	<c:choose>
-  	<c:when test='${userRole.equals("Admin")}'>
-	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3" style="margin-left:110px;">
-			<div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-color:#0033A0;" >
-				<div class="my-3 p-3">
-					<h2 class="display-5">Create Event</h2>
-					<p class="lead">Used for Creation of an Event.</p>
+		<c:when test='${userRole.equals("Admin")}'>
+			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
+					style="background-color: #0033A0;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Create Event</h2>
+						<p class="lead">Used for Creation of an Event.</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-primary" href="createEvent"
+							style="background-color: 00B242; margin-top: 130px">Create
+							Event</a>
+					</div>
 				</div>
-    			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><a class="btn btn-primary" href="createEvent" style="background-color:00B242; margin-top:130px">Create Event</a></div>
-  			</div>
-			<div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="background-color:#00B242;" >
-				<div class="my-3 p-3">
-					<h2 class="display-5">View Events</h2>
-					<p class="lead">View Created/Upcoming Events.</p>
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #00B242;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">View Events</h2>
+						<p class="lead">View Created/Upcoming Events.</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="viewEvents"
+							style="background-color: 00B242; margin-top: 130px">View
+							Event</a>
+					</div>
 				</div>
-    			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><a class="btn btn-secondary" href="viewEvents" style="background-color:00B242; margin-top:130px">View Event</a></div>
-  			</div>
-		</div>
-	</c:when>
-	<c:when test='${userRole.equals("Volunteer")}'>
-	<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3" style="margin-left:110px;">
-			<div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-color:#0033A0;" >
-				<div class="my-3 p-3">
-					<h2 class="display-5">Upcoming Events</h2>
-					<p class="lead">Click to see the list of Upcoming Events!</p>
+			</div>
+		</c:when>
+		<c:when test='${!userRole.equals("Admin")}'>
+			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
+					style="background-color: #0033A0;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Upcoming Events</h2>
+						<p class="lead">Click to see the list of Upcoming Events!</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-primary" href="viewEvents"
+							style="background-color: 00B242; margin-top: 130px">View Events</a>
+					</div>
 				</div>
-    			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><button type="button" class="btn btn-primary" href="viewEvents" style="background-color:00B242; margin-top:130px">View Events</button></div>
-  			</div>
-			<div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="background-color:#00B242;" >
-				<div class="my-3 p-3">
-					<h2 class="display-5">Invited Events</h2>
-					<p class="lead">Click to see your Invited Events!</p>
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #00B242;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Invited Events</h2>
+						<p class="lead">Click to see your Invited Events!</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="invitedEvents"
+							style="background-color: 00B242; margin-top: 130px">Invited Events</a>
+					</div>
 				</div>
-    			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><button type="button" class="btn btn-secondary" href="invitedEvents" style="background-color:00B242; margin-top:130px">Invited Events</button></div>
-  			</div>
-		</div>
-		
-	</c:when>
+			</div>
+		</c:when>
 	</c:choose>
- 
-		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
-			style="background-color: #0033A0;">
-			<footer>
-				<a href="#"
-					style="float: right; margin-left: 750px; color: #00B242;">Back
-					to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
-				&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
-			</footer>
-		</nav>
+
+	<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+		style="background-color: #0033A0;"> <footer> <a
+		href="#" style="float: right; margin-left: 750px; color: #00B242;">Back
+		to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
+	&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
+	</footer> </nav>
 
 </body>
 </html>
