@@ -55,16 +55,18 @@ public class EventController {
 	}
 
 	@GetMapping("/viewEvents")
-	public String viewEvents(Model map,HttpSession session) {
+	public String viewEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
 
 		User user = (User)session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI",userD);
-	
+	System.out.println(event.getActivity()+" "+event.getPlace());
 		
-		List<Event> events=eventService.getFutureEvents();
+		List<Event> events=eventService.getFutureEvents(event.getActivity(),event.getPlace());
 
+		
+		
 		map.addAttribute("events", events);
 
 		return "viewevents";
@@ -157,4 +159,7 @@ public class EventController {
 
 		return "yourevents";
 	}
+	
+	
+	
 }

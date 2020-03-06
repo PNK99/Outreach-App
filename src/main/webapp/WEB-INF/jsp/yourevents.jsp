@@ -45,12 +45,16 @@
 			</span>
 
 		</div>
+
+		<c:if test="${events.size()==0}">
+			<h4>No Events Available</h4>
+		</c:if>
 		<c:forEach var="event" items="${events}">
 			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 				<div class="card" style="margin:1%">
 					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 						<c:out value="${event.activity}" />
-												<c:if test="${!event.volunteers.contains(userI)}">
+						<c:if test="${!event.volunteers.contains(userI)}">
 							<a class="btn btn-success"
 								href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
 						</c:if>

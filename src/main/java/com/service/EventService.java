@@ -22,22 +22,28 @@ public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
-	
-	public List<Event> getFutureEvents(){
-		
+
+	public List<Event> getFutureEvents(String activity, String place) {
+
 		List<Event> events = eventDao.findAll();
-		List<Event> futureEvents=new ArrayList<>();
-		
-		Date date=new Date();
-		
-		for(Event event:events) {
-			long diff=event.getDate().getTime()-date.getTime();
-			long diffDays =diff/(24*60*60*1000);
-			if(diffDays>0 && diffDays<15) {
-				futureEvents.add(event);
+
+		List<Event> futureEvents = new ArrayList<>();
+
+		Date date = new Date();
+
+		for (Event event : events) {
+			long diff = event.getDate().getTime() - date.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if (diffDays > 0 && diffDays < 15) {
+				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
+						futureEvents.add(event);
+					}
+				}
+
 			}
 		}
-		
+
 		return futureEvents;
 	}
 
@@ -78,19 +84,19 @@ public class EventService {
 		List<User> users = userDao.findAllVolunteers(userId);
 		return users;
 	}
-	
+
 	public void inviteVolunteer(int eventId, Integer ids[]) {
 		Event event = eventDao.findById(eventId).get();
-String a;
+		String a;
 
-		for(Integer id: ids) {
-			User user =  userDao.findById(id).get();
+		for (Integer id : ids) {
+			User user = userDao.findById(id).get();
 			event.getInvitedPeople().add(user);
 		}
 		eventDao.save(event);
 	}
-	
-	public Set<Event> getInvitedEvents(int userId){
+
+	public Set<Event> getInvitedEvents(int userId) {
 		User user = userDao.findById(userId).get();
 		Set<Event> events = user.getInvitedEvents();
 		return events;
