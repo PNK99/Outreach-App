@@ -158,5 +158,10 @@ public class Event {
 				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
 				+ ", voluteerPresent=" + voluteerPresent + "]";
 	}
+	
+	public Event() {
+
+	}
+	
 
 }

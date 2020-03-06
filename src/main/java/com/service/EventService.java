@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,57 +23,143 @@ public class EventService {
 	@Autowired
 	private EventDao eventDao;
 
-	public void subscribeEvent(int eventId, int userId) {
-		Optional<User> userOp = userDao.findById(userId);
-		Optional<Event> eventOp = eventDao.findById(eventId);
+	public List<Event> getFutureEvents(String activity, String place) {
 
-		User user = userOp.get();
-		Event event = eventOp.get();
+		List<Event> events = eventDao.findAll();
 
-		event.getVolunteers().add(user);
+		List<Event> futureEvents = new ArrayList<>();
 
-		eventDao.save(event);
+		Date date = new Date();
 
+		for (Event event : events) {
+			long diff = event.getDate().getTime() - date.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if (diffDays > 0 && diffDays < 15) {
+				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
+						futureEvents.add(event);
+					}
+				}
+
+			}
+		}
+
+		return futureEvents;
 	}
 
-	public Set<Event> getYourEvents(int userId) {
-		Optional<User> user = userDao.findById(userId);
-		Set<Event> listOfEvents = user.get().getEvents();
+	public UserDao getUserDao() {
+		return userDao;
+	}
 
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	public EventDao getEventDao() {
+		return eventDao;
+	}
+
+	public void setEventDao(EventDao eventDao) {
+		this.eventDao = eventDao;
+	}
+
+	public boolean subscribeEvent(Integer eventId, Integer userId) {
+
+		boolean result = true;
+
+		try {
+			Optional<User> userOp = userDao.findById(userId);
+			Optional<Event> eventOp = eventDao.findById(eventId);
+
+			User user = userOp.get();
+			Event event = eventOp.get();
+
+			event.getVolunteers().add(user);
+
+			eventDao.save(event);
+			
+		} catch (Exception e) {
+			result = false;
+		}
+
+		return result;
+	}
+
+	public Set<Event> getYourEvents(Integer userId) {
+
+		Set<Event> listOfEvents = null;
+
+		if (userId != null) {
+			Optional<User> user = userDao.findById(userId);
+			listOfEvents = user.get().getEvents();
+		}
+		
 		return listOfEvents;
 
 	}
 
-	public void unsubscribeEvent(int eventId, int userId) {
-		Optional<User> userOp = userDao.findById(userId);
-		Optional<Event> eventOp = eventDao.findById(eventId);
+	public boolean unsubscribeEvent(Integer eventId, Integer userId) {
 
-		User user = userOp.get();
-		Event event = eventOp.get();
+		boolean result = true;
 
-		event.getVolunteers().remove(user);
-		eventDao.save(event);
+		try {
+
+			Optional<User> userOp = userDao.findById(userId);
+			Optional<Event> eventOp = eventDao.findById(eventId);
+
+			User user = userOp.get();
+			Event event = eventOp.get();
+
+			event.getVolunteers().remove(user);
+			eventDao.save(event);
+		} catch (Exception e) {
+			result = false;
+		}
+
+		return result;
 
 	}
 
-	public List<User> getAllVolunteers() {
-		List<User> users = userDao.findAllVolunteers();
+	public List<User> getAllVolunteers(Integer userId) {
+		List<User> users = null;
+
+		if (userId != null)
+			users = userDao.findAllVolunteers(userId);
+
 		return users;
 	}
-	
-	public void inviteVolunteer(int eventId, Integer ids[]) {
-		Event event = eventDao.findById(eventId).get();
 
-		for(Integer id: ids) {
-			User user =  userDao.findById(id).get();
-			event.getInvitedPeople().add(user);
+	public boolean inviteVolunteer(int eventId, Integer ids[]) {
+
+		boolean result = true;
+
+		try {
+			Event event = eventDao.findById(eventId).get();
+
+			for (Integer id : ids) {
+				User user = userDao.findById(id).get();
+				event.getInvitedPeople().add(user);
+			}
+			eventDao.save(event);
+
+		} catch (Exception e) {
+			result = false;
 		}
-		eventDao.save(event);
+
+		return result;
+
 	}
-	
-	public Set<Event> getInvitedEvents(int userId){
-		User user = userDao.findById(userId).get();
-		Set<Event> events = user.getInvitedEvents();
+
+	public Set<Event> getInvitedEvents(Integer userId) {
+
+		Set<Event> events = null;
+
+		if (userId != null) {
+
+			User user = userDao.findById(userId).get();
+			events = user.getInvitedEvents();
+
+		}
 		return events;
 	}
 
