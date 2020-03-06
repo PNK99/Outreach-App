@@ -12,7 +12,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>View Events</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -29,14 +29,39 @@
 			max-width: 75%;
 			padding: 5%;
 		}
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+		
 	</style>
 </head>
 
 <body>
-	<header> <nav
-		class="navbar navbar-expand-md navbar-dark fixed-top"
+	<header> <nav class="navbar navbar-expand-md navbar-dark fixed-top"
 		style="background-color: #0033A0;"> <a class="navbar-brand"
-		href="index" style="color: #00B242">Outreach</a>
+		style="color: #00B242" href="/home">Outreach</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarCollapse" aria-controls="navbarCollapse"
 		aria-expanded="false" aria-label="Toggle navigation">
@@ -58,6 +83,16 @@
 		</form>
 	</div>
 	</nav> </header>
+	<br><br>
+<%-- 		<c:if test="${addCheck}">
+		
+		<div id='hideMe'><div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Registration done Successfully</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div></div>
+		</c:if> --%>
 	<div class="container container-width">
 
 		<div class="collapse multi-collapse" id="multiCollapseExample1" style="margin-bottom: 15px;">

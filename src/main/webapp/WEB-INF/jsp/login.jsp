@@ -46,7 +46,7 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${userRole}
 					</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
@@ -60,7 +60,7 @@
 		</form>
 	</div>
 	</nav> </header>
-
+<br><br>
 	<div class="container container-width">
 	
 		<h2 style="margin-bottom: 20px;">Log In</h2>
@@ -70,14 +70,14 @@
 			<div class="form-group">
 				<label for="firstName">User Id</label>
 				<form:input class="form-control" path="userId" id="userId"
-					name="userId"/>
+					name="userId" required="required"/>
 				<form:errors path="userId" />
 			</div>
 
 			<div class="form-group">
 				<label for="firstName">Password</label>
 				<form:input class="form-control" path="password" id="password"
-					name="password" type="password"/>
+					name="password" type="password" required="required"/>
 				<form:errors path="password" />
 			</div>
 

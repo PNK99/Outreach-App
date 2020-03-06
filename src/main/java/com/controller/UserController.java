@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,9 +55,10 @@ public class UserController {
 			session.setAttribute("user", user);
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
-
-			/* modelView = new ModelAndView("home"); */
-
+		}
+		
+		else {
+			return "login";
 		}
 		
 
@@ -65,7 +67,7 @@ public class UserController {
 	}
 
 	@PostMapping("/valid")
-	public String signUp(@Valid @ModelAttribute("user") User u, BindingResult br) {
+	public String signUp(@Valid @ModelAttribute("user") User u, BindingResult br, ModelMap map) {
 		if (br.hasErrors()) {
 
 			return "registration";
@@ -81,7 +83,7 @@ public class UserController {
 		}
 
 		userService.registerUser(u);
-
+		map.addAttribute("addCheck", true);
 		return "index";
 	}
 

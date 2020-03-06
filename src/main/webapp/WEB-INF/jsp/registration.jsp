@@ -30,8 +30,6 @@
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
 <style>
-
-
 .container-width {
 	max-width: 75%;
 	padding: 5%;
@@ -42,32 +40,35 @@
 </head>
 <body>
 
-<header> <nav
-		class="navbar navbar-expand-md navbar-dark fixed-top"
-		style="background-color: #0033A0;"> <a class="navbar-brand"
-		href="index" style="color: #00B242">Outreach</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarCollapse" aria-controls="navbarCollapse"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarCollapse">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">${userRole}
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top"
+			style="background-color: #0033A0;">
+			<a class="navbar-brand" style="color: #00B242" href="/">Outreach</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarCollapse" aria-controls="navbarCollapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">${userRole}
 					</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
-			</li>
+					<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
+					</li>
 
-		</ul>
-		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
-			<button class="btn btn-outline-light" type="submit">Logout</button>
-		</form>
-	</div>
-	</nav> </header>
-
+				</ul>
+				<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
+					<!-- style="margin-right:200px" -->
+					<input class="form-control mr-sm-2" type="text"
+						placeholder="Search">
+					<button class="btn btn-outline-light" type="submit">Logout</button>
+				</form>
+			</div>
+		</nav>
+	</header>
+	<br>
+	<br>
 	<div class="container container-width">
 
 		<h2 style="margin-bottom: 20px;">Sign Up</h2>
@@ -174,14 +175,13 @@
 
 		</form:form>
 	</div>
-			<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
-			style="background-color: #0033A0;">
-			<footer>
-				<a href="#"
-					style="float: right; margin-left: 750px; color: #00B242;">Back
-					to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
-				&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
-			</footer>
-		</nav>
+	<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+		style="background-color: #0033A0;">
+		<footer>
+			<a href="#" style="float: right; margin-left: 750px; color: #00B242;">Back
+				to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
+			&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
+		</footer>
+	</nav>
 </body>
 </html>

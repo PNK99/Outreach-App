@@ -1,9 +1,9 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login Home Page</title>
+<title>Website HomePage</title>
 <style>
 
 /* div#header{
@@ -88,6 +88,34 @@ body {
 		margin-top: 7rem;
 	}
 }
+
+#hideMe {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+
+
 </style>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -119,7 +147,7 @@ body {
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top"
 			style="background-color: #0033A0;">
 
-			<a class="navbar-brand" href="index" style="color: #00B242">Outreach</a>
+			<a class="navbar-brand"  style="color: #00B242" href="/">Outreach</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarCollapse" aria-controls="navbarCollapse"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -143,7 +171,16 @@ body {
 			</div>
 		</nav>
 	</header>
-
+	<br><br>
+		<c:if test="${addCheck}">
+		
+		<div id='hideMe'><div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Registration done Successfully</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div></div>
+		</c:if>
 	<main role="main">
 		<div class="container marketing">
 			<br>
@@ -204,6 +241,8 @@ body {
 
 			</div>
 		</div>
+		
+
 		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
 			style="background-color: #0033A0;">
 			<footer>
