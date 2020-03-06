@@ -51,20 +51,22 @@ public class EventController {
 
 		eventDao.save(event);
 
-		return "redirect:home";
+		return "redirect:viewEvents";
 	}
 
 	@GetMapping("/viewEvents")
-	public String viewEvents(Model map,HttpSession session) {
+	public String viewEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
 
 		User user = (User)session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI",userD);
-	
+	System.out.println(event.getActivity()+" "+event.getPlace());
 		
-		List<Event> events=eventService.getFutureEvents();
+		List<Event> events=eventService.getFutureEvents(event.getActivity(),event.getPlace());
 
+		
+		
 		map.addAttribute("events", events);
 
 		return "viewevents";
@@ -101,8 +103,13 @@ public class EventController {
 	}
 
 	@GetMapping("/yourEvents")
-	public String yourEvents(Integer userId,Model map) {
+	public String yourEvents(Integer userId,Model map,HttpSession session) {
+		
+		User user = (User)session.getAttribute("user");
+		User userD = userDao.findById(user.getId()).get();
 
+		map.addAttribute("userI",userD);
+	
 		Set<Event> events = eventService.getYourEvents(userId);
 		map.addAttribute("events", events);
 		map.addAttribute("title", "Your Event List");
@@ -145,11 +152,14 @@ public class EventController {
 		User user = (User)session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 		
-		map.addAttribute("user",userD);
+		map.addAttribute("userI",userD);
 		map.addAttribute("title", "Your Invites");
 		Set<Event> events = eventService.getInvitedEvents(user.getId());
 		map.addAttribute("events", events);
 
 		return "yourevents";
 	}
+	
+	
+	
 }

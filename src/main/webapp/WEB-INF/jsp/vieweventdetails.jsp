@@ -37,38 +37,46 @@
     </nav>
 
     <div class="container container-width">
-        <h2>
-            <c:out value="${event.activity}" />
-        </h2>
-        Description
-        <c:out value="${event.description}" /><br />
-        Date
-        <fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /><br />
-        Place
-        <c:out value="${event.place}" /><br />
-        Do's and Don't
-        <c:out value="${event.dosAndDonts}" /><br />
+        <div class="card" style="margin:1%">
+            <h2 class="card-header">
+                <c:out value="${event.activity}" />
+            </h2>
 
-        Point of contact
-        <c:out value="${event.contactNumber}" /><br />
+            <div class="card-body" style="padding: 5%;">
+                Description :
+                <c:out value="${event.description}" /><br />
+                Date :
+                <fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /><br />
+                Place :
+                <c:out value="${event.place}" /><br />
+                Do's and Don't :
+                <c:out value="${event.dosAndDonts}" /><br />
 
-        No of volunteers registered
-        <c:out value="${event.volunteers.size()}" /><br />
+                Point of contact :
+                <c:out value="${event.contactNumber}" /><br />
 
+                No of volunteers registered :
+                <c:out value="${event.volunteers.size()}" /><br /><br>
 
-        <c:if test="${!event.volunteers.contains(userI)}">
-            <a class="btn btn-success" href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
-        </c:if>
+                <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 
-        <c:if test="${event.volunteers.contains(userI)}">
-            <div class="d-flex justify-content-between">
+                    <c:if test="${!event.volunteers.contains(userI)}">
+                        <span> <a class="btn btn-success"
+                                href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
+                    </c:if>
 
-                <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-                    Subscribe</a>
-                <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
-                    Invite others</a>
+                    <c:if test="${event.volunteers.contains(userI)}">
+                        <div class="d-flex justify-content-between">
+
+                            <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+                                Subscribe</a>
+                            <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
+                                Invite others</a>
+                        </div>
+                    </c:if>
+                </c:if>
             </div>
-        </c:if>
+        </div>
     </div>
 
 

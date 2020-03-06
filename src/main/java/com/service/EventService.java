@@ -22,23 +22,28 @@ public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
-	
-	public List<Event> getFutureEvents(){
-		
+
+	public List<Event> getFutureEvents(String activity, String place) {
+
 		List<Event> events = eventDao.findAll();
-		List<Event> futureEvents=new ArrayList<>();
-		
-		futureEvents.add(events.get(0));
-		Date date=new Date();
-		
-		for(Event event:events) {
-			long diff=event.getDate().getTime()-date.getTime();
-			long diffDays =diff/(24*60*60*1000);
-			if(diffDays>0 && diffDays<15) {
-				futureEvents.add(event);
+
+		List<Event> futureEvents = new ArrayList<>();
+
+		Date date = new Date();
+
+		for (Event event : events) {
+			long diff = event.getDate().getTime() - date.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if (diffDays > 0 && diffDays < 15) {
+				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
+						futureEvents.add(event);
+					}
+				}
+
 			}
 		}
-		
+
 		return futureEvents;
 	}
 

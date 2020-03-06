@@ -45,13 +45,24 @@
 			</span>
 
 		</div>
+
+		<c:if test="${events.size()==0}">
+			<h4>No Events Available</h4>
+		</c:if>
 		<c:forEach var="event" items="${events}">
 			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 				<div class="card" style="margin:1%">
 					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
 						<c:out value="${event.activity}" />
-						<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-							Subscribe</a>
+						<c:if test="${!event.volunteers.contains(userI)}">
+							<a class="btn btn-success"
+								href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>
+						</c:if>
+
+						<c:if test="${event.volunteers.contains(userI)}">
+							<a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+								Subscribe</a>
+						</c:if>
 					</div>
 					<div class="card-body">
 						<div style="display: flex; justify-content: space-between;">
