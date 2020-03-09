@@ -171,7 +171,7 @@ body {
 			</div>
 		</nav>
 	</header>
-	<br><br>
+	
 		<c:if test="${addCheck}">
 		
 		<div id='hideMe'><div class="alert alert-success alert-dismissible fade show" role="alert">

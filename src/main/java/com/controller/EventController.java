@@ -49,7 +49,7 @@ public class EventController {
 
 		eventDao.save(event);
 		map.addAttribute("eventAddCheck", true);
-		return "home";
+		return "redirect:home?eventAddCheck=true";
 	}
 
 	@GetMapping("/viewEvents")

@@ -220,7 +220,7 @@ body {
 </div>
 
 	<c:choose>
-		<c:when test='${userRole.equals("Admin")}'>
+		<c:when test='${userRole.equalsIgnoreCase("Admin")}'>
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">
 				<div
@@ -253,7 +253,7 @@ body {
 				</div>
 			</div>
 		</c:when>
-		<c:when test='${!userRole.equals("Admin")}'>
+		<c:when test='${!userRole.equalsIgnoreCase("Admin")}'>
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">
 				<div
@@ -261,7 +261,7 @@ body {
 					style="background-color: #0033A0;">
 					<div class="my-3 p-3">
 						<h2 class="display-5">Upcoming Events</h2>
-						<p class="lead">Click to see the list of Upcoming Events!</p>
+						<p class="lead">View list of Upcoming Events!</p>
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">

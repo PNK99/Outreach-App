@@ -22,11 +22,13 @@ public class MyController {
 	}
 
 	@GetMapping("/home")
-	public String home(Model map) {
-		List<Event> events=eventService.getFutureEvents("","");
+	public String home(Model map, Boolean eventAddCheck) {
 		
+		List<Event> events=eventService.getFutureEvents("","");
+		map.addAttribute("eventAddCheck",eventAddCheck);
 		map.addAttribute("events", events.subList(0, 5));
 		return "home";
+		
 	}
 
 }
