@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,7 +35,8 @@ public class EventService {
 		for (Event event : events) {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
-			if (diffDays > 0 && diffDays < 15) {
+			System.out.println(event.getDate()+""+diffDays);
+			if (diffDays >= -1 && diffDays < 15) {
 				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
@@ -77,7 +79,7 @@ public class EventService {
 			event.getVolunteers().add(user);
 
 			eventDao.save(event);
-			
+
 		} catch (Exception e) {
 			result = false;
 		}
@@ -93,7 +95,7 @@ public class EventService {
 			Optional<User> user = userDao.findById(userId);
 			listOfEvents = user.get().getEvents();
 		}
-		
+
 		return listOfEvents;
 
 	}
@@ -161,6 +163,73 @@ public class EventService {
 
 		}
 		return events;
+	}
+
+	public Set<User> getSubscribedVolunteers(Integer eventId, Integer userId, String firstName) {
+
+		Set<User> users = null;
+
+		Set<User> filteredUser = new HashSet<>();
+
+		if (eventId != null) {
+
+			Event event = eventDao.findById(eventId).get();
+			users = event.getVolunteers();
+		}
+
+		if (userId != null || firstName != null) {
+			for (User user : users) {
+
+				if (user.getUserId() == userId && user.getFirstName().contains(firstName)) {
+					filteredUser.add(user);
+					break;
+				}
+				else if (user.getFirstName().contains(firstName) && userId == null) {
+					filteredUser.add(user);
+				}
+
+			}
+
+		}  else
+			filteredUser = users;
+
+		return filteredUser;
+	}
+
+	public boolean setVolunteerAttendance(Integer eventId, Integer userIds[]) {
+		boolean result = true;
+		try {
+			Event event = eventDao.findById(eventId).get();
+			event.getVoluteerPresent().clear();
+			if (userIds == null)
+				eventDao.save(event);
+
+			for (Integer id : userIds) {
+
+				User user = userDao.findById(id).get();
+				event.getVoluteerPresent().add(user);
+			}
+			eventDao.save(event);
+
+		} catch (Exception e) {
+			result = false;
+		}
+
+		return result;
+	}
+	
+	
+	public boolean isToday(Date eventDate) {
+		
+		Date date = new Date();
+
+			long diff = eventDate.getTime() - date.getTime();
+			long diffHours = diff / ( 60 * 60 * 1000);
+			if (diffHours > 0 && diffHours < 12) {
+				return true;
+			}
+			return false;
+		
 	}
 
 }

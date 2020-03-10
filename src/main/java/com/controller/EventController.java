@@ -62,7 +62,7 @@ public class EventController {
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI",userD);
-	System.out.println(event.getActivity()+" "+event.getPlace());
+	//System.out.println(event.getActivity()+" "+event.getPlace());
 		
 		List<Event> events=eventService.getFutureEvents(event.getActivity(),event.getPlace());
 
@@ -125,6 +125,11 @@ public class EventController {
 		map.addAttribute("userI",userD);
 		Event event = eventDao.findById(eventId).get();
 		map.addAttribute("event", event);
+		
+		boolean isToday=eventService.isToday(event.getDate());
+		
+		map.addAttribute("today",isToday);
+		
 		return "vieweventdetails";
 	}
 	
@@ -162,5 +167,25 @@ public class EventController {
 	}
 	
 	
+	
+	@GetMapping("/volunteerAttendance")
+	public String volunteerAttendance(Integer eventId, Model map,@ModelAttribute("userModel") User user) {
+		
+		Set<User> users=eventService.getSubscribedVolunteers(eventId,user.getUserId(),user.getFirstName());
+		Event event = eventDao.findById(eventId).get();
+		
+		map.addAttribute("event",event);
+		map.addAttribute("users",users);
+		
+		return "attendance";
+	}
+	
+	@PostMapping("/attendedVolunteers")
+	public String attendedVolunteers(int eventId,Integer[] present) {
+		
+		eventService.setVolunteerAttendance(eventId, present);
+	
+		return "redirect:viewEvents";
+	}
 	
 }
