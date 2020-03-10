@@ -194,6 +194,22 @@ body {
 			</div>
 		</div>
 	</c:if>
+	
+	
+	
+	<c:if test="${donation}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>Donation amount added Successfully</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
 
 	<c:if test="${suggestEventAddCheck}">
 

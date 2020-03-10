@@ -283,5 +283,22 @@ public class EventService {
 			return false;
 		
 	}
+	
+	
+	
+	public boolean Donation(Integer id,Double amount) {
+		
+		try {
+		Event s=eventDao.findById(id).get();
+		Double a=s.getDonationAmount();;
+		
+		s.setDonationAmount(amount+a);
+		eventDao.save(s);
+		System.out.println(s);
+		return true;}
+		catch(Exception e) {
+			return false;
+		}
+	}
 
 }

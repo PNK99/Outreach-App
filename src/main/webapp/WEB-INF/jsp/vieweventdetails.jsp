@@ -83,7 +83,8 @@
                 
                     No of volunteers registered :
                 <c:out value="${event.volunteers.size()}" /><br />
-                
+                 Donation amount:
+                   <c:out value="${event.donationAmount}" /><br />
              
                 </c:if>
                 
@@ -95,15 +96,17 @@
                 <c:out value="${event.noOfVolunteers}" /><br />
                   Estimated Cost:
                 <c:out value="${event.costEstimate}" /><br />
-                
+                  
                 </c:if>
                 <br>
 
                 <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
-
+                        <span> <a class="btn btn-success"
+                                href="donation?eventId=${event.id}&userId=${user.id}">Donate</a></span>
                     <c:if test="${!event.volunteers.contains(userI)}">
                         <span> <a class="btn btn-success"
                                 href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
+                         
                     </c:if>
 
                     <c:if test="${event.volunteers.contains(userI)}">

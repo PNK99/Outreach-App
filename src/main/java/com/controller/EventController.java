@@ -232,4 +232,38 @@ public class EventController {
 		return "redirect:viewEvents";
 	}
 	
+	
+	
+	
+	@GetMapping("/donation")
+	public String donation(Integer eventId,Integer userId,Model m) {
+		
+		
+		m.addAttribute("eventId", eventId);
+		m.addAttribute("userId", userId);
+		
+		
+		
+		
+		return "Donation";
+	}
+	
+	
+	@PostMapping("/donateupdate")
+	public String donateupdate(Double amount,Integer eventId,Integer userId,Model m) {
+		
+		boolean d=eventService.Donation(eventId, amount);
+		
+		m.addAttribute("donation", true);
+			return "home";
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }
