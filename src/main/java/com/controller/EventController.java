@@ -27,7 +27,6 @@ public class EventController {
 
 	@Autowired
 	private EventDao eventDao;
-	
 
 	@Autowired
 	private UserDao userDao;
@@ -39,8 +38,7 @@ public class EventController {
 	public String createEvent(@ModelAttribute("event") Event event) {
 		return "createevent";
 	}
-	
-	
+
 	@GetMapping("/suggestEvent")
 	public String suggestEvent(@ModelAttribute("event") Event event) {
 		return "eventsuggestion";
@@ -52,69 +50,56 @@ public class EventController {
 		if (result.hasErrors()) {
 			return "createevent";
 		}
-		
-		
+
 		event.setApprovalStatus(true);
 		eventDao.save(event);
 		map.addAttribute("eventAddCheck", true);
 		return "redirect:home?eventAddCheck=true";
 	}
-	
+
 	@PostMapping("/addSuggestEvent")
-	public String addSuggestEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map) {
+	public String addSuggestEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map, Integer userId) {
 
 		if (result.hasErrors()) {
 			return "eventsuggestion";
 		}
-
-		eventService.addSuggestEvent(event);
+		System.out.println(userId);
+		eventService.addSuggestEvent(event,userId);
 		map.addAttribute("suggestEventAddCheck", true);
 		return "redirect:home?suggestEventAddCheck=true";
 	}
 
-	
 	@GetMapping("/viewEvents")
-	public String viewEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
-		
-		
-		
-		
-		User user = (User)session.getAttribute("user");
+	public String viewEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event) {
+
+		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
-		map.addAttribute("userI",userD);
-	//System.out.println(event.getActivity()+" "+event.getPlace());
-		
-		List<Event> events=eventService.getFutureEvents(event.getActivity(),event.getPlace());
+		map.addAttribute("userI", userD);
+		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		
-		
+		List<Event> events = eventService.getFutureEvents(event.getActivity(), event.getPlace());
+
 		map.addAttribute("events", events);
 
 		return "viewevents";
 	}
-	
+
 	@GetMapping("/viewSuggestedEvents")
-	public String viewSuggestedEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
-		
-		
-		
-		
-		User user = (User)session.getAttribute("user");
+	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event) {
+
+		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
-		map.addAttribute("userI",userD);
-	//System.out.println(event.getActivity()+" "+event.getPlace());
-		
-		List<Event> events=eventService.viewSuggestedEvents(event.getActivity(),event.getPlace());
+		map.addAttribute("userI", userD);
+		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		
-		
+		List<Event> events = eventService.viewSuggestedEvents(event.getActivity(), event.getPlace());
+
 		map.addAttribute("events", events);
 
 		return "viewsuggestedevent";
 	}
-
 
 	@ModelAttribute("activityList")
 	public List<String> activityList() {
@@ -127,19 +112,19 @@ public class EventController {
 	}
 
 	@GetMapping("/subscribe")
-	public String joinEvent(Integer userId,Integer eventId, HttpServletRequest request) {
+	public String joinEvent(Integer userId, Integer eventId, HttpServletRequest request) {
 
-		eventService.subscribeEvent(eventId,userId);
-		
+		eventService.subscribeEvent(eventId, userId);
+
 		String referer = request.getHeader("Referer");
 
 		return "redirect:" + referer;
 	}
 
 	@GetMapping("/unsubscribe")
-	public String cancelEvent(Integer userId,Integer eventId, HttpServletRequest request) {
+	public String cancelEvent(Integer userId, Integer eventId, HttpServletRequest request) {
 
-		eventService.unsubscribeEvent(eventId,userId);
+		eventService.unsubscribeEvent(eventId, userId);
 
 		String referer = request.getHeader("Referer");
 
@@ -147,89 +132,108 @@ public class EventController {
 	}
 
 	@GetMapping("/yourEvents")
-	public String yourEvents(Integer userId,Model map,HttpSession session) {
-		
-		User user = (User)session.getAttribute("user");
+	public String yourEvents(Integer userId, Model map, HttpSession session) {
+
+		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
-		map.addAttribute("userI",userD);
-	
+		map.addAttribute("userI", userD);
+
 		Set<Event> events = eventService.getYourEvents(userId);
 		map.addAttribute("events", events);
 		map.addAttribute("title", "Your Event List");
 		return "yourevents";
 	}
-	
+
 	@GetMapping("/viewEventDetails")
-	public String viewEventDetails(Integer eventId,Integer userId, Model map) {
-		
+	public String viewEventDetails(Integer eventId, Integer userId, Model map) {
+
 		User userD = userDao.findById(userId).get();
-		
-		map.addAttribute("userI",userD);
+
+		map.addAttribute("userI", userD);
 		Event event = eventDao.findById(eventId).get();
 		map.addAttribute("event", event);
-		
-		boolean isToday=eventService.isToday(event.getDate());
-		
-		map.addAttribute("today",isToday);
+
+		boolean isToday = eventService.isToday(event.getDate());
+
+		map.addAttribute("today", isToday);
 		System.out.println(isToday);
-		
+
 		return "vieweventdetails";
 	}
-	
+
 	@GetMapping("/inviteVolunteerList")
 	public String inviteVolunteerList(Integer eventId, Integer userId, Model map) {
 		List<User> users = eventService.getAllVolunteers(userId);
 
-		map.addAttribute("userList",users);
-		map.addAttribute("eventId",eventId);
+		map.addAttribute("userList", users);
+		map.addAttribute("eventId", eventId);
 		return "invitevolunteerlist";
 	}
-	
+
 	@PostMapping("/inviteVolunteers")
-	public String inviteVolunteers(Integer eventId,Integer[] invite) {
+	public String inviteVolunteers(Integer eventId, Integer[] invite) {
 		try {
 			eventService.inviteVolunteer(eventId, invite);
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		}
-		
+
 		return "redirect:viewEvents";
 	}
-	
+
 	@GetMapping("/invitedEvents")
-	public String invitedEvents(HttpSession session,Model map) {
-		User user = (User)session.getAttribute("user");
+	public String invitedEvents(HttpSession session, Model map) {
+		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
-		
-		map.addAttribute("userI",userD);
+
+		map.addAttribute("userI", userD);
 		map.addAttribute("title", "Your Invites");
 		Set<Event> events = eventService.getInvitedEvents(user.getId());
 		map.addAttribute("events", events);
 
 		return "yourevents";
 	}
-	
-	
-	
+
 	@GetMapping("/volunteerAttendance")
-	public String volunteerAttendance(Integer eventId, Model map,@ModelAttribute("userModel") User user) {
-		
-		Set<User> users=eventService.getSubscribedVolunteers(eventId,user.getUserId(),user.getFirstName());
+	public String volunteerAttendance(Integer eventId, Model map, @ModelAttribute("userModel") User user) {
+
+		Set<User> users = eventService.getSubscribedVolunteers(eventId, user.getUserId(), user.getFirstName());
 		Event event = eventDao.findById(eventId).get();
-		
-		map.addAttribute("event",event);
-		map.addAttribute("users",users);
-		
+
+		map.addAttribute("event", event);
+		map.addAttribute("users", users);
+
 		return "attendance";
 	}
-	
+
 	@PostMapping("/attendedVolunteers")
-	public String attendedVolunteers(int eventId,Integer[] present) {
-		
+	public String attendedVolunteers(int eventId, Integer[] present) {
+
 		eventService.setVolunteerAttendance(eventId, present);
-	
+
 		return "redirect:viewEvents";
 	}
 	
+	@GetMapping("/eventApproved")
+	public String eventApproved(HttpServletRequest request, Integer eventId) {
+		
+		
+		eventService.eventApproved(eventId);
+		
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
+	}
+	@GetMapping("/eventRejected")
+	public String eventRejected(HttpServletRequest request, Integer eventId) {
+		
+		
+		eventService.eventRejected(eventId);
+		
+		String referer = request.getHeader("Referer");
+
+		return "redirect:" + referer;
+	}
+
 }

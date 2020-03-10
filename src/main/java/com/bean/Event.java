@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 
@@ -25,23 +26,38 @@ public class Event {
 	@NotBlank(message = "Enter the venue place")
 	private String place;
 
+	
 	private String activity;// Activity class
 
-	private boolean approvalStatus;
+	private Boolean approvalStatus;
 
 	private String benificiary;
 
 	private Double costEstimate;
 
 	private Integer noOfVolunteers;
+	
 
-	public boolean isApprovalStatus() {
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User suggestedVolunteer;
+
+	public Boolean getApprovalStatus() {
 		return approvalStatus;
 	}
 
-	public void setApprovalStatus(boolean approvalStatus) {
+	public void setApprovalStatus(Boolean approvalStatus) {
 		this.approvalStatus = approvalStatus;
 	}
+
+	public User getSuggestedVolunteer() {
+		return suggestedVolunteer;
+	}
+
+	public void setSuggestedVolunteer(User suggestedVolunteer) {
+		this.suggestedVolunteer = suggestedVolunteer;
+	}
+
 
 	public String getBenificiary() {
 		return benificiary;

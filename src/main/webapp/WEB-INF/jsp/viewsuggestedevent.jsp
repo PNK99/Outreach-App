@@ -161,7 +161,7 @@ keyframes cssAnimation {to { width:0;
 						<c:out value="${event.activity}" />
 					</a>
 					<c:if test='${userRole.equalsIgnoreCase("Admin")}'>
-						<c:if test="${!event.volunteers.contains(userI)}">
+						<c:if test="${!event.approvalStatus}">
 							<a class="btn btn-success" data-toggle="modal"
 								data-target="#exampleModalScrollable" style="color:#FFFFFF">Approve</a>
 							<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
@@ -182,7 +182,7 @@ keyframes cssAnimation {to { width:0;
 											<button type="button" class="btn btn-danger"
 												data-dismiss="modal">Reject</button>
 											<a class="btn btn-success"
-												href="viewEventDetails?eventId=${event.id}&userId=${user.id}" >Approve</a>
+												href="eventApproved?eventId=${event.id}">Approve</a>
 										</div>
 									</div>
 								</div>
@@ -190,9 +190,9 @@ keyframes cssAnimation {to { width:0;
 
 						</c:if>
 
-						<c:if test="${event.volunteers.contains(userI)}">
+						<c:if test="${event.approvalStatus}">
 							<a class="btn btn-danger"
-								href="unsubscribe?eventId=${event.id}&userId=${user.id}">Reject</a>
+								href="eventRejected?eventId=${event.id}">Reject</a>
 						</c:if>
 					</c:if>
 				</div>
