@@ -158,7 +158,7 @@ keyframes cssAnimation {to { width:0;
 				<div class="card-header d-flex justify-content-between"
 					style="font-size: 20px; font-weight: bold;">
 					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
-						<c:out value="${event.activity}" />
+						<c:out value="${event.activityType.name}" />
 					</a>
 					<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 						<c:if test="${!event.volunteers.contains(userI)}">

@@ -62,7 +62,7 @@ public class EventService {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if (diffDays >= 0 && !event.getApprovalStatus()) {
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -89,7 +89,7 @@ public class EventService {
 
 			if (diffDays >= 0 && diffDays < 15 && event.getApprovalStatus()) {
 
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}

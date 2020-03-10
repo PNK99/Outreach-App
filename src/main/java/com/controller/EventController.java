@@ -1,7 +1,8 @@
 package com.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.bean.Activity;
 import com.bean.Event;
 import com.bean.User;
+import com.dao.ActivityDao;
 import com.dao.EventDao;
 import com.dao.UserDao;
 import com.service.EventService;
@@ -33,6 +36,9 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private ActivityDao activityDao;
 
 	@GetMapping("/createEvent")
 	public String createEvent(@ModelAttribute("event") Event event) {
@@ -47,11 +53,19 @@ public class EventController {
 	@PostMapping("/createdEvent")
 	public String createdEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map) {
 
+
+		System.out.println("Activity:"+event.getActivityType());
+		
+		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			return "createevent";
 		}
 
 		event.setApprovalStatus(true);
+//		Activity activityObj = activityDao.findById(activityId).get();
+		
+//		event.setActivity(activityObj);
+		
 		eventDao.save(event);
 		map.addAttribute("eventAddCheck", true);
 		return "redirect:home?eventAddCheck=true";
@@ -78,7 +92,7 @@ public class EventController {
 		map.addAttribute("userI", userD);
 		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		List<Event> events = eventService.getFutureEvents(event.getActivity(), event.getPlace());
+		List<Event> events = eventService.getFutureEvents(event.getActivityType().getName(), event.getPlace());
 
 		map.addAttribute("events", events);
 
@@ -94,7 +108,7 @@ public class EventController {
 		map.addAttribute("userI", userD);
 		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		List<Event> events = eventService.viewSuggestedEvents(event.getActivity(), event.getPlace());
+		List<Event> events = eventService.viewSuggestedEvents(event.getActivityType().getName(), event.getPlace());
 
 		map.addAttribute("events", events);
 
@@ -102,13 +116,15 @@ public class EventController {
 	}
 
 	@ModelAttribute("activityList")
-	public List<String> activityList() {
-
-		List<String> list = new ArrayList<>();
-		list.add("Weaving");
-		list.add("Dancing");
-
-		return list;
+	public Map<Integer, String> user() {
+		List<Activity> activities = activityDao.findAll();
+		Map<Integer,String> activityMap = new HashMap<>();
+		
+		for(Activity activity: activities) {
+			activityMap.put(activity.getId(),activity.getName());
+		}
+		
+		return activityMap;
 	}
 
 	@GetMapping("/subscribe")
