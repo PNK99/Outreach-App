@@ -1,7 +1,5 @@
 package com.bean;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,29 +22,69 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotBlank(message="Enter the venue place")
+	@NotBlank(message = "Enter the venue place")
 	private String place;
 
 	private String activity;// Activity class
-	
-	@FutureOrPresent(message="Enter Future Date")
+
+	private boolean approvalStatus;
+
+	private String benificiary;
+
+	private Double costEstimate;
+
+	private Integer noOfVolunteers;
+
+	public boolean isApprovalStatus() {
+		return approvalStatus;
+	}
+
+	public void setApprovalStatus(boolean approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
+	public String getBenificiary() {
+		return benificiary;
+	}
+
+	public void setBenificiary(String benificiary) {
+		this.benificiary = benificiary;
+	}
+
+	public Double getCostEstimate() {
+		return costEstimate;
+	}
+
+	public void setCostEstimate(Double costEstimate) {
+		this.costEstimate = costEstimate;
+	}
+
+	public Integer getNoOfVolunteers() {
+		return noOfVolunteers;
+	}
+
+	public void setNoOfVolunteers(Integer noOfVolunteers) {
+		this.noOfVolunteers = noOfVolunteers;
+	}
+
+	@FutureOrPresent(message = "Enter Future Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
-	@NotBlank(message="Enter the host's contact number")
+	@NotBlank(message = "Enter the host's contact number")
 	private String contactNumber;
 
-	@NotBlank(message="Enter  description about the event")
+	@NotBlank(message = "Enter  description about the event")
 	private String description;
 
-	@NotBlank(message="Enter Do's and Don't for the event")
+	@NotBlank(message = "Enter Do's and Don't for the event")
 	private String dosAndDonts;
 
 	@ManyToMany
 	@JoinTable(name = "event_volunteers", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 	private Set<User> volunteers = new HashSet<>();// Volunteer class
-	
+
 	@ManyToMany
 	@JoinTable(name = "event_invite", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
@@ -93,15 +131,14 @@ public class Event {
 	}
 
 	public void setDate(Date date) {
-		
+
 		/*
 		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); try { this.date
 		 * = format.parse(date); } catch (ParseException e) { // TODO Auto-generated
 		 * e.printStackTrace(); }
 		 */
-		 
-		
-		this.date=date;
+
+		this.date = date;
 	}
 
 	public String getContactNumber() {
@@ -158,10 +195,9 @@ public class Event {
 				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
 				+ ", voluteerPresent=" + voluteerPresent + "]";
 	}
-	
+
 	public Event() {
 
 	}
-	
 
 }

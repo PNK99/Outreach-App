@@ -91,10 +91,11 @@ body {
 	background-color: #0033A0 !important;
 	border-color: #0033A0 !important;
 }
+
 #hideMe {
     -moz-animation: cssAnimation 0s ease-in 5s forwards;
     /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 3s forwards;
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
     /* Safari and Chrome */
     -o-animation: cssAnimation 0s ease-in 5s forwards;
     /* Opera */
@@ -116,7 +117,6 @@ body {
         visibility:hidden;
     }
 }
-
 </style>
 
 <meta name="viewport"
@@ -157,7 +157,7 @@ body {
 	<header> <nav
 		class="navbar navbar-expand-md navbar-dark fixed-top"
 		style="background-color: #0033A0;"> <a class="navbar-brand"
-		 style="color: #00B242" href="/home">Outreach</a>
+		style="color: #00B242" href="/home">Outreach</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarCollapse" aria-controls="navbarCollapse"
 		aria-expanded="false" aria-label="Toggle navigation">
@@ -179,36 +179,59 @@ body {
 		</form>
 	</div>
 	</nav> </header>
-	<br><br>
-		<c:if test="${eventAddCheck}">
-		
-		<div id='hideMe'><div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Event added Successfully</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div></div>
-		</c:if>
-<div class="container horizontal-scrollable d-flex flex-row">
-<c:forEach var="event" items="${events}">
-	
-			<div class="card" style="margin:1%">
-				<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
+	<br>
+	<br>
+	<c:if test="${eventAddCheck}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>Event added Successfully</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
+
+	<c:if test="${suggestEventAddCheck}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>Thank you for your suggestion. Your suggestion will
+					be viewed and examined by the Admin.</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
+	<div class="container horizontal-scrollable d-flex flex-row">
+		<c:forEach var="event" items="${events}">
+
+			<div class="card" style="margin: 1%">
+				<div class="card-header d-flex justify-content-between"
+					style="font-size: 20px; font-weight: bold;">
 					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 						<c:out value="${event.activity}" />
 					</a>
-									</div>
+				</div>
 				<div class="card-body">
 					<div class="d-flex flex-column">
-						<div><span style="font-weight: bold;">
-								Venue:<c:out value="${event.place}" />
+						<div>
+							<span style="font-weight: bold;"> Venue:<c:out
+									value="${event.place}" />
 							</span>
 						</div>
 						<div>
-							<span style="font-weight: bold;">Date: 
-							<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /></span>
+							<span style="font-weight: bold;">Date: <fmt:formatDate
+									value="${event.date}" pattern="dd MMM yyyy EEE" /></span>
 						</div>
-						<div><span style="font-weight: bold;">No of Volunteers: </span>
+						<div>
+							<span style="font-weight: bold;">No of Volunteers: </span>
 							<c:out value="${event.volunteers.size()}" />
 						</div>
 					</div>
@@ -217,7 +240,7 @@ body {
 
 		</c:forEach>
 
-</div>
+	</div>
 
 	<c:choose>
 		<c:when test='${userRole.equalsIgnoreCase("Admin")}'>
@@ -252,6 +275,27 @@ body {
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #00B242;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">View Suggestions</h2>
+						<p class="lead">View Suggested Events</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="viewSuggestedEvents"
+							style="background-color: 00B242; margin-top: 130px">Suggested
+							Events</a>
+					</div>
+				</div>
+			</div>
+			
 		</c:when>
 		<c:when test='${!userRole.equalsIgnoreCase("Admin")}'>
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
@@ -266,7 +310,8 @@ body {
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-primary" href="viewEvents"
-							style="background-color: 00B242; margin-top: 130px">View Events</a>
+							style="background-color: 00B242; margin-top: 130px">View
+							Events</a>
 					</div>
 				</div>
 				<div
@@ -279,10 +324,33 @@ body {
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="invitedEvents"
-							style="background-color: 00B242; margin-top: 130px">Invited Events</a>
+							style="background-color: 00B242; margin-top: 130px">Invited
+							Events</a>
 					</div>
 				</div>
 			</div>
+
+
+			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #00B242;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Suggest an Event</h2>
+						<p class="lead">Click to suggest a New Event</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="suggestEvent"
+							style="background-color: 00B242; margin-top: 130px">Suggest
+							Event</a>
+					</div>
+				</div>
+
+			</div>
+
 		</c:when>
 	</c:choose>
 

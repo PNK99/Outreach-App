@@ -23,6 +23,55 @@ public class EventService {
 	@Autowired
 	private EventDao eventDao;
 
+	public Boolean addSuggestEvent(Event event) {
+
+		try {
+
+			event.setApprovalStatus(false);
+			eventDao.save(event);
+
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+
+	}
+
+	/*
+	 * public Boolean addEvent(Event event) {
+	 * 
+	 * return true; }
+	 * 
+	 * public List<Event> showApprovedEvents() { return
+	 * eventDao.getApprovedEvents(); }
+	 */
+	
+	public List<Event> viewSuggestedEvents(String activity, String place){
+		
+		List<Event> events = eventDao.findAll();
+
+		List<Event> futureEvents = new ArrayList<>();
+
+		Date date = new Date();
+
+		for (Event event : events) {
+			long diff = event.getDate().getTime() - date.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if (diffDays > 0 && !event.isApprovalStatus()) {
+				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
+						futureEvents.add(event);
+					}
+				}
+
+			}
+		}
+
+		return futureEvents;
+		
+		
+	}
 	public List<Event> getFutureEvents(String activity, String place) {
 
 		List<Event> events = eventDao.findAll();
@@ -34,7 +83,7 @@ public class EventService {
 		for (Event event : events) {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
-			if (diffDays > 0 && diffDays < 15) {
+			if (diffDays > 0 && diffDays < 15 && event.isApprovalStatus()) {
 				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
@@ -77,7 +126,7 @@ public class EventService {
 			event.getVolunteers().add(user);
 
 			eventDao.save(event);
-			
+
 		} catch (Exception e) {
 			result = false;
 		}
@@ -93,7 +142,7 @@ public class EventService {
 			Optional<User> user = userDao.findById(userId);
 			listOfEvents = user.get().getEvents();
 		}
-		
+
 		return listOfEvents;
 
 	}
