@@ -274,8 +274,10 @@ public class EventService {
 		Date date = new Date();
 
 			long diff = eventDate.getTime() - date.getTime();
+			
 			long diffHours = diff / ( 60 * 60 * 1000);
-			if (diffHours > 0 && diffHours < 12) {
+			System.out.println(diffHours);
+			if (diffHours >= -12 && diffHours < 12) {
 				return true;
 			}
 			return false;

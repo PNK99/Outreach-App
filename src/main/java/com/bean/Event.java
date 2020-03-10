@@ -3,7 +3,6 @@ package com.bean;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -68,7 +67,7 @@ public class Event {
 		this.noOfVolunteers = noOfVolunteers;
 	}
 
-	@FutureOrPresent(message = "Enter Future Date")
+	@Future(message = "Enter Future Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 

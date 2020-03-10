@@ -172,6 +172,7 @@ public class EventController {
 		boolean isToday=eventService.isToday(event.getDate());
 		
 		map.addAttribute("today",isToday);
+		System.out.println(isToday);
 		
 		return "vieweventdetails";
 	}
