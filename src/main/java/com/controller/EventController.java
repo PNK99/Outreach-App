@@ -2,6 +2,7 @@ package com.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.bean.Activity;
 import com.bean.Event;
 import com.bean.User;
 import com.dao.EventDao;
@@ -78,7 +80,7 @@ public class EventController {
 		map.addAttribute("userI", userD);
 		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		List<Event> events = eventService.getFutureEvents(event.getActivity(), event.getPlace());
+		List<Event> events = eventService.getFutureEvents(event.getActivity().getActivity(), event.getPlace());
 
 		map.addAttribute("events", events);
 
@@ -92,9 +94,8 @@ public class EventController {
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI", userD);
-		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		List<Event> events = eventService.viewSuggestedEvents(event.getActivity(), event.getPlace());
+		List<Event> events = eventService.viewSuggestedEvents(event.getActivity().getActivity(), event.getPlace());
 
 		map.addAttribute("events", events);
 
@@ -102,13 +103,11 @@ public class EventController {
 	}
 
 	@ModelAttribute("activityList")
-	public List<String> activityList() {
+	public Map<Integer, String> activityList() {
 
-		List<String> list = new ArrayList<>();
-		list.add("Weaving");
-		list.add("Dancing");
+		Map<Integer, String> activities = eventService.getActivityList();
 
-		return list;
+		return activities;
 	}
 
 	@GetMapping("/subscribe")
@@ -225,6 +224,7 @@ public class EventController {
 
 		return "redirect:" + referer;
 	}
+	
 	@GetMapping("/eventRejected")
 	public String eventRejected(HttpServletRequest request, Integer eventId) {
 		
@@ -235,5 +235,5 @@ public class EventController {
 
 		return "redirect:" + referer;
 	}
-
+	
 }

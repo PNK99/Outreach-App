@@ -26,8 +26,10 @@ public class Event {
 	@NotBlank(message = "Enter the venue place")
 	private String place;
 
-	
-	private String activity;// Activity class
+
+	@ManyToOne
+	@JoinColumn(name = "activity_id")
+	private Activity activity;// Activity class
 
 	private Boolean approvalStatus;
 
@@ -138,11 +140,13 @@ public class Event {
 		this.place = place;
 	}
 
-	public String getActivity() {
+
+
+	public Activity getActivity() {
 		return activity;
 	}
 
-	public void setActivity(String activity) {
+	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}
 

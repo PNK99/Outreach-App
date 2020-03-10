@@ -2,16 +2,21 @@ package com.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bean.Activity;
 import com.bean.Event;
+import com.bean.Roles;
 import com.bean.User;
+import com.dao.ActivityDao;
 import com.dao.EventDao;
 import com.dao.UserDao;
 
@@ -23,6 +28,9 @@ public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
+	
+	@Autowired
+	private ActivityDao activityDao;
 
 	public Boolean addSuggestEvent(Event event, Integer userId) {
 
@@ -62,7 +70,7 @@ public class EventService {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if (diffDays >= 0 && !event.getApprovalStatus()) {
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null || event.getActivity().getActivity().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -89,7 +97,7 @@ public class EventService {
 
 			if (diffDays >= 0 && diffDays < 15 && event.getApprovalStatus()) {
 
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null || event.getActivity().getActivity().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -314,6 +322,22 @@ public class EventService {
 		catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public Map<Integer, String> getActivityList() {
+
+		Map<Integer, String> activityMap = new HashMap<>();
+
+		List<Activity> activityList =  activityDao.findAll();
+
+		for (Activity activity : activityList) {
+
+			activityMap.put(activity.getId(), activity.getActivity());
+
+		}
+
+		return activityMap;
+
 	}
 
 }
