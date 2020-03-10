@@ -116,6 +116,12 @@
                         </div>
                     </c:if>
                 </c:if>
+                
+                <c:if test='${userRole.equalsIgnoreCase("Admin")&& today}'>
+                <a class="btn btn-primary" href="volunteerAttendance?eventId=${event.id}">
+                                Mark Attendence</a>
+                
+                </c:if>
             </div>
         </div>
     </div>

@@ -39,8 +39,7 @@ public class User implements Serializable {
 	@JoinColumn(name = "role_id")
 	@NotNull(message = "please update the mandatory highlighted fields")
 	private Roles userRole;
-	
-	
+
 	public Set<Event> getInvitedEvents() {
 		return invitedEvents;
 	}
@@ -51,7 +50,18 @@ public class User implements Serializable {
 
 	@ManyToMany(mappedBy = "volunteers")
 	private Set<Event> events = new HashSet<>();
-	
+
+	@ManyToMany(mappedBy = "voluteerPresent")
+	private Set<Event> eventsAttended = new HashSet<>();
+
+	public Set<Event> getEventsAttended() {
+		return eventsAttended;
+	}
+
+	public void setEventsAttended(Set<Event> eventsAttended) {
+		this.eventsAttended = eventsAttended;
+	}
+
 	@ManyToMany(mappedBy = "invitedPeople")
 	private Set<Event> invitedEvents = new HashSet<>();
 
@@ -135,10 +145,8 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	
 	public User() {
 
 	}
-	
 
 }

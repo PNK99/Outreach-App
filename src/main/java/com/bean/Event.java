@@ -3,6 +3,7 @@ package com.bean;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -83,12 +84,18 @@ public class Event {
 	@ManyToMany
 	@JoinTable(name = "event_volunteers", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
+
 	private Set<User> volunteers = new HashSet<>();// Volunteer class
 
 	@ManyToMany
 	@JoinTable(name = "event_invite", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 	private Set<User> invitedPeople = new HashSet<>();
+
+	@ManyToMany
+	@JoinTable(name = "volunteerPresent_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "user_id") })
+	private Set<User> voluteerPresent = new HashSet<>();
 
 	public Set<User> getInvitedPeople() {
 		return invitedPeople;
@@ -99,8 +106,6 @@ public class Event {
 	}
 
 	private Double donationAmount;
-
-	private String voluteerPresent;// Volunteer class
 
 	public Integer getId() {
 		return id;
@@ -131,12 +136,6 @@ public class Event {
 	}
 
 	public void setDate(Date date) {
-
-		/*
-		 * SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); try { this.date
-		 * = format.parse(date); } catch (ParseException e) { // TODO Auto-generated
-		 * e.printStackTrace(); }
-		 */
 
 		this.date = date;
 	}
@@ -181,11 +180,11 @@ public class Event {
 		this.donationAmount = donationAmount;
 	}
 
-	public String getVoluteerPresent() {
+	public Set<User> getVoluteerPresent() {
 		return voluteerPresent;
 	}
 
-	public void setVoluteerPresent(String voluteerPresent) {
+	public void setVoluteerPresent(Set<User> voluteerPresent) {
 		this.voluteerPresent = voluteerPresent;
 	}
 
