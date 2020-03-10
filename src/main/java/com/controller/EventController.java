@@ -39,6 +39,12 @@ public class EventController {
 	public String createEvent(@ModelAttribute("event") Event event) {
 		return "createevent";
 	}
+	
+	
+	@GetMapping("/suggestEvent")
+	public String suggestEvent(@ModelAttribute("event") Event event) {
+		return "eventsuggestion";
+	}
 
 	@PostMapping("/createdEvent")
 	public String createdEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map) {
@@ -46,12 +52,27 @@ public class EventController {
 		if (result.hasErrors()) {
 			return "createevent";
 		}
-
+		
+		
+		event.setApprovalStatus(true);
 		eventDao.save(event);
 		map.addAttribute("eventAddCheck", true);
 		return "redirect:home?eventAddCheck=true";
 	}
+	
+	@PostMapping("/addSuggestEvent")
+	public String addSuggestEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map) {
 
+		if (result.hasErrors()) {
+			return "eventsuggestion";
+		}
+
+		eventService.addSuggestEvent(event);
+		map.addAttribute("suggestEventAddCheck", true);
+		return "redirect:home?suggestEventAddCheck=true";
+	}
+
+	
 	@GetMapping("/viewEvents")
 	public String viewEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
 		
@@ -62,7 +83,7 @@ public class EventController {
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI",userD);
-	System.out.println(event.getActivity()+" "+event.getPlace());
+	//System.out.println(event.getActivity()+" "+event.getPlace());
 		
 		List<Event> events=eventService.getFutureEvents(event.getActivity(),event.getPlace());
 
@@ -72,6 +93,28 @@ public class EventController {
 
 		return "viewevents";
 	}
+	
+	@GetMapping("/viewSuggestedEvents")
+	public String viewSuggestedEvents(Model map,HttpSession session,@ModelAttribute("eventModel") Event event) {
+		
+		
+		
+		
+		User user = (User)session.getAttribute("user");
+		User userD = userDao.findById(user.getId()).get();
+
+		map.addAttribute("userI",userD);
+	//System.out.println(event.getActivity()+" "+event.getPlace());
+		
+		List<Event> events=eventService.viewSuggestedEvents(event.getActivity(),event.getPlace());
+
+		
+		
+		map.addAttribute("events", events);
+
+		return "viewsuggestedevent";
+	}
+
 
 	@ModelAttribute("activityList")
 	public List<String> activityList() {
@@ -125,6 +168,12 @@ public class EventController {
 		map.addAttribute("userI",userD);
 		Event event = eventDao.findById(eventId).get();
 		map.addAttribute("event", event);
+		
+		boolean isToday=eventService.isToday(event.getDate());
+		
+		map.addAttribute("today",isToday);
+		System.out.println(isToday);
+		
 		return "vieweventdetails";
 	}
 	
@@ -162,5 +211,25 @@ public class EventController {
 	}
 	
 	
+	
+	@GetMapping("/volunteerAttendance")
+	public String volunteerAttendance(Integer eventId, Model map,@ModelAttribute("userModel") User user) {
+		
+		Set<User> users=eventService.getSubscribedVolunteers(eventId,user.getUserId(),user.getFirstName());
+		Event event = eventDao.findById(eventId).get();
+		
+		map.addAttribute("event",event);
+		map.addAttribute("users",users);
+		
+		return "attendance";
+	}
+	
+	@PostMapping("/attendedVolunteers")
+	public String attendedVolunteers(int eventId,Integer[] present) {
+		
+		eventService.setVolunteerAttendance(eventId, present);
+	
+		return "redirect:viewEvents";
+	}
 	
 }

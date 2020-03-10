@@ -76,8 +76,28 @@
                 Point of contact :
                 <c:out value="${event.contactNumber}" /><br />
 
-                No of volunteers registered :
-                <c:out value="${event.volunteers.size()}" /><br /><br>
+            
+                
+                <c:if test="${event.approvalStatus}"> 
+                
+                
+                    No of volunteers registered :
+                <c:out value="${event.volunteers.size()}" /><br />
+                
+             
+                </c:if>
+                
+                <c:if test="${!event.approvalStatus}">
+                
+                	Benificiary:
+                <c:out value="${event.benificiary}" /><br />
+                  Estimated No. of Volunteers:
+                <c:out value="${event.noOfVolunteers}" /><br />
+                  Estimated Cost:
+                <c:out value="${event.costEstimate}" /><br />
+                
+                </c:if>
+                <br>
 
                 <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 
@@ -95,6 +115,12 @@
                                 Invite others</a>
                         </div>
                     </c:if>
+                </c:if>
+                
+                <c:if test='${userRole.equalsIgnoreCase("Admin")&& today}'>
+                <a class="btn btn-primary" href="volunteerAttendance?eventId=${event.id}">
+                                Mark Attendence</a>
+                
                 </c:if>
             </div>
         </div>
