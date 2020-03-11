@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,23 +27,40 @@ public class Event {
 	@NotBlank(message = "Enter the venue place")
 	private String place;
 
-	private String activity;// Activity class
+	@ManyToOne
+	@JoinColumn(name = "activity_id")
+	@NotNull(message = "please update the mandatory highlighted fields")
+	private Activity activityType;// Activity class
 
-	private boolean approvalStatus;
+	private Boolean approvalStatus;
 
 	private String benificiary;
 
 	private Double costEstimate;
 
 	private Integer noOfVolunteers;
+	
 
-	public boolean isApprovalStatus() {
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User suggestedVolunteer;
+
+	public Boolean getApprovalStatus() {
 		return approvalStatus;
 	}
 
-	public void setApprovalStatus(boolean approvalStatus) {
+	public void setApprovalStatus(Boolean approvalStatus) {
 		this.approvalStatus = approvalStatus;
 	}
+
+	public User getSuggestedVolunteer() {
+		return suggestedVolunteer;
+	}
+
+	public void setSuggestedVolunteer(User suggestedVolunteer) {
+		this.suggestedVolunteer = suggestedVolunteer;
+	}
+
 
 	public String getBenificiary() {
 		return benificiary;
@@ -122,12 +141,14 @@ public class Event {
 		this.place = place;
 	}
 
-	public String getActivity() {
-		return activity;
+
+
+	public Activity getActivityType() {
+		return activityType;
 	}
 
-	public void setActivity(String activity) {
-		this.activity = activity;
+	public void setActivityType(Activity activityType) {
+		this.activityType = activityType;
 	}
 
 	public Date getDate() {
@@ -187,15 +208,6 @@ public class Event {
 		this.voluteerPresent = voluteerPresent;
 	}
 
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", place=" + place + ", activity=" + activity + ", date=" + date + ", contactNumber="
-				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
-				+ ", voluteerPresent=" + voluteerPresent + "]";
-	}
 
-	public Event() {
-
-	}
 
 }

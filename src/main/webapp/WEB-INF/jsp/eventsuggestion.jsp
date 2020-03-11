@@ -195,7 +195,7 @@ keyframes cssAnimation {to { width:0;
 
 
 			</div>
-
+			<input type="hidden" name="userId" value="${user.id}">
 			<input class="btn btn-success" style="background-color: #00B242;"
 				type="submit" value="Create">
 		</form:form>

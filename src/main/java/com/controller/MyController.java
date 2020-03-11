@@ -27,7 +27,9 @@ public class MyController {
 		List<Event> events=eventService.getFutureEvents("","");
 		map.addAttribute("eventAddCheck",eventAddCheck);
 		map.addAttribute("suggestEventAddCheck",suggestEventAddCheck);
+
 		int length=events.size()>=5?5:events.size();
+
 		map.addAttribute("events", events.subList(0, length));
 		return "home";
 		

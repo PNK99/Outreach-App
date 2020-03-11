@@ -24,11 +24,13 @@ public class EventService {
 	@Autowired
 	private EventDao eventDao;
 
-	public Boolean addSuggestEvent(Event event) {
+	public Boolean addSuggestEvent(Event event, Integer userId) {
 
 		try {
 
 			event.setApprovalStatus(false);
+			User user = userDao.findById(userId).get();
+			event.setSuggestedVolunteer(user);
 			eventDao.save(event);
 
 		} catch (Exception e) {
@@ -47,9 +49,9 @@ public class EventService {
 	 * public List<Event> showApprovedEvents() { return
 	 * eventDao.getApprovedEvents(); }
 	 */
-	
-	public List<Event> viewSuggestedEvents(String activity, String place){
-		
+
+	public List<Event> viewSuggestedEvents(String activity, String place) {
+
 		List<Event> events = eventDao.findAll();
 
 		List<Event> futureEvents = new ArrayList<>();
@@ -59,8 +61,8 @@ public class EventService {
 		for (Event event : events) {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
-			if (diffDays >= 0 && !event.isApprovalStatus()) {
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+			if (diffDays >= 0 && !event.getApprovalStatus()) {
+				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -70,9 +72,9 @@ public class EventService {
 		}
 
 		return futureEvents;
-		
-		
+
 	}
+
 	public List<Event> getFutureEvents(String activity, String place) {
 
 		List<Event> events = eventDao.findAll();
@@ -85,9 +87,9 @@ public class EventService {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 
-			if (diffDays >= 0 && diffDays < 15 && event.isApprovalStatus()) {
+			if (diffDays >= 0 && diffDays < 15 && event.getApprovalStatus()) {
 
-				if (activity == null || event.getActivity().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -233,14 +235,13 @@ public class EventService {
 				if (user.getUserId() == userId && user.getFirstName().contains(firstName)) {
 					filteredUser.add(user);
 					break;
-				}
-				else if (user.getFirstName().contains(firstName) && userId == null) {
+				} else if (user.getFirstName().contains(firstName) && userId == null) {
 					filteredUser.add(user);
 				}
 
 			}
 
-		}  else
+		} else
 			filteredUser = users;
 
 		return filteredUser;
@@ -267,21 +268,52 @@ public class EventService {
 
 		return result;
 	}
-	
-	
+
 	public boolean isToday(Date eventDate) {
-		
+
 		Date date = new Date();
 
-			long diff = eventDate.getTime() - date.getTime();
-			
-			long diffHours = diff / ( 60 * 60 * 1000);
-			System.out.println(diffHours);
-			if (diffHours >= -12 && diffHours < 12) {
-				return true;
-			}
+		long diff = eventDate.getTime() - date.getTime();
+
+		long diffHours = diff / (60 * 60 * 1000);
+		System.out.println(diffHours);
+		if (diffHours >= -12 && diffHours < 12) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public boolean eventApproved(Integer eventId) {
+
+		try {
+
+			Event event = eventDao.findById(eventId).get();
+			event.setApprovalStatus(true);
+			eventDao.save(event);
+			return true;
+
+		}
+
+		catch (Exception e) {
 			return false;
-		
+		}
+	}
+
+	public boolean eventRejected(Integer eventId) {
+
+		try {
+
+			Event event = eventDao.findById(eventId).get();
+			event.setApprovalStatus(false);
+			eventDao.save(event);
+			return true;
+
+		}
+
+		catch (Exception e) {
+			return false;
+		}
 	}
 	
 	
