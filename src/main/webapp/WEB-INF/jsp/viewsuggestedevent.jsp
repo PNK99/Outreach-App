@@ -186,6 +186,7 @@ keyframes cssAnimation {to { width:0;
 							</span>
 							<span><a class="btn btn-danger"
 								href="eventRejected?eventId=${event.id}">Reject</a> </span>
+								
 						</c:if></span>
 				</div>
 				<div class="card-body">

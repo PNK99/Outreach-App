@@ -165,7 +165,6 @@ keyframes cssAnimation {to { width:0;
 
 				<form:errors class="alert alert-danger" role="alert"
 					path="benificiary"></form:errors>
-
 			</div>
 
 			<div class="form-group">

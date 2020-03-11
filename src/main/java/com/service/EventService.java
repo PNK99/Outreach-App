@@ -52,8 +52,7 @@ public class EventService {
 	/*
 	 * public Boolean addEvent(Event event) {
 	 * 
-	 * return true; }
-	 * 
+	 * return true; } 
 	 * public List<Event> showApprovedEvents() { return
 	 * eventDao.getApprovedEvents(); }
 	 */

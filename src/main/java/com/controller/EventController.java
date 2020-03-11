@@ -245,24 +245,18 @@ public class EventController {
 	}
 
 	@GetMapping("/eventApproved")
-	public String eventApproved(HttpServletRequest request, Integer eventId) {
+	public String eventApproved(Integer eventId) {
 
 		eventService.eventApproved(eventId);
-
-		String referer = request.getHeader("Referer");
-
-			
 
 		return "redirect:viewSuggestedEvents?eventApproved=true";
 	}
 
 	
 	@GetMapping("/eventRejected")
-	public String eventRejected(HttpServletRequest request, Integer eventId) {
+	public String eventRejected(Integer eventId) {
 
 		eventService.eventRejected(eventId);
-
-		String referer = request.getHeader("Referer");
 
 		return "redirect:viewSuggestedEvents";
 	}
