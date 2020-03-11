@@ -108,11 +108,11 @@ keyframes cssAnimation {to { width:0;
 				<div class="form-row d-flex justify-content-between">
 
 					<span class="form-group row"> <label
-						class="col-sm-2 col-form-label" for="activity">Activity </label>
+						class="col-sm-2 col-form-label" for="activityType">Activity </label>
 						<div class="col-sm-10">
 							<form:select class="form-control mb-2" style="margin-left: 20px;"
-								placeholder="Select an activity" path="activity" name="activity"
-								id="activity">
+								placeholder="Select an activity" path="activityType" name="activityType"
+								id="activityType">
 								<form:option value="">Select Activity</form:option>
 								<form:options items="${activityList}"></form:options>
 

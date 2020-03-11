@@ -95,9 +95,9 @@ keyframes cssAnimation {to { width:0;
 		<form:form modelAttribute="event" action="addSuggestEvent"
 			method="post" class="needs-validation">
 			<div class="form-group">
-				<label for="activity">Activity</label>
-				<form:select placeholder="Select an activity" path="activity"
-					id="activity" class="form-control" required="true">
+				<label for="activityType">Activity</label>
+				<form:select placeholder="Select an activity" path="activityType"
+					id="activityType" class="form-control" required="true">
 					<form:option value="">Select Activity</form:option>
 					<form:options items="${activityList}"></form:options>
 				</form:select>
@@ -160,7 +160,7 @@ keyframes cssAnimation {to { width:0;
 				<label for="benificiary">Benificiary</label>
 				<form:textarea path="benificiary"
 					placeholder="Who is benefitted from the event" class="form-control"
-					id="benificiary" />
+					id="benificiary" required="required"/>
 				<br>
 
 				<form:errors class="alert alert-danger" role="alert"
@@ -172,11 +172,11 @@ keyframes cssAnimation {to { width:0;
 				<label for="noOfVolunteers">Number of Volunteers</label>
 				<form:input path="noOfVolunteers"
 					placeholder="Enter the number of Volunteers" class="form-control"
-					id="noOfVolunteers"></form:input>
+					id="noOfVolunteers" required="required"></form:input>
 				<br>
 
 				<form:errors class="alert alert-danger" role="alert"
-					path="noOfVolunteers"></form:errors>
+					path="noOfVolunteers">Only be a number</form:errors>
 
 
 
@@ -186,7 +186,7 @@ keyframes cssAnimation {to { width:0;
 				<label for="costEstimate">Estimated Cost</label>
 				<form:input path="costEstimate"
 					placeholder="Enter the Estimated Cost" class="form-control"
-					id="costEstimate"></form:input>
+					id="costEstimate" required="required"></form:input>
 				<br>
 
 				<form:errors class="alert alert-danger" role="alert"

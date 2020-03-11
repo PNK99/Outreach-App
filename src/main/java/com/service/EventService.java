@@ -62,7 +62,8 @@ public class EventService {
 			long diff = event.getDate().getTime() - date.getTime();
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if (diffDays >= 0 && !event.getApprovalStatus()) {
-				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null
+						|| event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -89,7 +90,8 @@ public class EventService {
 
 			if (diffDays >= 0 && diffDays < 15 && event.getApprovalStatus()) {
 
-				if (activity == null || event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
+				if (activity == null
+						|| event.getActivityType().getName().toLowerCase().contains(activity.toLowerCase())) {
 					if (place == null || event.getPlace().toLowerCase().contains(place.toLowerCase())) {
 						futureEvents.add(event);
 					}
@@ -97,7 +99,8 @@ public class EventService {
 
 			}
 		}
-
+		System.out.println(events);
+		System.out.println(futureEvents);
 		return futureEvents;
 	}
 
@@ -249,20 +252,40 @@ public class EventService {
 
 	public boolean setVolunteerAttendance(Integer eventId, Integer userIds[]) {
 		boolean result = true;
+		Event event = null;
+		Double eventPoints;
 		try {
-			Event event = eventDao.findById(eventId).get();
+			event = eventDao.findById(eventId).get();
+
+			eventPoints = event.getActivityType().getPoints();
+			
+			for (User volunteer :event.getVoluteerPresent()) {
+				Double currentPoints = volunteer.getWahPoints();
+				volunteer.setWahPoints(currentPoints - eventPoints);
+				userDao.save(volunteer);
+				
+			}
+
 			event.getVoluteerPresent().clear();
+
 			if (userIds == null)
 				eventDao.save(event);
 
 			for (Integer id : userIds) {
 
 				User user = userDao.findById(id).get();
+				Double currentPoints = user.getWahPoints();
+
+				user.setWahPoints(eventPoints);
+				System.out.println(user);
+				userDao.save(user);
+
 				event.getVoluteerPresent().add(user);
+				System.out.println("set:" + user.getWahPoints());
 			}
 			eventDao.save(event);
-
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			result = false;
 		}
 

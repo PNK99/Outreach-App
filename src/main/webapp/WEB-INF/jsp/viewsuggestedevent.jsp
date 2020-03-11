@@ -35,29 +35,29 @@
 }
 
 #hideMe {
-	-moz-animation: cssAnimation 0s ease-in 5s forwards;
-	/* Firefox */
-	-webkit-animation: cssAnimation 0s ease-in 5s forwards;
-	/* Safari and Chrome */
-	-o-animation: cssAnimation 0s ease-in 5s forwards;
-	/* Opera */
-	animation: cssAnimation 0s ease-in 5s forwards;
-	-webkit-animation-fill-mode: forwards;
-	animation-fill-mode: forwards;
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
-
-@
-keyframes cssAnimation {to { width:0;
-	height: 0;
-	overflow: hidden;
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
 }
-
-}
-@
--webkit-keyframes cssAnimation {to { width:0;
-	height: 0;
-	visibility: hidden;
-}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
 }
 </style>
 </head>
@@ -90,15 +90,19 @@ keyframes cssAnimation {to { width:0;
 	</nav> </header>
 	<br>
 	<br>
-	<%-- 		<c:if test="${addCheck}">
-		
-		<div id='hideMe'><div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Registration done Successfully</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div></div>
-		</c:if> --%>
+	<c:if test="${eventApproved}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>You have approved an Event!</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
 	<div class="container container-width">
 
 		<div class="collapse multi-collapse" id="multiCollapseExample1"
@@ -108,11 +112,11 @@ keyframes cssAnimation {to { width:0;
 				<div class="form-row d-flex justify-content-between">
 
 					<span class="form-group row"> <label
-						class="col-sm-2 col-form-label" for="activity">Activity </label>
+						class="col-sm-2 col-form-label" for="activityType">Activity </label>
 						<div class="col-sm-10">
 							<form:select class="form-control mb-2" style="margin-left: 20px;"
-								placeholder="Select an activity" path="activity" name="activity"
-								id="activity">
+								placeholder="Select an activity" path="activityType" name="activityType"
+								id="activityType">
 								<form:option value="">Select Activity</form:option>
 								<form:options items="${activityList}"></form:options>
 
@@ -152,13 +156,15 @@ keyframes cssAnimation {to { width:0;
 			<h4>No Events Available</h4>
 		</c:if>
 
+		
 		<c:forEach var="event" items="${events}">
 
 			<div class="card" style="margin: 1%">
+
 				<div class="card-header d-flex justify-content-between"
 					style="font-size: 20px; font-weight: bold;">
 					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
-						<c:out value="${event.activity}" />
+						<c:out value="${event.activityType.name}" />
 					</a>
 					<c:if test='${userRole.equalsIgnoreCase("Admin")}'>
 						<c:if test="${!event.approvalStatus}">

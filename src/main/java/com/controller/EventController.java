@@ -36,7 +36,7 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
-	
+
 	@Autowired
 	private ActivityDao activityDao;
 
@@ -53,32 +53,30 @@ public class EventController {
 	@PostMapping("/createdEvent")
 	public String createdEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map) {
 
+		System.out.println("Activity:" + event.getActivityType());
 
-		System.out.println("Activity:"+event.getActivityType());
-		
 		System.out.println(result.getAllErrors());
 		if (result.hasErrors()) {
 			return "createevent";
 		}
 
 		event.setApprovalStatus(true);
-//		Activity activityObj = activityDao.findById(activityId).get();
-		
-//		event.setActivity(activityObj);
-		
+
+
 		eventDao.save(event);
 		map.addAttribute("eventAddCheck", true);
 		return "redirect:home?eventAddCheck=true";
 	}
 
 	@PostMapping("/addSuggestEvent")
-	public String addSuggestEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map, Integer userId) {
+	public String addSuggestEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, Model map,
+			Integer userId) {
 
 		if (result.hasErrors()) {
 			return "eventsuggestion";
 		}
-		System.out.println(userId);
-		eventService.addSuggestEvent(event,userId);
+
+		eventService.addSuggestEvent(event, userId);
 		map.addAttribute("suggestEventAddCheck", true);
 		return "redirect:home?suggestEventAddCheck=true";
 	}
@@ -86,44 +84,46 @@ public class EventController {
 	@GetMapping("/viewEvents")
 	public String viewEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event) {
 
-		User user = (User) session.getAttribute("user");
-		User userD = userDao.findById(user.getId()).get();
+			User user = (User) session.getAttribute("user");
+			User userD = userDao.findById(user.getId()).get();
 
-		map.addAttribute("userI", userD);
-		// System.out.println(event.getActivity()+" "+event.getPlace());
+			map.addAttribute("userI", userD);
 
-		List<Event> events = eventService.getFutureEvents(event.getActivityType().getName(), event.getPlace());
+			String activity = event.getActivityType() == null ? "" : event.getActivityType().getName();
 
-		map.addAttribute("events", events);
+			List<Event> events = eventService.getFutureEvents(activity, event.getPlace());
 
-		return "viewevents";
+			map.addAttribute("events", events);
+
+			return "viewevents";
+
 	}
 
 	@GetMapping("/viewSuggestedEvents")
-	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event) {
+	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event, Boolean eventApproved) {
 
 		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
 
 		map.addAttribute("userI", userD);
-		// System.out.println(event.getActivity()+" "+event.getPlace());
 
-		List<Event> events = eventService.viewSuggestedEvents(event.getActivityType().getName(), event.getPlace());
+		String activity = event.getActivityType() == null ? "" : event.getActivityType().getName();
+		List<Event> events = eventService.viewSuggestedEvents(activity, event.getPlace());
 
 		map.addAttribute("events", events);
-
+		map.addAttribute("eventApproved",eventApproved);
 		return "viewsuggestedevent";
 	}
 
 	@ModelAttribute("activityList")
 	public Map<Integer, String> user() {
 		List<Activity> activities = activityDao.findAll();
-		Map<Integer,String> activityMap = new HashMap<>();
-		
-		for(Activity activity: activities) {
-			activityMap.put(activity.getId(),activity.getName());
+		Map<Integer, String> activityMap = new HashMap<>();
+
+		for (Activity activity : activities) {
+			activityMap.put(activity.getId(), activity.getName());
 		}
-		
+
 		return activityMap;
 	}
 
@@ -230,23 +230,23 @@ public class EventController {
 
 		return "redirect:viewEvents";
 	}
-	
+
 	@GetMapping("/eventApproved")
 	public String eventApproved(HttpServletRequest request, Integer eventId) {
-		
-		
+
 		eventService.eventApproved(eventId);
-		
+
 		String referer = request.getHeader("Referer");
 
-		return "redirect:" + referer;
+
+		return "redirect:" + referer +"?eventApproved=true";
 	}
+
 	@GetMapping("/eventRejected")
 	public String eventRejected(HttpServletRequest request, Integer eventId) {
-		
-		
+
 		eventService.eventRejected(eventId);
-		
+
 		String referer = request.getHeader("Referer");
 
 		return "redirect:" + referer;

@@ -68,6 +68,8 @@ public class UserController {
 
 	@PostMapping("/valid")
 	public String signUp(@Valid @ModelAttribute("user") User u, BindingResult br, ModelMap map) {
+		try{
+			
 		if (br.hasErrors()) {
 
 			return "registration";
@@ -85,6 +87,10 @@ public class UserController {
 		userService.registerUser(u);
 		map.addAttribute("addCheck", true);
 		return "index";
+	}catch(Exception e) {
+		System.out.println(e.getMessage());
+		return "index";
+	}
 	}
 
 	@GetMapping("/signUp")
