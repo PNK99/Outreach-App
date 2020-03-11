@@ -93,10 +93,10 @@ keyframes cssAnimation {to { width:0;
 		<form:form modelAttribute="event" action="createdEvent" method="post"
 			class="needs-validation">
 			<div class="form-group">
-				<label for="activity">Activity</label>
-				<form:select placeholder="Select an activity" path="activity"
-					id="activity" class="form-control" required="true">
-					<form:option value="">Select Activity</form:option>
+				<label for="activityType">Activity</label>
+				<form:select class="form-control" path="activityType"
+					name="activityType" placeholder="Select an activity"
+					id="activityType" required="true">
 					<form:options items="${activityList}"></form:options>
 				</form:select>
 			</div>

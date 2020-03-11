@@ -11,8 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
 public class User implements Serializable {
@@ -20,25 +26,50 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@NotNull(message = "please update the mandatory highlighted fields")
+	@Min(value = 100000, message = "User Id should be exactly 6 digits")
+	@Max(value = 999999, message = "User Id should be exactly 6 digits")
 	private Integer userId;
+	
 	@NotEmpty(message = "please update the mandatory highlighted fields")
+	@Pattern(regexp = "^[a-zA-Z]{2,15}$", message = "First name should only contain alphabets")
 	private String firstName;
+	
 	@NotEmpty(message = "please update the mandatory highlighted fields")
+	@Pattern(regexp = "^[a-zA-Z]{1,15}$", message = "Last name should only contain alphabets")
 	private String lastName;
+	
 	@NotNull(message = "please update the mandatory highlighted fields")
+	@Min(value = 18, message = "You should be above 18 to enroll")
 	private Integer age;
+	
 	@NotEmpty(message = "please update the mandatory highlighted fields")
 	private String gender;
+	
 	@NotEmpty(message = "please update the mandatory highlighted fields")
+	@Size(min = 10 , max = 10, message = "Contact Number should contain exactly 10 digits")
 	private String contactNumber;
+	
 	@NotEmpty(message = "please update the mandatory highlighted fields")
+	@Size(min = 8 , max = 15 , message = "Password should be between 8-15 characters")
 	private String password;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	@NotNull(message = "please update the mandatory highlighted fields")
 	private Roles userRole;
+	
+
+	private Double wahPoints = 0.0;
+
+	public Double getWahPoints() {
+		return wahPoints;
+	}
+
+	public void setWahPoints(Double wahPoints) {
+		this.wahPoints = wahPoints;
+	}
 
 	public Set<Event> getInvitedEvents() {
 		return invitedEvents;
@@ -135,6 +166,14 @@ public class User implements Serializable {
 
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", age=" + age + ", gender=" + gender + ", contactNumber=" + contactNumber + ", password=" + password
+				+ ", userRole=" + userRole + ", wahPoints=" + wahPoints + ", events=" + events + ", eventsAttended="
+				+ eventsAttended + ", invitedEvents=" + invitedEvents + "]";
 	}
 
 	public String getPassword() {

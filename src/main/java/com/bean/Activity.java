@@ -1,19 +1,21 @@
 package com.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Activity {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Activity implements Serializable{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String activity;
+	private String name;
 
-	private Integer points;
+	private Double points;
 
 	public Integer getId() {
 		return id;
@@ -23,21 +25,25 @@ public class Activity {
 		this.id = id;
 	}
 
-	public String getActivity() {
-		return activity;
-	}
 
-	public void setActivity(String activity) {
-		this.activity = activity;
-	}
 
-	public Integer getPoints() {
+	public Double getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(Double points) {
 		this.points = points;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	
 	
 }

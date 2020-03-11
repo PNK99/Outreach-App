@@ -75,7 +75,7 @@
 			<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 				<div class="card" style="margin:1%">
 					<div class="card-header d-flex justify-content-between" style="font-size: 20px;font-weight: bold;">
-						<c:out value="${event.activity}" />
+						<c:out value="${event.activityType.name}" />
 						<c:if test="${!event.volunteers.contains(userI)}">
 							<a class="btn btn-success"
 								href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a>

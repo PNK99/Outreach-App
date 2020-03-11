@@ -60,7 +60,7 @@
     <div class="container container-width">
         <div class="card" style="margin:1%">
             <h2 class="card-header">
-                <c:out value="${event.activity}" />
+                <c:out value="${event.activityType.name}" />
             </h2>
 
             <div class="card-body" style="padding: 5%;">

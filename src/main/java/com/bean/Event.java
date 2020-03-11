@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +31,8 @@ public class Event {
 
 	@ManyToOne
 	@JoinColumn(name = "activity_id")
-	private Activity activity;// Activity class
+	@NotNull(message = "please update the mandatory highlighted fields")
+	private Activity activityType;// Activity class
 
 	private Boolean approvalStatus;
 
@@ -38,52 +41,10 @@ public class Event {
 	private Double costEstimate;
 
 	private Integer noOfVolunteers;
-	
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User suggestedVolunteer;
-
-	public Boolean getApprovalStatus() {
-		return approvalStatus;
-	}
-
-	public void setApprovalStatus(Boolean approvalStatus) {
-		this.approvalStatus = approvalStatus;
-	}
-
-	public User getSuggestedVolunteer() {
-		return suggestedVolunteer;
-	}
-
-	public void setSuggestedVolunteer(User suggestedVolunteer) {
-		this.suggestedVolunteer = suggestedVolunteer;
-	}
-
-
-	public String getBenificiary() {
-		return benificiary;
-	}
-
-	public void setBenificiary(String benificiary) {
-		this.benificiary = benificiary;
-	}
-
-	public Double getCostEstimate() {
-		return costEstimate;
-	}
-
-	public void setCostEstimate(Double costEstimate) {
-		this.costEstimate = costEstimate;
-	}
-
-	public Integer getNoOfVolunteers() {
-		return noOfVolunteers;
-	}
-
-	public void setNoOfVolunteers(Integer noOfVolunteers) {
-		this.noOfVolunteers = noOfVolunteers;
-	}
 
 	@Future(message = "Enter Future Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -114,6 +75,46 @@ public class Event {
 			@JoinColumn(name = "user_id") })
 	private Set<User> voluteerPresent = new HashSet<>();
 
+	public Boolean getApprovalStatus() {
+		return approvalStatus;
+	}
+
+	public void setApprovalStatus(Boolean approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+
+	public User getSuggestedVolunteer() {
+		return suggestedVolunteer;
+	}
+
+	public void setSuggestedVolunteer(User suggestedVolunteer) {
+		this.suggestedVolunteer = suggestedVolunteer;
+	}
+
+	public String getBenificiary() {
+		return benificiary;
+	}
+
+	public void setBenificiary(String benificiary) {
+		this.benificiary = benificiary;
+	}
+
+	public Double getCostEstimate() {
+		return costEstimate;
+	}
+
+	public void setCostEstimate(Double costEstimate) {
+		this.costEstimate = costEstimate;
+	}
+
+	public Integer getNoOfVolunteers() {
+		return noOfVolunteers;
+	}
+
+	public void setNoOfVolunteers(Integer noOfVolunteers) {
+		this.noOfVolunteers = noOfVolunteers;
+	}
+
 	public Set<User> getInvitedPeople() {
 		return invitedPeople;
 	}
@@ -141,13 +142,12 @@ public class Event {
 	}
 
 
-
-	public Activity getActivity() {
-		return activity;
+	public Activity getActivityType() {
+		return activityType;
 	}
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
+	public void setActivityType(Activity activityType) {
+		this.activityType = activityType;
 	}
 
 	public Date getDate() {
@@ -205,17 +205,6 @@ public class Event {
 
 	public void setVoluteerPresent(Set<User> voluteerPresent) {
 		this.voluteerPresent = voluteerPresent;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", place=" + place + ", activity=" + activity + ", date=" + date + ", contactNumber="
-				+ contactNumber + ", DosAndDonts=" + dosAndDonts + ", donationAmount=" + donationAmount
-				+ ", voluteerPresent=" + voluteerPresent + "]";
-	}
-
-	public Event() {
-
 	}
 
 }

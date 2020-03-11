@@ -28,11 +28,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-
-
-
-
 
 	@GetMapping("/login")
 	public String login(@ModelAttribute("user") User u) {
@@ -44,7 +39,7 @@ public class UserController {
 	public String check(@ModelAttribute("user") User u, BindingResult br, Model map, HttpSession session) {
 
 		// String page = "login";
-		map.addAttribute("flag",1);
+		map.addAttribute("flag", 1);
 
 		if (br.hasErrors()) {
 			return "login";
@@ -56,35 +51,39 @@ public class UserController {
 			session.setAttribute("userRole", user.getUserRole().getRoleName());
 
 		}
-		
+
 		else {
 			return "login";
 		}
-		
 
-		
 		return "redirect:home";
 	}
 
 	@PostMapping("/valid")
 	public String signUp(@Valid @ModelAttribute("user") User u, BindingResult br, ModelMap map) {
-		if (br.hasErrors()) {
+		try {
 
-			return "registration";
+			if (br.hasErrors()) {
 
+				return "registration";
+
+			}
+
+			if (userService.userIdExists(u.getUserId())) {
+
+				br.addError(new FieldError("user", "userId", "User Id " + u.getUserId() + " Already exists"));
+
+				return "registration";
+
+			}
+
+			userService.registerUser(u);
+			map.addAttribute("addCheck", true);
+			return "index";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "index";
 		}
-
-		if (userService.userIdExists(u.getUserId())) {
-
-			br.addError(new FieldError("user", "userId", "User Id " + u.getUserId() + " Already exists"));
-
-			return "registration";
-
-		}
-
-		userService.registerUser(u);
-		map.addAttribute("addCheck", true);
-		return "index";
 	}
 
 	@GetMapping("/signUp")
@@ -100,8 +99,6 @@ public class UserController {
 		return "index";
 
 	}
-	
-
 
 	@ModelAttribute("type")
 	public Map<Integer, String> user() {
@@ -109,10 +106,10 @@ public class UserController {
 
 		return m;
 	}
-	
+
 	@ExceptionHandler
 	public String exceptionHandling() {
-		
+
 		return "error";
 	}
 
