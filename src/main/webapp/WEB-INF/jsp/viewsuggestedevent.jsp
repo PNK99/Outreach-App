@@ -103,6 +103,19 @@ keyframes cssAnimation {to { width:0;
 			</div>
 		</div>
 	</c:if>
+	<c:if test="${!eventApproved && !fromhome}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>You have rejected an Event!</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
 	<div class="container container-width">
 
 		<div class="collapse multi-collapse" id="multiCollapseExample1"
@@ -164,19 +177,16 @@ keyframes cssAnimation {to { width:0;
 
 				<div class="card-header d-flex justify-content-between"
 					style="font-size: 20px; font-weight: bold;">
-					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
-						<c:out value="${event.activityType.name}" />
-					</a>
-					<c:if test='${userRole.equalsIgnoreCase("Admin")}'>
-						<c:if test="${!event.approvalStatus}">
-							<a class="btn btn-success"
+					<span> <a
+						href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
+							<c:out value="${event.activityType.name}" />
+					</a></span> <span> <c:if test='${userRole.equalsIgnoreCase("Admin")}'>
+							<span><a class="btn btn-success"
 								href="eventApproved?eventId=${event.id}" style="color: #FFFFFF">Approve</a>
-						</c:if>
-						<c:if test="${event.approvalStatus}">
-							<a class="btn btn-danger"
-								href="eventRejected?eventId=${event.id}">Reject</a>
-						</c:if>
-					</c:if>
+							</span>
+							<span><a class="btn btn-danger"
+								href="eventRejected?eventId=${event.id}">Reject</a> </span>
+						</c:if></span>
 				</div>
 				<div class="card-body">
 					<div style="display: flex; justify-content: space-between;">

@@ -176,7 +176,7 @@ keyframes cssAnimation {to { width:0;
 				<br>
 
 				<form:errors class="alert alert-danger" role="alert"
-					path="noOfVolunteers">Only be a number</form:errors>
+					path="noOfVolunteers"></form:errors>
 
 
 

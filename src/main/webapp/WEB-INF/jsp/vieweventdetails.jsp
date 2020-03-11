@@ -9,29 +9,33 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>View Events</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <style>
-        .container-width {
-            max-width: 75%;
-            padding: 5%;
-        }
-    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>View Events</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+<style>
+.container-width {
+	max-width: 75%;
+	padding: 5%;
+}
+</style>
 </head>
 
 <body>
-  <header> <nav
+	<header> <nav
 		class="navbar navbar-expand-md navbar-dark fixed-top"
 		style="background-color: #0033A0;"> <a class="navbar-brand"
 		style="color: #00B242" href="/home">Outreach</a>
@@ -44,7 +48,7 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="home">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${userRole}
-					</a></li>
+			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
 			</li>
 
@@ -56,85 +60,139 @@
 		</form>
 	</div>
 	</nav> </header>
-	<br><br>
-    <div class="container container-width">
-        <div class="card" style="margin:1%">
-            <h2 class="card-header">
-                <c:out value="${event.activityType.name}" />
-            </h2>
+	<br>
+	<br>
+	<div class="container container-width">
 
-            <div class="card-body" style="padding: 5%;">
-                Description :
-                <c:out value="${event.description}" /><br />
-                Date :
-                <fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" /><br />
-                Place :
-                <c:out value="${event.place}" /><br />
-                Do's and Don't :
-                <c:out value="${event.dosAndDonts}" /><br />
 
-                Point of contact :
-                <c:out value="${event.contactNumber}" /><br />
+		<div class="d-flex justify-content-between">
+			<span>
+				<h2 style="margin-bottom: 20px;">Event Description</h2>
+			</span> <span> <a class="btn btn-primary btn-sm" href="viewEvents"
+				style="background-color: 00B242;">View Events</a>
+			</span>
+		</div>
 
-            
-                
-                <c:if test="${event.approvalStatus}"> 
+
+
+		<div class="card" style="margin: 1%">
+			<h2 class="card-header">
+				<c:out value="${event.activityType.name}" />
+			</h2>
+
+			<div class="card-body" style="padding: 5%;">
+				Description :
+				<c:out value="${event.description}" />
+				<br /> Date :
+				<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" />
+				<br /> Place :
+				<c:out value="${event.place}" />
+				<br /> Do's and Don't :
+				<c:out value="${event.dosAndDonts}" />
+				<br /> Point of contact :
+				<c:out value="${event.contactNumber}" />
+				<br />
+
+
+
+				<c:if test="${event.approvalStatus}"> 
                 
                 
                     No of volunteers registered :
-                <c:out value="${event.volunteers.size()}" /><br />
-                
-             
-                </c:if>
-                
-                <c:if test="${!event.approvalStatus}">
+                <c:out value="${event.volunteers.size()}" />
+					<br />
+
+
+				</c:if>
+
+				<c:if test="${!event.approvalStatus}">
                 
                 	Benificiary:
-                <c:out value="${event.benificiary}" /><br />
+                <c:out value="${event.benificiary}" />
+					<br />
                   Estimated No. of Volunteers:
-                <c:out value="${event.noOfVolunteers}" /><br />
+                <c:out value="${event.noOfVolunteers}" />
+					<br />
                   Estimated Cost:
-                <c:out value="${event.costEstimate}" /><br />
-                
-                </c:if>
-                <br>
+                <c:out value="${event.costEstimate}" />
+					<br />
+					Suggested By:
+					<c:out value="${event.suggestedVolunteer.firstName }" /> -
+					<c:out value="${event.suggestedVolunteer.userId}" /><br><br>
+					
+					<span><a class="btn btn-success"
+								href="eventApproved?eventId=${event.id}" style="color: #FFFFFF">Approve</a>
+							</span>
+							<span><a class="btn btn-danger"
+								href="eventRejected?eventId=${event.id}">Reject</a> </span>
+				</c:if>
+				<br>
 
-                <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 
-                    <c:if test="${!event.volunteers.contains(userI)}">
-                        <span> <a class="btn btn-success"
-                                href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
-                    </c:if>
+					<c:if test="${!event.volunteers.contains(userI)}">
+						<span> <a class="btn btn-success"
+							href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
+					</c:if>
 
-                    <c:if test="${event.volunteers.contains(userI)}">
-                        <div class="d-flex justify-content-between">
+					<c:if test="${event.volunteers.contains(userI)}">
+						<div class="d-flex justify-content-between">
 
-                            <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-                                Subscribe</a>
-                            <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
-                                Invite others</a>
-                        </div>
-                    </c:if>
-                </c:if>
-                
-                <c:if test='${userRole.equalsIgnoreCase("Admin")&& today}'>
-                <a class="btn btn-primary" href="volunteerAttendance?eventId=${event.id}">
-                                Mark Attendence</a>
-                
-                </c:if>
-            </div>
-        </div>
-    </div>
+							<a class="btn btn-danger"
+								href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+								Subscribe</a> <a class="btn btn-dark"
+								href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
+								Invite others</a>
+						</div>
+					</c:if>
+				</c:if>
 
-		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
-			style="background-color: #0033A0;">
-			<footer>
-				<a href="#"
-					style="float: right; margin-left: 750px; color: #00B242;">Back
-					to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
-				&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
-			</footer>
-		</nav>
+				<c:if test='${userRole.equalsIgnoreCase("Admin") && event.approvalStatus}'>
+					<c:if test='${today }'>
+						<a class="btn btn-primary"
+							href="volunteerAttendance?eventId=${event.id}"> Mark
+							Attendence</a>
+					</c:if>
+
+					<a class="btn btn-danger" data-toggle="modal"
+						data-target="#exampleModalScrollable"
+						style="color: #FFFFFF; margin-right: 0px;">Delete Event</a>
+
+					<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalScrollableTitle"
+						aria-hidden="true">
+
+						<div class="modal-dialog modal-dialog-scrollable" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalScrollableTitle">Alert!</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">Are you sure to delete the
+									event!!!</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-success"
+										data-dismiss="modal">No</button>
+									<a class="btn btn-danger"
+										href="deleteEvent?eventId=${event.id}">Yes</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
+
+	<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+		style="background-color: #0033A0;"> <footer> <a
+		href="#" style="float: right; margin-left: 750px; color: #00B242;">Back
+		to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
+	&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
+	</footer> </nav>
 </body>
 
 </html>

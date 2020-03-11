@@ -28,7 +28,7 @@ public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
-	
+
 	@Autowired
 	private ActivityDao activityDao;
 
@@ -88,7 +88,7 @@ public class EventService {
 	public List<Event> getFutureEvents(String activity, String place) {
 
 		List<Event> events = eventDao.findAll();
-		System.out.println(events+"HJ");
+		System.out.println(events + "HJ");
 
 		List<Event> futureEvents = new ArrayList<>();
 
@@ -324,11 +324,17 @@ public class EventService {
 			Event event = eventDao.findById(eventId).get();
 			event.setApprovalStatus(true);
 			eventDao.save(event);
+
+			User suggestedVolunteer = userDao.findById(event.getSuggestedVolunteer().getId()).get();
+			suggestedVolunteer.setWahPoints(suggestedVolunteer.getWahPoints() + 100);
+
+			userDao.save(suggestedVolunteer);
 			return true;
 
 		}
 
 		catch (Exception e) {
+
 			return false;
 		}
 	}
@@ -339,7 +345,7 @@ public class EventService {
 
 			Event event = eventDao.findById(eventId).get();
 			event.setApprovalStatus(false);
-			eventDao.save(event);
+			eventDao.delete(event);
 			return true;
 
 		}
@@ -348,12 +354,12 @@ public class EventService {
 			return false;
 		}
 	}
-	
+
 	public Map<Integer, String> getActivityList() {
 
 		Map<Integer, String> activityMap = new HashMap<>();
 
-		List<Activity> activityList =  activityDao.findAll();
+		List<Activity> activityList = activityDao.findAll();
 
 		for (Activity activity : activityList) {
 
@@ -363,6 +369,11 @@ public class EventService {
 
 		return activityMap;
 
+	}
+
+	public void deleteEvent(Integer eventId) {
+		
+		eventDao.delete(eventDao.findById(eventId).get());
 	}
 
 }

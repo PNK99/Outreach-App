@@ -45,6 +45,12 @@ public class EventController {
 		return "createevent";
 	}
 
+	@GetMapping("/deleteEvent")
+	public String deleteEvent(Integer eventId) {
+		eventService.deleteEvent(eventId);
+		return "redirect:viewEvents";
+	}
+	
 	@GetMapping("/suggestEvent")
 	public String suggestEvent(@ModelAttribute("event") Event event) {
 		return "eventsuggestion";
@@ -100,7 +106,7 @@ public class EventController {
 	}
 
 	@GetMapping("/viewSuggestedEvents")
-	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event, String eventApproved) {
+	public String viewSuggestedEvents(Model map, HttpSession session, HttpServletRequest request, @ModelAttribute("eventModel") Event event, String eventApproved) {
 
 		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
@@ -112,9 +118,17 @@ public class EventController {
 
 		map.addAttribute("events", events);
 		map.addAttribute("eventApproved",eventApproved != null);
+		
+		
+		String referer = request.getHeader("Referer");
+		
+		if(referer.contains("home")) {
+			map.addAttribute("fromhome", true);
+		}
 		return "viewsuggestedevent";
 	}
 
+	@ModelAttribute("activityList")
 	public Map<Integer, String> user() {
 		List<Activity> activities = activityDao.findAll();
 		Map<Integer, String> activityMap = new HashMap<>();
@@ -237,8 +251,9 @@ public class EventController {
 
 		String referer = request.getHeader("Referer");
 
+			
 
-		return "redirect:" + referer +"?eventApproved=true";
+		return "redirect:viewSuggestedEvents?eventApproved=true";
 	}
 
 	
@@ -249,7 +264,7 @@ public class EventController {
 
 		String referer = request.getHeader("Referer");
 
-		return "redirect:" + referer;
+		return "redirect:viewSuggestedEvents";
 	}
 	
 }
