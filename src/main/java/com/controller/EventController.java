@@ -100,7 +100,7 @@ public class EventController {
 	}
 
 	@GetMapping("/viewSuggestedEvents")
-	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event, Boolean eventApproved) {
+	public String viewSuggestedEvents(Model map, HttpSession session, @ModelAttribute("eventModel") Event event, String eventApproved) {
 
 		User user = (User) session.getAttribute("user");
 		User userD = userDao.findById(user.getId()).get();
@@ -111,7 +111,7 @@ public class EventController {
 		List<Event> events = eventService.viewSuggestedEvents(activity, event.getPlace());
 
 		map.addAttribute("events", events);
-		map.addAttribute("eventApproved",eventApproved);
+		map.addAttribute("eventApproved",eventApproved != null);
 		return "viewsuggestedevent";
 	}
 
@@ -163,7 +163,7 @@ public class EventController {
 
 	@GetMapping("/viewEventDetails")
 	public String viewEventDetails(Integer eventId, Integer userId, Model map) {
-
+	
 		User userD = userDao.findById(userId).get();
 
 		map.addAttribute("userI", userD);

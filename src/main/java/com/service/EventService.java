@@ -79,6 +79,7 @@ public class EventService {
 	public List<Event> getFutureEvents(String activity, String place) {
 
 		List<Event> events = eventDao.findAll();
+		System.out.println(events+"HJ");
 
 		List<Event> futureEvents = new ArrayList<>();
 
@@ -258,12 +259,12 @@ public class EventService {
 			event = eventDao.findById(eventId).get();
 
 			eventPoints = event.getActivityType().getPoints();
-			
-			for (User volunteer :event.getVoluteerPresent()) {
+
+			for (User volunteer : event.getVoluteerPresent()) {
 				Double currentPoints = volunteer.getWahPoints();
 				volunteer.setWahPoints(currentPoints - eventPoints);
 				userDao.save(volunteer);
-				
+
 			}
 
 			event.getVoluteerPresent().clear();
@@ -276,7 +277,7 @@ public class EventService {
 				User user = userDao.findById(id).get();
 				Double currentPoints = user.getWahPoints();
 
-				user.setWahPoints(eventPoints);
+				user.setWahPoints(currentPoints + eventPoints);
 				System.out.println(user);
 				userDao.save(user);
 

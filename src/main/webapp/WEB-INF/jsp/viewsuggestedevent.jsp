@@ -35,29 +35,29 @@
 }
 
 #hideMe {
-    -moz-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 5s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+	-moz-animation: cssAnimation 0s ease-in 5s forwards;
+	/* Firefox */
+	-webkit-animation: cssAnimation 0s ease-in 5s forwards;
+	/* Safari and Chrome */
+	-o-animation: cssAnimation 0s ease-in 5s forwards;
+	/* Opera */
+	animation: cssAnimation 0s ease-in 5s forwards;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
 }
-@keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
+
+@
+keyframes cssAnimation {to { width:0;
+	height: 0;
+	overflow: hidden;
 }
-@-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
+
+}
+@
+-webkit-keyframes cssAnimation {to { width:0;
+	height: 0;
+	visibility: hidden;
+}
 }
 </style>
 </head>
@@ -112,11 +112,12 @@
 				<div class="form-row d-flex justify-content-between">
 
 					<span class="form-group row"> <label
-						class="col-sm-2 col-form-label" for="activityType">Activity </label>
+						class="col-sm-2 col-form-label" for="activityType">Activity
+					</label>
 						<div class="col-sm-10">
 							<form:select class="form-control mb-2" style="margin-left: 20px;"
-								placeholder="Select an activity" path="activityType" name="activityType"
-								id="activityType">
+								placeholder="Select an activity" path="activityType"
+								name="activityType" id="activityType">
 								<form:option value="">Select Activity</form:option>
 								<form:options items="${activityList}"></form:options>
 
@@ -151,12 +152,12 @@
 					</span> 
 				</c:if> --%>
 			</span>
-		</div> 
+		</div>
 		<c:if test="${events.size()==0}">
 			<h4>No Events Available</h4>
 		</c:if>
 
-		
+
 		<c:forEach var="event" items="${events}">
 
 			<div class="card" style="margin: 1%">
@@ -168,34 +169,9 @@
 					</a>
 					<c:if test='${userRole.equalsIgnoreCase("Admin")}'>
 						<c:if test="${!event.approvalStatus}">
-							<a class="btn btn-success" data-toggle="modal"
-								data-target="#exampleModalScrollable" style="color:#FFFFFF">Approve</a>
-							<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalScrollableTitle"
-								aria-hidden="true">
-								<div class="modal-dialog modal-dialog-scrollable"
-									role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalScrollableTitle">Alert!</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">Do you want to approve this Event</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger"
-												data-dismiss="modal">Reject</button>
-											<a class="btn btn-success"
-												href="eventApproved?eventId=${event.id}">Approve</a>
-										</div>
-									</div>
-								</div>
-							</div>
-
+							<a class="btn btn-success"
+								href="eventApproved?eventId=${event.id}" style="color: #FFFFFF">Approve</a>
 						</c:if>
-
 						<c:if test="${event.approvalStatus}">
 							<a class="btn btn-danger"
 								href="eventRejected?eventId=${event.id}">Reject</a>
@@ -204,21 +180,13 @@
 				</div>
 				<div class="card-body">
 					<div style="display: flex; justify-content: space-between;">
-						<span>
-							<span style="font-weight: bold;">Benificiary:</span>
-							<br> 
-							<c:out value="${event.benificiary}" /> 
-						</span> 
-						
-						<span>
-						<span style="font-weight: bold;">Estimated No. of Volunteers:</span> 
-							<br> 
-							<c:out value="${event.noOfVolunteers}"/>
-						</span>
-						<span>
-						<span style="font-weight: bold;">Estimated Cost:</span> 
-							<br> 
-							<c:out value="${event.costEstimate}"/>
+						<span> <span style="font-weight: bold;">Benificiary:</span>
+							<br> <c:out value="${event.benificiary}" />
+						</span> <span> <span style="font-weight: bold;">Estimated
+								No. of Volunteers:</span> <br> <c:out
+								value="${event.noOfVolunteers}" />
+						</span> <span> <span style="font-weight: bold;">Estimated
+								Cost:</span> <br> <c:out value="${event.costEstimate}" />
 						</span>
 					</div>
 				</div>
