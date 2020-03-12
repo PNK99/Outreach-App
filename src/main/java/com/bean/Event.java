@@ -45,7 +45,7 @@ public class Event {
 	@JoinColumn(name = "user_id")
 	private User suggestedVolunteer;
 
-	@Future(message = "Enter Future Date")
+	//@Future(message = "Enter Future Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
