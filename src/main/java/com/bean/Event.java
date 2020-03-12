@@ -123,7 +123,7 @@ public class Event {
 		this.invitedPeople = invitedPeople;
 	}
 
-	private Double donationAmount;
+	private Double donationAmount=0.0;
 
 	public Integer getId() {
 		return id;

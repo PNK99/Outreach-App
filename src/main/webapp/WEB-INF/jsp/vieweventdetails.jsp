@@ -99,13 +99,14 @@
                 
                 
                     No of volunteers registered :
-                <c:out value="${event.volunteers.size()}" />
-					<br />
 
-
-				</c:if>
-
-				<c:if test="${!event.approvalStatus}">
+                <c:out value="${event.volunteers.size()}" /><br />
+                 Donation amount:
+                   <c:out value="${event.donationAmount}" /><br />
+             
+                </c:if>
+                
+                <c:if test="${!event.approvalStatus}">
                 
                 	Benificiary:
                 <c:out value="${event.benificiary}" />
