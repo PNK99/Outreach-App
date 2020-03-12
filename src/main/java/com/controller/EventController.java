@@ -1,17 +1,24 @@
 package com.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -264,13 +271,12 @@ public class EventController {
 	public String donateupdate(Double amount, Integer eventId, Integer userId, Model m) {
 
 		boolean d = eventService.Donation(eventId, amount);
-		
+
 		m.addAttribute("donation", d);
-		
-		
-			
+
 		return "home";
 
 	}
+
 
 }

@@ -134,10 +134,12 @@
 
 			</tr>
             
-
+	
 <tr><td></td><td><input type="submit" value="submit"></td></tr>
 
 		</table>
+		<input type="hidden" name="eventId" value="${eventId}"/>
+		${eventId}
 	</form:form>
 	
     		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
