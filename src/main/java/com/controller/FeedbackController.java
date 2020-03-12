@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,14 @@ public class FeedbackController {
 		eventDao.save(event);
 		return "redirect:home";
 	}
-
+	
+	@GetMapping("/selectEventId")
+	public String selectId(Model map) {
+		List<Event> events = eventDao.findAll();
+		map.addAttribute("events", events);
+		return "selectfeedbackeventid";
+	}
+	
 	@GetMapping("/generateFeedbackReport")
 	public void generateFeedbackReport(HttpServletResponse response, Integer eventId) throws Exception {
 		String filename = "C:\\Users\\839834\\Downloads\\feedback-report.csv";

@@ -320,13 +320,13 @@ background-position: 7px center;
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="viewSuggestedEvents"
-							style="background-color: 00B242; margin-top: 130px">Suggested
+							style="background-color:#00B242; margin-top: 130px">Suggested
 							Events</a>
 					</div>
 				</div>
 				<div
 					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
-					style="background-color: #00B242;">
+					style="background-color: #0033A0;">
 					<div class="my-3 p-3">
 						<h2 class="display-5">Generate Report</h2>
 						<p class="lead">View the Report</p>
@@ -334,12 +334,30 @@ background-position: 7px center;
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="adminReport"
-							style="background-color: 00B242; margin-top: 130px">Generate Report
+							style="background-color:#0033A0; margin-top: 130px">Generate Report
 							</a>
 					</div>
 				</div>
 			</div>
 			
+						<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #0033A0;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Generate Excel Feedback report</h2>
+						<p class="lead">Select the Event</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="selectEventId"
+							style="background-color:#0033A0; margin-top: 130px">Download Report
+							</a>
+					</div>
+				</div>
+			</div>
 			
 			
 			
