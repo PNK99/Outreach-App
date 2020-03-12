@@ -58,7 +58,7 @@
 	</div>
 	</nav> </header>
 	
-	<br><br>
+	<br><br><br>
 		
 		<div class="container">
 		<c:forEach var="event" items="${events}">
@@ -98,7 +98,6 @@
 	
 	
 	<br><br>
-	
 	
 		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
 		style="background-color: #0033A0;"> <footer> <a
