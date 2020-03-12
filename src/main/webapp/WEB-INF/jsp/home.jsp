@@ -117,6 +117,10 @@ body {
         visibility:hidden;
     }
 }
+/* ul#tabs li.nav-item {
+background: #3C75C3 url('/Outreach-App/src/person.png') no-repeat;
+background-position: 7px center;
+} */
 </style>
 
 <meta name="viewport"
@@ -170,12 +174,14 @@ body {
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
 			</li>
-            <li class="nav-item"><a class="nav-link" href="#">Notification</a>
-			</li>
+           
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
 			<!-- style="margin-right:200px" -->
-			
+			<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> &nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
