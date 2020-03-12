@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -60,11 +61,22 @@ public class User implements Serializable {
 	@NotNull(message = "please update the mandatory highlighted fields")
 	private Roles userRole;
 	
+	@OneToMany
+	@JoinColumn(name="feedbacks_event")
+	private Set<Event> eventFeedback = new HashSet<>();
 
 	private Double wahPoints = 0.0;
 
 	public Double getWahPoints() {
 		return wahPoints;
+	}
+
+	public Set<Event> getEventFeedback() {
+		return eventFeedback;
+	}
+
+	public void setEventFeedback(Set<Event> eventFeedback) {
+		this.eventFeedback = eventFeedback;
 	}
 
 	public void setWahPoints(Double wahPoints) {

@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,10 @@ import org.springframework.util.FileCopyUtils;
 
 import com.bean.Event;
 import com.bean.Feedback;
+import com.bean.User;
 import com.dao.EventDao;
 import com.dao.FeedbackDao;
+import com.dao.UserDao;
 
 @Service
 public class FeedbackService {
@@ -28,6 +31,9 @@ public class FeedbackService {
 
 	@Autowired
 	private EventDao eventDao;
+	
+	@Autowired
+	private UserDao userDao;
 
 	public boolean savefeedback(Feedback feedback) {
 		try {
@@ -92,6 +98,12 @@ public class FeedbackService {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	public Set<Event> getFeedbackNotification(Integer userId){
+		User user =  userDao.findById(userId).get();
+		return user.getEventFeedback();
 	}
 
 }
