@@ -15,7 +15,7 @@ public class Activity implements Serializable{
 
 	private String name;
 
-
+	private Double points;
 
 	public Integer getId() {
 		return id;
@@ -26,6 +26,14 @@ public class Activity implements Serializable{
 	}
 
 
+
+	public Double getPoints() {
+		return points;
+	}
+
+	public void setPoints(Double points) {
+		this.points = points;
+	}
 
 	public String getName() {
 		return name;

@@ -82,7 +82,7 @@
 				<form:select class="form-control" path="userRole" name="userRole"
 					id="userRole">
 					<form:options items="${type }"></form:options>
-				</form:select>
+				</form:select><br>
 				<form:errors path="userRole" class="alert alert-danger" role="alert" />
 			</div>
 
@@ -92,6 +92,7 @@
 					<label for="firstName">First Name</label>
 					<form:input class="form-control" path="firstName" id="firstname"
 						name="firstname" required="required" />
+						<br>
 					<form:errors path="firstName" class="alert alert-danger"
 						role="alert" />
 				</div>
@@ -100,7 +101,7 @@
 					<label for="lastName">Last Name</label>
 					<form:input class="form-control" path="lastName" id="lastName"
 						name="lastName" required="required" />
-
+					<br>
 					<form:errors path="lastName" class="alert alert-danger"
 						role="alert" />
 
@@ -113,7 +114,7 @@
 				<div class="form-group col-md-6">
 					<label for="age">Age</label>
 					<form:input class="form-control" path="age" id="age" name="age"
-						required="required" />
+						required="required" /><br>
 
 					<form:errors path="age" class="alert alert-danger" role="alert" />
 
@@ -132,7 +133,7 @@
 							name="gender" id="gender2" value="Female" />
 						<label class="form-check-label" for="gender2">Female</label>
 					</div>
-
+					<br>
 					<form:errors path="gender" class="alert alert-danger" role="alert" />
 
 				</div>
@@ -144,7 +145,7 @@
 
 				<form:input class="form-control" path="contactNumber"
 					id="contactNumber" name="contactNumber" required="required" />
-
+					<br>
 
 				<form:errors path="contactNumber" class="alert alert-danger"
 					role="alert" />
@@ -155,7 +156,7 @@
 				<label for="userId">User Id</label>
 
 				<form:input class="form-control" path="userId" id="userId"
-					name="userId" required="required" />
+					name="userId" required="required" /><br>
 
 				<form:errors path="userId" class="alert alert-danger" role="alert" />
 			</div>
@@ -164,7 +165,7 @@
 				<label for="password">Password</label>
 
 				<form:input class="form-control" type="password" path="password"
-					id="password" name="password" required="required" />
+					id="password" name="password" required="required" /><br>
 
 				<form:errors path="password" class="alert alert-danger" role="alert" />
 

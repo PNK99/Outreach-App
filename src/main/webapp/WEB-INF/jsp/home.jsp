@@ -232,7 +232,7 @@ body {
 				<div class="card-header d-flex justify-content-between"
 					style="font-size: 20px; font-weight: bold;">
 					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
-						<c:out value="${event.activity}" />
+						<c:out value="${event.activityType.name}" />
 					</a>
 				</div>
 				<div class="card-body">
@@ -259,7 +259,10 @@ body {
 	</div>
 
 	<c:choose>
+	
 		<c:when test='${userRole.equalsIgnoreCase("Admin")}'>
+		
+		
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">
 				<div
@@ -276,6 +279,8 @@ body {
 							Event</a>
 					</div>
 				</div>
+				
+				
 				<div
 					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
 					style="background-color: #00B242;">
@@ -290,6 +295,8 @@ body {
 							Event</a>
 					</div>
 				</div>
+				
+				
 			</div>
 			
 			
@@ -310,9 +317,39 @@ body {
 							Events</a>
 					</div>
 				</div>
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #00B242;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Generate Report</h2>
+						<p class="lead">View the Report</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="adminReport"
+							style="background-color: 00B242; margin-top: 130px">Generate Report
+							</a>
+					</div>
+				</div>
 			</div>
 			
+			
+			
+			
+			
+			
+			
+			
+			
 		</c:when>
+		
+		
+		
+		
+		
+		
+		
+		
 		<c:when test='${!userRole.equalsIgnoreCase("Admin")}'>
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">
