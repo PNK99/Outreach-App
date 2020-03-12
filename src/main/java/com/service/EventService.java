@@ -339,5 +339,23 @@ public class EventService {
 			return false;
 		}
 	}
+	
+	
+	
+	public boolean Donation(Integer id,Double amount) {
+		//System.out.println(id);
+		try {
+		Event s=eventDao.findById(id).get();
+		Double a=s.getDonationAmount();
+		//System.out.println(id+a);
+		s.setDonationAmount(amount+a);
+		eventDao.save(s);
+		//System.out.println(s);
+		return true;}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 
 }

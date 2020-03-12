@@ -170,11 +170,12 @@ body {
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
 			</li>
-
+            <li class="nav-item"><a class="nav-link" href="#">Notification</a>
+			</li>
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
 			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+			
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -187,6 +188,22 @@ body {
 			<div class="alert alert-success alert-dismissible fade show"
 				role="alert">
 				<strong>Event added Successfully</strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
+	
+	
+	
+	<c:if test="${donation}">
+
+		<div id='hideMe'>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				<strong>Donation amount added Successfully</strong>
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>

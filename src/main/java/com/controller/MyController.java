@@ -12,7 +12,7 @@ import com.service.EventService;
 
 @Controller
 public class MyController {
-	
+
 	@Autowired
 	private EventService eventService;
 
@@ -23,14 +23,16 @@ public class MyController {
 
 	@GetMapping("/home")
 	public String home(Model map, Boolean eventAddCheck, Boolean suggestEventAddCheck) {
-		
-		List<Event> events=eventService.getFutureEvents("","");
-		map.addAttribute("eventAddCheck",eventAddCheck);
-		map.addAttribute("suggestEventAddCheck",suggestEventAddCheck);
-		int length = events.size() >= 5? 5:events.size();
+
+		List<Event> events = eventService.getFutureEvents("", "");
+		map.addAttribute("eventAddCheck", eventAddCheck);
+		map.addAttribute("suggestEventAddCheck", suggestEventAddCheck);
+
+		int length = events.size() >= 5 ? 5 : events.size();
+
 		map.addAttribute("events", events.subList(0, length));
 		return "home";
-		
+
 	}
 
 }
