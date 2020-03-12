@@ -177,11 +177,11 @@ background-position: 7px center;
            
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<ul class="navbar-nav mr-auto">
+		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<ul class="navbar-nav mr-auto">
 				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
 			</li>
-			</ul> &nbsp&nbsp
+			</ul> </c:if>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>

@@ -50,8 +50,11 @@
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> </c:if>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -99,13 +102,41 @@
                   
                 </c:if>
                 <br>
+				
+				
+				
+			
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Alert!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Please read the Do's and Dont's before Subscribing
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color:white !important; background-color:#00B242 !important">Close</button>
+        <a class="btn btn-primary" href="subscribe?eventId=${event.id}&userId=${user.id}" style="color:white !important; background-color:#0033A0 !important">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</div>
+				
+				
+				
+				
                 <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
                         <span> <a class="btn btn-success"
-                                href="donation?eventId=${event.id}&userId=${user.id}">Donate</a></span>
+                                href="donation?eventId=${event.id}&userId=${user.id}" style="color:white !important; background-color:#00B242 !important">Donate</a></span>
                     <c:if test="${!event.volunteers.contains(userI)}">
                         <span> <a class="btn btn-success"
-                                href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
+                               data-toggle="modal" data-target="#staticBackdrop" style="color:white !important; background-color:#0033A0 !important">Subscribe</a></span>
                          
                     </c:if>
 

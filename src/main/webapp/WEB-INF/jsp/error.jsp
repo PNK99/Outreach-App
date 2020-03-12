@@ -52,8 +52,7 @@
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+			
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
