@@ -54,8 +54,11 @@
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> </c:if>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -115,86 +118,77 @@
                 <c:out value="${event.noOfVolunteers}" />
 					<br />
                   Estimated Cost:
-                <c:out value="${event.costEstimate}" />
-					<br />
-					Suggested By:
-					<c:out value="${event.suggestedVolunteer.firstName }" /> -
-					<c:out value="${event.suggestedVolunteer.userId}" /><br><br>
-					
-					<span><a class="btn btn-success"
-								href="eventApproved?eventId=${event.id}" style="color: #FFFFFF">Approve</a>
-							</span>
-							<span><a class="btn btn-danger"
-								href="eventRejected?eventId=${event.id}">Reject</a> </span>
-				</c:if>
-				<br>
+                <c:out value="${event.costEstimate}" /><br />
+                  
+                </c:if>
+                <br>
+				
+				
+				
+			
 
-				<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Alert!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Please read the Do's and Dont's before Subscribing
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color:white !important; background-color:#00B242 !important">Close</button>
+        <a class="btn btn-primary" href="subscribe?eventId=${event.id}&userId=${user.id}" style="color:white !important; background-color:#0033A0 !important">Subscribe</a>
+      </div>
+    </div>
+  </div>
+</div>
+				
+				
+				
+				
+                <c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+                        <span> <a class="btn btn-success"
+                                href="donation?eventId=${event.id}&userId=${user.id}" style="color:white !important; background-color:#00B242 !important">Donate</a></span>
+                    <c:if test="${!event.volunteers.contains(userI)}">
+                        <span> <a class="btn btn-success"
+                               data-toggle="modal" data-target="#staticBackdrop" style="color:white !important; background-color:#0033A0 !important">Subscribe</a></span>
+                         
+                    </c:if>
 
-					<c:if test="${!event.volunteers.contains(userI)}">
-						<span> <a class="btn btn-success"
-							href="subscribe?eventId=${event.id}&userId=${user.id}">Subscribe</a></span>
-					</c:if>
+                    <c:if test="${event.volunteers.contains(userI)}">
+                        <div class="d-flex justify-content-between">
 
-					<c:if test="${event.volunteers.contains(userI)}">
-						<div class="d-flex justify-content-between">
+                            <a class="btn btn-danger" href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
+                                Subscribe</a>
+                            <a class="btn btn-dark" href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
+                                Invite others</a>
+                        </div>
+                    </c:if>
+                </c:if>
+                
+                <c:if test='${userRole.equalsIgnoreCase("Admin")&& today}'>
+                <a class="btn btn-primary" href="volunteerAttendance?eventId=${event.id}">
+                                Mark Attendence</a>
+                
+                </c:if>
+            </div>
+        </div>
+    </div>
 
-							<a class="btn btn-danger"
-								href="unsubscribe?eventId=${event.id}&userId=${user.id}">Un
-								Subscribe</a> <a class="btn btn-dark"
-								href="inviteVolunteerList?eventId=${event.id}&userId=${user.id}">
-								Invite others</a>
-						</div>
-					</c:if>
-				</c:if>
-
-				<c:if test='${userRole.equalsIgnoreCase("Admin") && event.approvalStatus}'>
-					<c:if test='${today }'>
-						<a class="btn btn-primary"
-							href="volunteerAttendance?eventId=${event.id}"> Mark
-							Attendence</a>
-					</c:if>
-
-					<a class="btn btn-danger" data-toggle="modal"
-						data-target="#exampleModalScrollable"
-						style="color: #FFFFFF; margin-right: 0px;">Delete Event</a>
-
-					<div class="modal fade" id="exampleModalScrollable" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalScrollableTitle"
-						aria-hidden="true">
-
-
-						<div class="modal-dialog modal-dialog-scrollable" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalScrollableTitle">Alert!</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">Are you sure to delete the
-									event!!!</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-success"
-										data-dismiss="modal">No</button>
-									<a class="btn btn-danger"
-										href="deleteEvent?eventId=${event.id}">Yes</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:if>
-			</div>
-		</div>
-	</div>
-
-	<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
-		style="background-color: #0033A0;"> <footer> <a
-		href="#" style="float: right; margin-left: 750px; color: #00B242;">Back
-		to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
-	&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
-	</footer> </nav>
+		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+			style="background-color: #0033A0;">
+			<footer>
+				<a href="#"
+					style="float: right; margin-left: 750px; color: #00B242;">Back
+					to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
+				&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
+			</footer>
+		</nav>
 </body>
 
 </html>

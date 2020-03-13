@@ -57,77 +57,55 @@
 		</form>
 	</div>
 	</nav> </header>
-	<br>
-	<br>
-	<div class="container container-width">
-		<div class="collapse multi-collapse" id="multiCollapseExample1"
-			style="margin-bottom: 15px;">
-			<form:form action="volunteerAttendance" method="get"
-				modelAttribute="userModel">
-				<input type="hidden" name="eventId" value="${event.id}" />
-				<div class="form-row d-flex justify-content-between">
+	
+	<br><br>
+		
+		<div class="container">
+		<c:forEach var="event" items="${events}">
 
-					<span class="form-group row"> <label
-						class="col-sm-2 col-form-label" for="activity">Name </label>
-						<div class="col-sm-7">
-							<form:input class="form-control mb-2" path="firstName"
-								name="firstName" />
-						</div>
-					</span> <span class="form-group row"> <label
-						class="col-sm-2 col-form-label" for="place">ID</label>
-						<div class="col-sm-7">
-							<form:input class="form-control mb-2" path="userId" name="userId" />
-						</div>
-					</span> <span> <input class="btn btn-secondary btn-sm"
-						type="submit" value="Search"></span>
+			<div class="card" style="margin: 1%">
+				<div class="card-header d-flex justify-content-between" style="font-size: 20px; font-weight: bold;">
+					
+						<c:out value="${event.activityType.name}" />
+					
+					
+							<a class="btn btn-success" href="generateFeedbackReport?eventId=${event.id}"
+								style="color: #FFFFFF">Download Report</a>
+
+
+						
+
+
 				</div>
-			</form:form>
-		</div>
+				<div class="card-body">
+					<div style="display: flex; justify-content: space-between;">
+						<span><span style="font-weight: bold;"> Venue: </span>
+							<c:out value="${event.place}" /> </span> <span> <span style="font-weight: bold;">Date:
+							</span>
+							<fmt:formatDate value="${event.date}" pattern="dd MMM yyyy EEE" />
+						</span> <span><span style="font-weight: bold;">No of
+								Volunteers: </span>
+							<c:out value="${event.volunteers.size()}" /></span>
+					</div>
+				</div>
+			</div>
 
-		<div class="d-flex justify-content-between">
-			<span>
-				<h2 style="margin-bottom: 20px;">Subscribed Volunteers</h2>
-			</span> <span> <a class="btn btn-primary btn-sm"
-				data-toggle="collapse" href="#multiCollapseExample1" role="button"
-				aria-expanded="false" aria-controls="multiCollapseExample1">Search</a>
-			</span>
-		</div>
+		</c:forEach>
 
-
-
-		<form:form action="attendedVolunteers" method="post">
-			<input type="hidden" name="eventId" value="${event.id}" />
-			<ul class="list-group" style="margin-bottom: 15px;">
-				<c:forEach var="u" items="${users}">
-					<li class="list-group-item">
-						<div>
-							<c:if test="${event.voluteerPresent.contains(u)}">
-								<input type="checkbox" name="present" value="${u.id}" checked>
-							</c:if>
-							<c:if test="${!event.voluteerPresent.contains(u)}">
-								<input type="checkbox" name="present" value="${u.id}">
-							</c:if>
-							<c:out value="${u.firstName}" />
-							<c:out value="${u.lastName}" />
-							-
-							<c:out value="${u.userId}" />
-						</div>
-					</li>
-
-				</c:forEach>
-			</ul>
-			<input type="submit" class="btn btn-primary"
-				value="Submit Attendence">
-
-		</form:form>
 	</div>
-
-
-	<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
+	
+	
+	
+	
+	<br><br>
+	
+	
+		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"
 		style="background-color: #0033A0;"> <footer> <a
 		href="#" style="float: right; margin-left: 750px; color: #00B242;">Back
 		to top</a> &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Privacy</a>
 	&middot; &nbsp&nbsp&nbsp <a href="#" style="color: #00B242;">Terms</a>
 	</footer> </nav>
+
 </body>
 </html>

@@ -12,10 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -46,7 +46,7 @@ public class Event {
 	@JoinColumn(name = "user_id")
 	private User suggestedVolunteer;
 
-	@Future(message = "Enter Future Date")
+	//@Future(message = "Enter Future Date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
@@ -74,6 +74,19 @@ public class Event {
 	@JoinTable(name = "volunteerPresent_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_id") })
 	private Set<User> voluteerPresent = new HashSet<>();
+	
+	
+	@OneToMany
+	@JoinColumn(name="feedback_id")
+	private Set<Feedback> feedbacks;
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
 
 	public Boolean getApprovalStatus() {
 		return approvalStatus;

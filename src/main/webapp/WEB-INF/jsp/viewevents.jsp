@@ -80,8 +80,11 @@
 
 				</ul>
 				<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-					<!-- style="margin-right:200px" -->
-					<input class="form-control mr-sm-2" type="text" placeholder="Search">
+		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> </c:if>&nbsp&nbsp
 					<button class="btn btn-outline-light" type="submit">Logout</button>
 				</form>
 			</div>
@@ -106,8 +109,8 @@
 
 					<span class="form-group row"> <label class="col-sm-2 col-form-label" for="activityType">Activity
 						</label>
-						<div class="col-sm-10">
-							<form:select class="form-control mb-2" style="margin-left: 20px;"
+						<div class="col-sm-8">
+							<form:select class="form-control mb-2" style="margin-left: 0px;"
 								placeholder="Select an activity" path="activityType" name="activityType"
 								id="activityType">
 								<form:option value="">Select Activity</form:option>
@@ -118,7 +121,7 @@
 					</span> <span class="form-group row"> <label class="col-sm-2 col-form-label"
 							for="place">Place</label>
 						<div class="col-sm-7">
-							<form:input class="form-control mb-2" path="place" name="place" />
+							<form:input class="form-control mb-2" path="place" name="place" style="margin-left: 0px;" />
 						</div>
 					</span> <span> <input class="btn btn-secondary btn-sm" type="submit" value="Filter"></span>
 				</div>

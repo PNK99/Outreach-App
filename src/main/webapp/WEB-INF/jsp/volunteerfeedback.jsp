@@ -78,35 +78,47 @@
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+		
+				<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
 	</nav> </header>
-	<br><br><br><br><br>
-
+	<br><br><br><br>
+	<center><h2 class="card pmd-card text-black">Feedback Portal</h2></center>
+	<br>
 	<form:form action="feedbackSave" method="post" modelAttribute="feedback">
-
+		
+		
+		<div class="card pmd-card bg-dark text-white" style="width:50% !important; margin-left:25% !important">
+    	
+		<div class="card-body" >
+		
+		
 		<table>
 			<tr>
+			       
 
-				<td><form:label path="co_ordinator"> Do the co-ordinators were helpful?</form:label></td>
+				<td><form:label path="co_ordinator">Were the co-ordinators helpful?</form:label></td>
 				<td><form:radiobutton path="co_ordinator" value="yes" />Yes 
 				<form:radiobutton path="co_ordinator" value="no" />No</td>
 			</tr>
 
-
-
+			
 			<tr>
 
 
-				<td><form:label path="fun"> Does the event was fun? </form:label></td>
+				<td><form:label path="fun"> Was the event fun? </form:label></td>
 				<td><form:radiobutton path="fun" value="yes" />Yes 
 				<form:radiobutton path="fun" value="no" />No</td>
 
 			</tr>
-
+			
+		
+			
             <tr>
 
 
@@ -116,28 +128,38 @@
 
 			</tr>
 			
+			
+			
 			<tr>
 
 
-				<td><form:label path="infrastructure"> Does the event had all the infrastructure? </form:label></td>
+				<td><form:label path="infrastructure"> Did the event have all the infrastructure needed? </form:label></td>
 				<td><form:radiobutton path="infrastructure" value="yes" />Yes 
 				<form:radiobutton path="infrastructure" value="no" />No</td>
 
 			</tr>
 			
+			
+			
 			<tr>
 
 
-				<td><form:label path="recommend"> Do you recommend the event to others? </form:label></td>
+				<td><form:label path="recommend"> Would you recommend this event for others? </form:label></td>
 				<td><form:radiobutton path="recommend" value="yes" />Yes 
 				<form:radiobutton path="recommend" value="no" />No</td>
 
 			</tr>
             
-
-<tr><td></td><td><input type="submit" value="submit"></td></tr>
+            
+				
 
 		</table>
+		</div> </div>
+		<br>
+		<input class="btn btn-primary" type="submit" value="Submit" style="margin-left:45% !important;color:white !important; background-color:#0033A0 !important">
+		
+		<input type="hidden" name="eventId" value="${eventId}"/>
+		${eventId}
 	</form:form>
 	
     		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"

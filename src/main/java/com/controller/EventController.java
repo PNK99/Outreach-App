@@ -1,17 +1,26 @@
 package com.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -262,6 +271,88 @@ public class EventController {
 
 		return "redirect:viewSuggestedEvents";
 	}
+	
+	
+	@GetMapping("/month")
+	public String AdminReport(Model m) {
+		List<User> e=userDao.findAllVolunteers(0);
+		List<User> filtered=new ArrayList<User>();
+	int currentMonth = new Date().getMonth();
+		for(User temp:e) {
+			if(temp.getEvents().stream().anyMatch((event)->{return event.getDate().getMonth() == currentMonth; })) {
+				filtered.add(temp);
+			}
+		}
+		m.addAttribute("volunteer", filtered);
+		
+		
+		
+		
+		return "adminReport";
+	}
+	
+	
+	@GetMapping("/adminReport")
+	public String Connector() {
+		return "ReportConnector";
+	}
+	
+	
+	@GetMapping("/location")
+	public String location(Model m) {
+		
+		List<Event> eve=eventDao.findAll();
+		Map<String,Integer[]> r=new HashMap<String, Integer[]>();
+		for(Event temp:eve) {
+			Integer [] w= {1,temp.getVolunteers().size()};
+			if(r.containsKey(temp.getPlace())) {
+				Integer[] update=r.get(temp.getPlace());
+				update[0]+=1;
+				update[1]+=temp.getVolunteers().size();
+				r.put(temp.getPlace(), update);
+			}
+			else {
+				r.put(temp.getPlace(), w);
+			}
+		}
+		m.addAttribute("loc", r);
+		return "location";
+	}
+	
+	
+	
+	@GetMapping("/activity")
+	public String activity(Model m) {
+		List<Activity> e=activityDao.findAll();
+		List<Event> q=eventDao.findAll();
+		Map<String,Integer[]> map=new HashMap<String,Integer[]>();
+		Map<String,Integer> ma=new HashMap<String,Integer>();
+		String name;
+		
+		for(Activity temp:e) {
+			int count=0;
+			name=temp.getName();
+		   int  vol=0;
+			for(Event eq:q) {
+				if(eq.getActivityType().getName().equals(name)) {
+					count+=1;
+					vol+=eq.getVolunteers().size();
+				}
+			}
+			Integer[] tem= {count,vol};
+			map.put(name,tem);
+//			
+		}
+		
+		m.addAttribute("act", map);
+		
+		return "activity";
+	}
+	
+	
+	
+	
+	
 
 	@GetMapping("/donation")
 	public String donation(Integer eventId, Integer userId, Model m) {
@@ -276,13 +367,12 @@ public class EventController {
 	public String donateupdate(Double amount, Integer eventId, Integer userId, Model m) {
 
 		boolean d = eventService.Donation(eventId, amount);
-		
+
 		m.addAttribute("donation", d);
-		
-		
-			
+
 		return "home";
 
 	}
+
 
 }

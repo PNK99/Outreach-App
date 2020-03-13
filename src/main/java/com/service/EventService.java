@@ -322,6 +322,9 @@ public class EventService {
 
 			Event event = eventDao.findById(eventId).get();
 			event.setApprovalStatus(true);
+			User user =  event.getSuggestedVolunteer();
+			Double currentPoints = user.getWahPoints();
+			user.setWahPoints(currentPoints+100);
 			eventDao.save(event);
 
 			User suggestedVolunteer = userDao.findById(event.getSuggestedVolunteer().getId()).get();
@@ -363,7 +366,7 @@ public class EventService {
 		Double a=s.getDonationAmount();
 		//System.out.println(id+a);
 		s.setDonationAmount(amount+a);
-		eventDao.save(s);
+		eventDao.saveAndFlush(s);
 		//System.out.println(s);
 		return true;}
 		catch(Exception e) {

@@ -117,6 +117,10 @@ body {
         visibility:hidden;
     }
 }
+/* ul#tabs li.nav-item {
+background: #3C75C3 url('/Outreach-App/src/person.png') no-repeat;
+background-position: 7px center;
+} */
 </style>
 
 <meta name="viewport"
@@ -170,12 +174,14 @@ body {
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">${sessionScope.user.firstName}</a>
 			</li>
-            <li class="nav-item"><a class="nav-link" href="#">Notification</a>
-			</li>
+           
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			
+		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
+				<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> </c:if>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -260,7 +266,10 @@ body {
 	</div>
 
 	<c:choose>
+	
 		<c:when test='${userRole.equalsIgnoreCase("Admin")}'>
+		
+		
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">
 				<div
@@ -277,6 +286,8 @@ body {
 							Event</a>
 					</div>
 				</div>
+				
+				
 				<div
 					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
 					style="background-color: #00B242;">
@@ -291,6 +302,8 @@ body {
 							Event</a>
 					</div>
 				</div>
+				
+				
 			</div>
 			
 			
@@ -307,13 +320,61 @@ body {
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="viewSuggestedEvents"
-							style="background-color: 00B242; margin-top: 130px">Suggested
+							style="background-color:#00B242; margin-top: 130px">Suggested
 							Events</a>
+					</div>
+				</div>
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #0033A0;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Generate Report</h2>
+						<p class="lead">View the Report</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="adminReport"
+							style="background-color:#0033A0; margin-top: 130px">Generate Report
+							</a>
 					</div>
 				</div>
 			</div>
 			
+						<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
+				style="margin-left: 110px;">
+
+				<div
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					style="background-color: #0033A0;">
+					<div class="my-3 p-3">
+						<h2 class="display-5">Generate Excel Feedback report</h2>
+						<p class="lead">Select the Event</p>
+					</div>
+					<div class="bg-light shadow-sm mx-auto"
+						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+						<a class="btn btn-secondary" href="selectEventId"
+							style="background-color:#0033A0; margin-top: 130px">Download Report
+							</a>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
 		</c:when>
+		
+		
+		
+		
+		
+		
+		
+		
 		<c:when test='${!userRole.equalsIgnoreCase("Admin")}'>
 			<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3"
 				style="margin-left: 110px;">

@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Creation Of Events</title>
+<title>Donation</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -41,15 +41,13 @@
 	animation-fill-mode: forwards;
 }
 
-@
-keyframes cssAnimation {to { width:0;
+@keyframes cssAnimation {to { width:0;
 	height: 0;
 	overflow: hidden;
 }
 
 }
-@
--webkit-keyframes cssAnimation {to { width:0;
+@-webkit-keyframes cssAnimation {to { width:0;
 	height: 0;
 	visibility: hidden;
 }
@@ -76,8 +74,10 @@ keyframes cssAnimation {to { width:0;
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-			<!-- style="margin-right:200px" -->
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
+						<ul class="navbar-nav mr-auto">
+				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+			</li>
+			</ul> &nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -85,40 +85,27 @@ keyframes cssAnimation {to { width:0;
 	<br>
 	<br>
 
-<br><br><br>
+	<br>
+	<br>
+	<div class="container container-width">
+		<form:form action="donateupdate" method="post">
 
-	<form:form action="donateupdate" method="post" >
+			<div class="form-row">
 
+				<div class="form-group col-md-6">
+					<label for="amount">Donation Amount</label> <input
+						class="form-control" name="amount" /> <br>
 
-		<div class="form-group">
-		<h4>The event Id that you are donating for is ${eventId}</h4>
-
-		</div>
-		
-		
-		
-		
-		<div class="form-group">
-			<h4>Your user Id is ${userId}</h4>
-
-		</div>
+				</div>
+			</div>
 
 
-
-
-		<div class="form-group">
-			
-		<input class="form-control form-control-sm" type="text" name="amount">
-			
-		</div>
-		
-		
-		
-		<input type="hidden"  value="${eventId}" name="eventId" >
-		<input type="hidden"  value="${userId}" name="userId" >
-		<input type="submit" value="donate"/>
-	</form:form>
-
+			<input type="hidden" value="${eventId}" name="eventId">
+			<input type="hidden" value="${userId}" name="userId">
+			<input class="btn btn-success" style="background-color: #00B242;"
+				type="submit" value="Donate" />
+		</form:form>
+	</div>
 
 
 
