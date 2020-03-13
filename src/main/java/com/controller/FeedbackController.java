@@ -32,15 +32,17 @@ public class FeedbackController {
 	private UserDao userDao;
 
 	@GetMapping("/feedback")
-	public String feed(@ModelAttribute("feedback") Feedback f, Integer eventId, Model map) {
+	public String feed(@ModelAttribute("feedback") Feedback f, Integer eventId,Integer userId, Model map) {
+		System.out.println(eventId);
 		map.addAttribute("eventId", eventId);
+		map.addAttribute("userId", userId);
 		return "volunteerfeedback";
 	}
 
 	@PostMapping("/feedbackSave")
 	public String feedback(@ModelAttribute("feedback") Feedback f, BindingResult br, Model m, Integer eventId,Integer userId) {
 		feedback.savefeedback(f);
-		System.out.println(eventId);
+		System.out.println(userId);
 		Event event = eventDao.findById(eventId).get();
 		event.getFeedbacks().add(f);
 		

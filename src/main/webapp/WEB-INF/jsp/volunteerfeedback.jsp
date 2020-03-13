@@ -79,10 +79,7 @@
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
 		
-				<ul class="navbar-nav mr-auto">
-				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
-			</li>
-			</ul>&nbsp&nbsp
+	
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>
@@ -159,7 +156,8 @@
 		<input class="btn btn-primary" type="submit" value="Submit" style="margin-left:45% !important;color:white !important; background-color:#0033A0 !important">
 		
 		<input type="hidden" name="eventId" value="${eventId}"/>
-		${eventId}
+		<input type="hidden" name="userId" value="${userId}"/>
+		
 	</form:form>
 	
     		<nav class="navbar fixed-bottom navbar-expand-md navbar-dark"

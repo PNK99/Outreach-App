@@ -157,7 +157,7 @@ body {
 					style="background-color: #0033A0;">
 					<div class="my-3 p-3">
 						<h2 class="display-5">Report by Month</h2>
-						<p class="lead">view list of volunteers in current month</p>
+						<p class="lead">View list of volunteers in current month</p>
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
@@ -171,12 +171,12 @@ body {
 					style="background-color: #00B242;">
 					<div class="my-3 p-3">
 						<h2 class="display-5">Report by Location</h2>
-						<p class="lead">view list of events by location</p>
+						<p class="lead">View list of events by location</p>
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="location"
-							style="background-color: 00B242; margin-top: 130px">view report
+							style="background-color: 00B242; margin-top: 130px">View report
 							</a>
 					</div>
 				</div>
@@ -191,13 +191,13 @@ body {
 					style="background-color: #00B242;">
 					<div class="my-3 p-3">
 						<h2 class="display-5">Report by Activity</h2>
-						<p class="lead">view list of activities with participation</p>
+						<p class="lead">View list of activities with participation</p>
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="activity"
 							style="background-color: 00B242; margin-top: 130px">
-							view report</a>
+							View report</a>
 					</div>
 				</div>
 

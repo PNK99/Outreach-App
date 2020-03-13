@@ -50,11 +50,7 @@
 
 		</ul>
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
-		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
-				<ul class="navbar-nav mr-auto">
-				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
-			</li>
-			</ul> </c:if>&nbsp&nbsp
+
 			<button class="btn btn-outline-light" type="submit">Logout</button>
 		</form>
 	</div>

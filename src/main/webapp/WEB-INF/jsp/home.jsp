@@ -179,7 +179,24 @@ background-position: 7px center;
 		<form class="form-inline mt-2 mt-md-0" action="logout" method="get">
 		<c:if test='${!userRole.equalsIgnoreCase("Admin")}'>
 				<ul class="navbar-nav mr-auto">
-				 <li class="nav-item"><a class="nav-link" href="#">Notifications</a>
+				 <li><div class="btn-group dropleft">
+  <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white !important">
+    Notifications
+  </a>
+  
+  <div class="dropdown-menu">
+  			<c:if test="${feedbacks.size()==0}">
+			<a>No Notifications for Now!</a>
+		</c:if>
+  	
+    <c:forEach  items="${feedbacks}" var="feedback">
+    
+    <a class="dropdown-item" href="feedback?eventId=${feedback.id }&userId=${userId}">Give feedback for ${feedback.activityType.name}</a>
+    
+    </c:forEach>
+  </div>
+</div>
+				 
 			</li>
 			</ul> </c:if>&nbsp&nbsp
 			<button class="btn btn-outline-light" type="submit">Logout</button>
@@ -235,9 +252,9 @@ background-position: 7px center;
 	<div class="container horizontal-scrollable d-flex flex-row">
 		<c:forEach var="event" items="${events}">
 
-			<div class="card" style="margin: 1%">
+			<div class="card" style="margin: 1%; width: 250px">
 				<div class="card-header d-flex justify-content-between"
-					style="font-size: 20px; font-weight: bold;">
+					style="font-size: 20px; font-weight: bold; height: 110px">
 					<a href="viewEventDetails?eventId=${event.id}&userId=${user.id}">
 						<c:out value="${event.activityType.name}" />
 					</a>
@@ -320,7 +337,7 @@ background-position: 7px center;
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="viewSuggestedEvents"
-							style="background-color:#00B242; margin-top: 130px">Suggested
+							style="background-color: 00B242; margin-top: 130px">Suggested
 							Events</a>
 					</div>
 				</div>
@@ -333,8 +350,8 @@ background-position: 7px center;
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-						<a class="btn btn-secondary" href="adminReport"
-							style="background-color:#00B242; margin-top: 130px">Generate Report
+						<a class="btn btn-primary" href="adminReport"
+							style="background-color: 00B242; margin-top: 130px">Generate Report
 							</a>
 					</div>
 				</div>
@@ -344,16 +361,16 @@ background-position: 7px center;
 				style="margin-left: 110px;">
 
 				<div
-					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"
+					class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
 					style="background-color: #0033A0;">
 					<div class="my-3 p-3">
-						<h2 class="display-5">Excel report</h2>
+						<h2 class="display-5">Download report</h2>
 						<p class="lead">Select the Event</p>
 					</div>
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
-						<a class="btn btn-secondary" href="selectEventId"
-							style="background-color:#0033A0; margin-top: 130px">Download Report
+						<a class="btn btn-primary" href="selectEventId"
+							style="background-color: 00B242; margin-top: 130px">Download Report
 							</a>
 					</div>
 				</div>
@@ -422,7 +439,7 @@ background-position: 7px center;
 					<div class="bg-light shadow-sm mx-auto"
 						style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
 						<a class="btn btn-secondary" href="suggestEvent"
-							style="background-color: 00B242; margin-top: 130px">Suggest
+							style="background-color: 00B242 !important; margin-top: 130px">Suggest
 							Event</a>
 					</div>
 				</div>

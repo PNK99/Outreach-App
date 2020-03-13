@@ -223,7 +223,7 @@ body {
 						Volunteer Efforts</h2>
 					<p>Since its inception, IT services firm Cognizant Technology
 						Solutions Corp has been giving back to the communities where it
-						operates,” writes the National Volunteer and Philanthropy Centre
+						operates, writes the National Volunteer and Philanthropy Centre
 						(NVPC), Singapore, as part of a series of stories on the business
 						case for doing good under its Company of Good program</p>
 					<p>
