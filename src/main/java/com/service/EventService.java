@@ -263,6 +263,7 @@ public class EventService {
 			for (User volunteer : event.getVoluteerPresent()) {
 				Double currentPoints = volunteer.getWahPoints();
 				volunteer.setWahPoints(currentPoints - eventPoints);
+				volunteer.getEventFeedback().remove(event);
 				userDao.save(volunteer);
 			}
 

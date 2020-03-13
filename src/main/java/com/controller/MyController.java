@@ -32,14 +32,20 @@ public class MyController {
 	public String home(Model map, Boolean eventAddCheck, Boolean suggestEventAddCheck, HttpSession session) {
 
 		List<Event> events = eventService.getFutureEvents("", "");
+		
 		map.addAttribute("eventAddCheck", eventAddCheck);
 		map.addAttribute("suggestEventAddCheck", suggestEventAddCheck);
+		
 		User user = (User) session.getAttribute("user");
+		
 		map.addAttribute("userId",user.getId());
 		map.addAttribute("feedbacks",feedbackService.getFeedbackNotification(user.getId()));
+		
 		int length = events.size() >= 5 ? 5 : events.size();
 
 		map.addAttribute("events", events.subList(0, length));
+		
+		
 		return "home";
 
 	}
